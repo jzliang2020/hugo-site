@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\n备份/home目录\n# 1. 临时备份 home 目录的数据到 /tmp sudo cp -a /home/* /tmp/ 2&gt;/dev/null\n2. 卸载 /home 挂载点 sudo umount /home\n切换到其他目录，并停止相关进程，否则不能卸载/home\n# 杀掉所有占用 /home 的进程 sudo fuser -vkm /home\n调整好后卸载/home\n# 1. 重新卸载 sudo umount /home\n2. 删除 home 逻辑卷 sudo lvremove -y /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-home\n3. 100% 扩容给根分区 sudo lvextend -l +100%FREE /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n4. 刷新文件系统 sudo resize2fs /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n">
-<title>调整debian根分区为最大空间</title>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天是2026年7月2日。广州 晴\n">
+<title>My First Post</title>
 
 
-<link rel="canonical" href="https://liangjinzhi.com/resize-debian-root-partition/">
+<link rel="canonical" href="http://localhost:1313/posts/my-first-post/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="调整debian根分区为最大空间">
-<meta property='og:description' content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\n备份/home目录\n# 1. 临时备份 home 目录的数据到 /tmp sudo cp -a /home/* /tmp/ 2&gt;/dev/null\n2. 卸载 /home 挂载点 sudo umount /home\n切换到其他目录，并停止相关进程，否则不能卸载/home\n# 杀掉所有占用 /home 的进程 sudo fuser -vkm /home\n调整好后卸载/home\n# 1. 重新卸载 sudo umount /home\n2. 删除 home 逻辑卷 sudo lvremove -y /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-home\n3. 100% 扩容给根分区 sudo lvextend -l +100%FREE /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n4. 刷新文件系统 sudo resize2fs /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n">
-<meta property='og:url' content='https://liangjinzhi.com/resize-debian-root-partition/'>
+<link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="My First Post">
+<meta property='og:description' content="今天是2026年7月2日。广州 晴\n">
+<meta property='og:url' content='http://localhost:1313/posts/my-first-post/'>
 <meta property='og:site_name' content='我的个人博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-06-21T04:18:05&#43;00:00'/><meta property='article:modified_time' content='2026-06-21T04:18:05&#43;00:00'/>
-<meta name="twitter:title" content="调整debian根分区为最大空间">
-<meta name="twitter:description" content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\n备份/home目录\n# 1. 临时备份 home 目录的数据到 /tmp sudo cp -a /home/* /tmp/ 2&gt;/dev/null\n2. 卸载 /home 挂载点 sudo umount /home\n切换到其他目录，并停止相关进程，否则不能卸载/home\n# 杀掉所有占用 /home 的进程 sudo fuser -vkm /home\n调整好后卸载/home\n# 1. 重新卸载 sudo umount /home\n2. 删除 home 逻辑卷 sudo lvremove -y /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-home\n3. 100% 扩容给根分区 sudo lvextend -l +100%FREE /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n4. 刷新文件系统 sudo resize2fs /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-07-02T21:06:43&#43;08:00'/><meta property='article:modified_time' content='2026-07-02T21:06:43&#43;08:00'/>
+<meta name="twitter:title" content="My First Post">
+<meta name="twitter:description" content="今天是2026年7月2日。广州 晴\n">
     </head>
     <body class="
     article-page
@@ -99,21 +99,10 @@
 
     <div class="article-details">
     
-    <header class="article-category">
-        
-            
-            
-            
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" style="background-color: hsl(163, 60%, 84%); color: hsl(163, 60%, 15%);">
-                技术笔记
-            </a>
-        
-    </header>
-    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/resize-debian-root-partition/">调整debian根分区为最大空间</a>
+            <a href="/posts/my-first-post/">My First Post</a>
         </h2>
     
         
@@ -139,7 +128,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                    <time class="article-time--published" datetime='2026-06-21T04:18:05Z'>Sunday, June 21, 2026</time>
+                    <time class="article-time--published" datetime='2026-07-02T21:06:43&#43;08:00'>Thursday, July 2, 2026</time>
                 
 
                 
@@ -172,31 +161,7 @@
     <section class="article-content">
     
     
-    <p>安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。</p>
-<figure class="wp-block-image size-large">
-<p><img loading="lazy" decoding="async" width="1024" height="233" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png" alt="" class="wp-image-115" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-300x68.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-768x175.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28.png 1312w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
-<p>备份/home目录</p>
-<p><code># 1. 临时备份 home 目录的数据到 /tmp
-sudo cp -a /home/* /tmp/ 2&gt;/dev/null</p>
-<h1 id="2-卸载-home-挂载点">2. 卸载 /home 挂载点
-</h1><p>sudo umount /home</code></pre></p>
-<p>切换到其他目录，并停止相关进程，否则不能卸载/home</p>
-<p><code># 杀掉所有占用 /home 的进程
-sudo fuser -vkm /home</code></pre></p>
-<p>调整好后卸载/home</p>
-<p><code># 1. 重新卸载
-sudo umount /home</p>
-<h1 id="2-删除-home-逻辑卷">2. 删除 home 逻辑卷
-</h1><p>sudo lvremove -y /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-home</p>
-<h1 id="3-100-扩容给根分区">3. 100% 扩容给根分区
-</h1><p>sudo lvextend -l +100%FREE /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root</p>
-<h1 id="4-刷新文件系统">4. 刷新文件系统
-</h1><p>sudo resize2fs /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root</p>
-<h1 id="5-清理-fstab-挂载配置">5. 清理 fstab 挂载配置
-</h1><p>sudo sed -i &lsquo;/vm&ndash;debian&ndash;13&ndash;vg-home/d&rsquo; /etc/fstab</code></pre></p>
-<p>这样就好了</p>
-<figure class="wp-block-image size-large">
-<p><img loading="lazy" decoding="async" width="1024" height="237" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-29-1024x237.png" alt="" class="wp-image-116" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-29-1024x237.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-29-300x70.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-29-768x178.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-29.png 1182w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+    <p>今天是2026年7月2日。广州 晴</p>
 
 </section>
 
@@ -292,7 +257,7 @@ sudo umount /home</p>
             </main>
         </div>
         
-<script type="text/javascript" src="/ts/main.1ff1e5fdc4e178ed422e50aa407526dc552f26342d729343fded19416194382c.js" defer></script>
+<script type="text/javascript" src="/ts/main.39cbcc0a6b605821ce15f884c71720d2949279a0f9264cf7ba2a4303759c2136.js" defer></script>
 
 
     </body>

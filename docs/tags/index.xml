@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on 我的个人博客</title>
-        <link>/tags/</link>
+        <link>https://liangjinzhi.com/tags/</link>
         <description>Recent content in Tags on 我的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 25 Jun 2026 03:01:36 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 25 Jun 2026 03:01:36 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/tags/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>Htpasswd</title>
-            <link>/tags/htpasswd/</link>
+            <link>https://liangjinzhi.com/tags/htpasswd/</link>
             <pubDate>Thu, 25 Jun 2026 03:01:36 +0000</pubDate>
-            <guid>/tags/htpasswd/</guid>
+            <guid>https://liangjinzhi.com/tags/htpasswd/</guid>
             <description></description>
         </item><item>
             <title>Nginx</title>
-            <link>/tags/nginx/</link>
+            <link>https://liangjinzhi.com/tags/nginx/</link>
             <pubDate>Thu, 25 Jun 2026 03:01:36 +0000</pubDate>
-            <guid>/tags/nginx/</guid>
+            <guid>https://liangjinzhi.com/tags/nginx/</guid>
             <description></description>
         </item><item>
             <title>漏洞</title>
-            <link>/tags/%E6%BC%8F%E6%B4%9E/</link>
+            <link>https://liangjinzhi.com/tags/%E6%BC%8F%E6%B4%9E/</link>
             <pubDate>Thu, 25 Jun 2026 03:01:36 +0000</pubDate>
-            <guid>/tags/%E6%BC%8F%E6%B4%9E/</guid>
+            <guid>https://liangjinzhi.com/tags/%E6%BC%8F%E6%B4%9E/</guid>
             <description></description>
         </item><item>
             <title>InputLeap</title>
-            <link>/tags/inputleap/</link>
+            <link>https://liangjinzhi.com/tags/inputleap/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/inputleap/</guid>
+            <guid>https://liangjinzhi.com/tags/inputleap/</guid>
             <description></description>
         </item><item>
             <title>KVM</title>
-            <link>/tags/kvm/</link>
+            <link>https://liangjinzhi.com/tags/kvm/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/kvm/</guid>
+            <guid>https://liangjinzhi.com/tags/kvm/</guid>
             <description></description>
         </item><item>
             <title>一键盘多终端</title>
-            <link>/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</link>
+            <link>https://liangjinzhi.com/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</guid>
+            <guid>https://liangjinzhi.com/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</guid>
             <description></description>
         </item><item>
             <title>工作效率</title>
-            <link>/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</link>
+            <link>https://liangjinzhi.com/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</guid>
+            <guid>https://liangjinzhi.com/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</guid>
             <description></description>
         </item><item>
             <title>桌面整理</title>
-            <link>/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</link>
+            <link>https://liangjinzhi.com/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</guid>
+            <guid>https://liangjinzhi.com/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</guid>
             <description></description>
         </item><item>
             <title>跨平台</title>
-            <link>/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</link>
+            <link>https://liangjinzhi.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</link>
             <pubDate>Tue, 16 Jun 2026 03:32:07 +0000</pubDate>
-            <guid>/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</guid>
+            <guid>https://liangjinzhi.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</guid>
             <description></description>
         </item><item>
             <title>AWS</title>
-            <link>/tags/aws/</link>
+            <link>https://liangjinzhi.com/tags/aws/</link>
             <pubDate>Wed, 10 Jun 2026 05:19:32 +0000</pubDate>
-            <guid>/tags/aws/</guid>
+            <guid>https://liangjinzhi.com/tags/aws/</guid>
             <description></description>
         </item><item>
             <title>Aws免费服务器</title>
-            <link>/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+            <link>https://liangjinzhi.com/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
             <pubDate>Wed, 10 Jun 2026 05:19:32 +0000</pubDate>
-            <guid>/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+            <guid>https://liangjinzhi.com/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
             <description></description>
         </item><item>
             <title>AdguardHome</title>
-            <link>/tags/adguardhome/</link>
+            <link>https://liangjinzhi.com/tags/adguardhome/</link>
             <pubDate>Sat, 30 May 2026 06:23:38 +0000</pubDate>
-            <guid>/tags/adguardhome/</guid>
+            <guid>https://liangjinzhi.com/tags/adguardhome/</guid>
             <description></description>
         </item><item>
             <title>Docker</title>
-            <link>/tags/docker/</link>
+            <link>https://liangjinzhi.com/tags/docker/</link>
             <pubDate>Sat, 30 May 2026 06:23:38 +0000</pubDate>
-            <guid>/tags/docker/</guid>
+            <guid>https://liangjinzhi.com/tags/docker/</guid>
             <description></description>
         </item><item>
             <title>Linux</title>
-            <link>/tags/linux/</link>
+            <link>https://liangjinzhi.com/tags/linux/</link>
             <pubDate>Sat, 30 May 2026 06:23:38 +0000</pubDate>
-            <guid>/tags/linux/</guid>
+            <guid>https://liangjinzhi.com/tags/linux/</guid>
             <description></description>
         </item></channel>
 </rss>

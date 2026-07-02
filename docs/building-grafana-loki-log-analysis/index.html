@@ -5,7 +5,7 @@
 <title>Loki日志管理</title>
 
 
-<link rel="canonical" href="/building-grafana-loki-log-analysis/">
+<link rel="canonical" href="https://liangjinzhi.com/building-grafana-loki-log-analysis/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="Loki日志管理">
 <meta property='og:description' content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\n为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\n目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\n前提：开放Loki端3000，3100端口\n准备工作：创建统一目录\n# mkdir -p /opt/loki-stack\ncd /opt/loki-stack 第一步：服务端机器下载并安装 Loki Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\n1.下载官方二进制包与默认配置：\n# 下载 Loki 主程序 wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip #或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\n解压 unzip loki-linux-amd64.zip mv loki-linux-amd64 loki\n下载官方标准配置文件 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml #或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\n2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\nauth_enabled: false\nserver: http_listen_port: 3100 grpc_listen_port: 9096\ncommon: instance_addr: 127.0.0.1 path_prefix: /tmp/loki storage: filesystem: chunks_directory: /tmp/loki/chunks rules_directory: /tmp/loki/rules replication_factor: 1 ring: kvstore: store: inmemory\n">
-<meta property='og:url' content='/building-grafana-loki-log-analysis/'>
+<meta property='og:url' content='https://liangjinzhi.com/building-grafana-loki-log-analysis/'>
 <meta property='og:site_name' content='我的个人博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-06-27T03:38:22&#43;00:00'/><meta property='article:modified_time' content='2026-06-27T03:38:22&#43;00:00'/>
 <meta name="twitter:title" content="Loki日志管理">

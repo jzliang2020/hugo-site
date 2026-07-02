@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>生产案例 on 我的个人博客</title>
-        <link>/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/</link>
+        <link>https://liangjinzhi.com/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/</link>
         <description>Recent content in 生产案例 on 我的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 30 Jun 2026 03:28:12 +0000</lastBuildDate><atom:link href="/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 30 Jun 2026 03:28:12 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/index.xml" rel="self" type="application/rss+xml" /><item>
             <title>Certd全自动证书管理系统</title>
-            <link>/certd-ssl-auto-renewal-system/</link>
+            <link>https://liangjinzhi.com/certd-ssl-auto-renewal-system/</link>
             <pubDate>Tue, 30 Jun 2026 03:28:12 +0000</pubDate>
-            <guid>/certd-ssl-auto-renewal-system/</guid>
+            <guid>https://liangjinzhi.com/certd-ssl-auto-renewal-system/</guid>
             <description>&lt;h2 id=&#34;背景&#34;&gt;背景&#xA;&lt;/h2&gt;&lt;p&gt;公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;解决方案&#34;&gt;解决方案&#xA;&lt;/h2&gt;&lt;p&gt;部署Certd平台，实现&lt;/p&gt;&#xA;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    自动申请证书&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    自动续签&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    统一证书管理&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;部署方式&#34;&gt;部署方式&#xA;&lt;/h2&gt;&lt;p&gt;Docker部署Certd&lt;/p&gt;&#xA;&lt;h2 id=&#34;实现效果&#34;&gt;实现效果&#xA;&lt;/h2&gt;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    证书更新从“人工操作” → “自动续期”&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    避免证书过期导致服务中断&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;ul class=&#34;wp-block-list&#34;&gt;&#xA;  &lt;li&gt;&#xA;    降低运维维护成本&#xA;  &lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;运行截图&#34;&gt;运行截图&#xA;&lt;/h2&gt;&lt;p&gt;首页&lt;/p&gt;&#xA;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;&#xA;&lt;p&gt;&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1899&#34; height=&#34;627&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/01-01-2.webp&#34; alt=&#34;&#34; class=&#34;wp-image-318&#34; /&gt; &lt;/figure&gt;&lt;/p&gt;&#xA;&lt;p&gt;证书自动化流水线&lt;/p&gt;&#xA;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;&#xA;&lt;p&gt;&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1702&#34; height=&#34;651&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/02.webp&#34; alt=&#34;&#34; class=&#34;wp-image-319&#34; /&gt; &lt;/figure&gt;&lt;/p&gt;&#xA;&lt;p&gt;执行历史记录&lt;/p&gt;&#xA;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;&#xA;&lt;p&gt;&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1667&#34; height=&#34;638&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/03.webp&#34; alt=&#34;&#34; class=&#34;wp-image-320&#34; /&gt; &lt;/figure&gt;&lt;/p&gt;&#xA;</description>
         </item></channel>
 </rss>
