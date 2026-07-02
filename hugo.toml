@@ -3,6 +3,7 @@ baseURL = '/'
 locale = 'zh-cn' 
 title = '我的个人博客'
 theme = 'stack'
+publishDir = "docs"
 
 # 忽略 HTML 渲染警告
 ignoreLogs = ['warning-goldmark-raw-html']

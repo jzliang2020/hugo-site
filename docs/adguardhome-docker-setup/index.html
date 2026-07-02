@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。\n概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。\nPART1 服务端环境准备 Debian,docker,AdguardHome镜像源 主机IP:192.168.5.200\n镜像源可以自行查找\n编写Docker-compose.yml\nservices: adguardhome: image: docker.1ms.run/adguard/adguardhome:v0.107.76 container_name: adguardhome restart: unless-stopped # 宿主机目录挂载，确保升级或重启时数据不丢失 volumes: - ./ag_work:/opt/adguardhome/work - ./ag_conf:/opt/adguardhome/conf ports: - &ldquo;53:53/tcp&rdquo; - &ldquo;53:53/udp&rdquo; - &ldquo;8081:8081/tcp&rdquo; - &ldquo;443:443/tcp&rdquo; - &ldquo;443:443/udp&rdquo; - &ldquo;3000:3000/tcp&rdquo;\n这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意\n启用命令\nsudo docker compose up -d\n启动后\ndog@debian:~/adguard$ docker ps |grep adguard 98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &ldquo;/opt/adguardhome/Ad…&rdquo; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome\n">
+<title>AdguardHome容器化部署</title>
+
+
+<link rel="canonical" href="/adguardhome-docker-setup/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="AdguardHome容器化部署">
+<meta property='og:description' content="家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。\n概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。\nPART1 服务端环境准备 Debian,docker,AdguardHome镜像源 主机IP:192.168.5.200\n镜像源可以自行查找\n编写Docker-compose.yml\nservices: adguardhome: image: docker.1ms.run/adguard/adguardhome:v0.107.76 container_name: adguardhome restart: unless-stopped # 宿主机目录挂载，确保升级或重启时数据不丢失 volumes: - ./ag_work:/opt/adguardhome/work - ./ag_conf:/opt/adguardhome/conf ports: - &ldquo;53:53/tcp&rdquo; - &ldquo;53:53/udp&rdquo; - &ldquo;8081:8081/tcp&rdquo; - &ldquo;443:443/tcp&rdquo; - &ldquo;443:443/udp&rdquo; - &ldquo;3000:3000/tcp&rdquo;\n这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意\n启用命令\nsudo docker compose up -d\n启动后\ndog@debian:~/adguard$ docker ps |grep adguard 98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &ldquo;/opt/adguardhome/Ad…&rdquo; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome\n">
+<meta property='og:url' content='/adguardhome-docker-setup/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='AdguardHome' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2026-05-30T06:23:38&#43;00:00'/><meta property='article:modified_time' content='2026-05-30T06:23:38&#43;00:00'/>
+<meta name="twitter:title" content="AdguardHome容器化部署">
+<meta name="twitter:description" content="家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。\n概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。\nPART1 服务端环境准备 Debian,docker,AdguardHome镜像源 主机IP:192.168.5.200\n镜像源可以自行查找\n编写Docker-compose.yml\nservices: adguardhome: image: docker.1ms.run/adguard/adguardhome:v0.107.76 container_name: adguardhome restart: unless-stopped # 宿主机目录挂载，确保升级或重启时数据不丢失 volumes: - ./ag_work:/opt/adguardhome/work - ./ag_conf:/opt/adguardhome/conf ports: - &ldquo;53:53/tcp&rdquo; - &ldquo;53:53/udp&rdquo; - &ldquo;8081:8081/tcp&rdquo; - &ldquo;443:443/tcp&rdquo; - &ldquo;443:443/udp&rdquo; - &ldquo;3000:3000/tcp&rdquo;\n这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意\n启用命令\nsudo docker compose up -d\n启动后\ndog@debian:~/adguard$ docker ps |grep adguard 98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &ldquo;/opt/adguardhome/Ad…&rdquo; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/" style="background-color: hsl(231, 60%, 84%); color: hsl(231, 60%, 15%);">
+                运维实践
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/adguardhome-docker-setup/">AdguardHome容器化部署</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-05-30T06:23:38Z'>Saturday, May 30, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        1 minute read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。</p>
+<h2 id="概述">概述
+</h2><p>ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。</p>
+<h2 id="part1-服务端环境准备">PART1 服务端环境准备
+</h2><p><code>Debian,docker,AdguardHome镜像源
+主机IP:192.168.5.200</p>
+<p>镜像源可以自行查找</code></pre></p>
+<p>编写Docker-compose.yml</p>
+<p><code>services:
+adguardhome:
+image: docker.1ms.run/adguard/adguardhome:v0.107.76
+container_name: adguardhome
+restart: unless-stopped
+# 宿主机目录挂载，确保升级或重启时数据不丢失
+volumes:
+- ./ag_work:/opt/adguardhome/work
+- ./ag_conf:/opt/adguardhome/conf
+ports:
+- &ldquo;53:53/tcp&rdquo;
+- &ldquo;53:53/udp&rdquo;
+- &ldquo;8081:8081/tcp&rdquo;
+- &ldquo;443:443/tcp&rdquo;
+- &ldquo;443:443/udp&rdquo;
+- &ldquo;3000:3000/tcp&rdquo;</p>
+<p></code></pre></p>
+<p>这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意</p>
+<p>启用命令</p>
+<p><code>sudo docker compose up -d</code></pre></p>
+<p>启动后</p>
+<p><code>dog@debian:~/adguard$ docker ps  |grep adguard
+98dd7f0db486   docker.1ms.run/adguard/adguardhome:v0.107.76                                         &ldquo;/opt/adguardhome/Ad…&rdquo;   24 hours ago   Up 16 hours             0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp   adguardhome</code></pre></p>
+<p>访问首页，并设置密码</p>
+<figure class="wp-block-image size-large">
+<p><img loading="lazy" decoding="async" width="1024" height="629" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1024x629.png" alt="" class="wp-image-40" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1024x629.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-300x184.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-768x472.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1536x943.png 1536w, https://liangjinzhi.com/wp-content/uploads/2026/05/image.png 1601w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+<h2 id="回到首页-设置-dns设置">回到首页-设置-DNS设置
+</h2><p>设置上游DNS服务器，直接粘贴</p>
+<p><code>https://dns.alidns.com/dns-query
+<a class="link" href="https://doh.pub/dns-query"  target="_blank" rel="noopener"
+    >https://doh.pub/dns-query</a>
+<a class="link" href="https://doh.360.cn/dns-query"  target="_blank" rel="noopener"
+    >https://doh.360.cn/dns-query</a>
+114.114.114.114
+223.5.5.5</code></pre></p>
+<h3 id="bootstrap-dns-服务器">Bootstrap DNS 服务器
+</h3><p><code>223.5.5.5
+119.29.29.29</code></pre></p>
+<p>点击保存</p>
+<h3 id="回到过滤器自定义过滤规则">回到过滤器，自定义过滤规则
+</h3><p>通过指定域名进行拦截，demo如下</p>
+<p><code>||dns.weixin.qq.com.cn^</p>
+<p>应用即可</code></pre></p>
+<h2 id="part2-路由器">PART2 路由器
+</h2><p>以中兴路由器为例，网络-配置DNS服务器为服务器端的IP。（我这里是192.168.5.200）</p>
+<figure class="wp-block-image size-large">
+<p><img loading="lazy" decoding="async" width="1024" height="511" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1024x511.png" alt="" class="wp-image-47" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1024x511.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-300x150.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-768x383.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1536x767.png 1536w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2.png 1623w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+<h2 id="part3-终端电脑">PART3 终端电脑
+</h2><p>以win10/win11为例</p>
+<p>1.按下 Win + R 键，输入 cmd 并按 Enter 打开命令提示符。<br />2.输入ipconfig /flushdns 刷新DNS缓存</p>
+<figure class="wp-block-image size-full is-resized">
+<p><img loading="lazy" decoding="async" width="494" height="311" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-3.png" alt="" class="wp-image-48" style="width:532px;height:auto" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-3.png 494w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-3-300x189.png 300w" sizes="auto, (max-width: 494px) 100vw, 494px" /> </figure></p>
+<p>刷新后，你可以通过以下命令查看当前电脑实际使用的 DNS 服务器地址，确保它确实是你设置的 AdGuardHome 主机 IP</p>
+<figure class="wp-block-image size-full">
+<p><img loading="lazy" decoding="async" width="355" height="241" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-4.png" alt="" class="wp-image-49" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-4.png 355w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-4-300x204.png 300w" sizes="auto, (max-width: 355px) 100vw, 355px" /> </figure></p>
+  <br />
+<h2 id="查看效果">查看效果
+</h2><p>通过电脑任意访问一个网站如<a href="https://news.qq.com/"><a class="link" href="https://news.qq.com/"  target="_blank" rel="noopener"
+    >https://news.qq.com/</a></a> 回到查询日志-选择已过滤</p>
+<figure class="wp-block-image size-large">
+<p><img loading="lazy" decoding="async" width="1024" height="492" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-1024x492.png" alt="" class="wp-image-42" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-1024x492.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-300x144.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-768x369.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1.png 1534w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+<h2 id="参考资料">参考资料
+</h2><p><a href="https://github.com/SeanChang/xuanyuan_docker_proxy/blob/main/blog/adguardhome-docker.md#adguardhome-docker-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97">AdguardHome Docker 容器化部署指南</a></p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/adguardhome/">AdguardHome</a>
+        
+            <a href="/tags/docker/">Docker</a>
+        
+            <a href="/tags/linux/">Linux</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.3">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.1ff1e5fdc4e178ed422e50aa407526dc552f26342d729343fded19416194382c.js" defer></script>
+
+
+    </body>
+</html>
