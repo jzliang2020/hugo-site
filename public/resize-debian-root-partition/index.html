@@ -5,7 +5,7 @@
 <title>调整debian根分区为最大空间</title>
 
 
-<link rel="canonical" href="//localhost:1313/resize-debian-root-partition/">
+<link rel="canonical" href="http://localhost:1313/resize-debian-root-partition/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="调整debian根分区为最大空间">
 <meta property='og:description' content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\n备份/home目录\n# 1. 临时备份 home 目录的数据到 /tmp sudo cp -a /home/* /tmp/ 2&gt;/dev/null\n2. 卸载 /home 挂载点 sudo umount /home\n切换到其他目录，并停止相关进程，否则不能卸载/home\n# 杀掉所有占用 /home 的进程 sudo fuser -vkm /home\n调整好后卸载/home\n# 1. 重新卸载 sudo umount /home\n2. 删除 home 逻辑卷 sudo lvremove -y /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-home\n3. 100% 扩容给根分区 sudo lvextend -l +100%FREE /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n4. 刷新文件系统 sudo resize2fs /dev/mapper/vm&ndash;debian&ndash;13&ndash;vg-root\n">
-<meta property='og:url' content='//localhost:1313/resize-debian-root-partition/'>
+<meta property='og:url' content='http://localhost:1313/resize-debian-root-partition/'>
 <meta property='og:site_name' content='我的个人博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-06-21T04:18:05&#43;00:00'/><meta property='article:modified_time' content='2026-06-21T04:18:05&#43;00:00'/>
 <meta name="twitter:title" content="调整debian根分区为最大空间">

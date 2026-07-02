@@ -2,100 +2,100 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2026-06-30T03:28:12+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/certd-ssl-auto-renewal-system/</loc>
+    <loc>http://localhost:1313/certd-ssl-auto-renewal-system/</loc>
     <lastmod>2026-06-30T03:28:12+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2026-06-30T03:28:12+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2026-06-30T03:28:12+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/</loc>
+    <loc>http://localhost:1313/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/</loc>
     <lastmod>2026-06-30T03:28:12+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/k3s-01/</loc>
+    <loc>http://localhost:1313/k3s-01/</loc>
     <lastmod>2026-06-29T09:19:11+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/k3s/</loc>
+    <loc>http://localhost:1313/categories/k3s/</loc>
     <lastmod>2026-06-29T09:19:11+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/building-grafana-loki-log-analysis/</loc>
+    <loc>http://localhost:1313/building-grafana-loki-log-analysis/</loc>
     <lastmod>2026-06-27T03:38:22+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/</loc>
+    <loc>http://localhost:1313/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/</loc>
     <lastmod>2026-06-27T03:38:22+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/htpasswd/</loc>
+    <loc>http://localhost:1313/tags/htpasswd/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/nginx/</loc>
+    <loc>http://localhost:1313/tags/nginx/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/nginx-htpasswd-generator/</loc>
+    <loc>http://localhost:1313/nginx-htpasswd-generator/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/%E6%BC%8F%E6%B4%9E/</loc>
+    <loc>http://localhost:1313/tags/%E6%BC%8F%E6%B4%9E/</loc>
     <lastmod>2026-06-25T03:01:36+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/%E5%85%B3%E4%BA%8E/</loc>
+    <loc>http://localhost:1313/categories/%E5%85%B3%E4%BA%8E/</loc>
     <lastmod>2026-06-22T14:37:06+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/about-author/</loc>
+    <loc>http://localhost:1313/about-author/</loc>
     <lastmod>2026-06-22T14:37:06+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/resize-debian-root-partition/</loc>
+    <loc>http://localhost:1313/resize-debian-root-partition/</loc>
     <lastmod>2026-06-21T04:18:05+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/inputleap/</loc>
+    <loc>http://localhost:1313/tags/inputleap/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/kvm/</loc>
+    <loc>http://localhost:1313/tags/kvm/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/use-one-mouse-keyboard-across-devices/</loc>
+    <loc>http://localhost:1313/use-one-mouse-keyboard-across-devices/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</loc>
+    <loc>http://localhost:1313/tags/%E4%B8%80%E9%94%AE%E7%9B%98%E5%A4%9A%E7%BB%88%E7%AB%AF/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</loc>
+    <loc>http://localhost:1313/tags/%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</loc>
+    <loc>http://localhost:1313/tags/%E6%A1%8C%E9%9D%A2%E6%95%B4%E7%90%86/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</loc>
+    <loc>http://localhost:1313/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0/</loc>
     <lastmod>2026-06-16T03:32:07+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/aws/</loc>
+    <loc>http://localhost:1313/tags/aws/</loc>
     <lastmod>2026-06-10T05:19:32+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <loc>http://localhost:1313/tags/aws%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     <lastmod>2026-06-10T05:19:32+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/how-to-apply-aws-free-tier/</loc>
+    <loc>http://localhost:1313/how-to-apply-aws-free-tier/</loc>
     <lastmod>2026-06-10T05:19:32+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/adguardhome/</loc>
+    <loc>http://localhost:1313/tags/adguardhome/</loc>
     <lastmod>2026-05-30T06:23:38+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/adguardhome-docker-setup/</loc>
+    <loc>http://localhost:1313/adguardhome-docker-setup/</loc>
     <lastmod>2026-05-30T06:23:38+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/docker/</loc>
+    <loc>http://localhost:1313/tags/docker/</loc>
     <lastmod>2026-05-30T06:23:38+00:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/linux/</loc>
+    <loc>http://localhost:1313/tags/linux/</loc>
     <lastmod>2026-05-30T06:23:38+00:00</lastmod>
   </url>
 </urlset>

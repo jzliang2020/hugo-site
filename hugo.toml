@@ -1,4 +1,4 @@
-baseURL = '/'
+baseURL = "https://liangjinzhi.com/"
 # 建议将 languageCode 改为 locale，避免 Hugo 的弃用警告
 locale = 'zh-cn' 
 title = '我的个人博客'

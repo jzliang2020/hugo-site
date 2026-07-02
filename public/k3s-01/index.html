@@ -5,7 +5,7 @@
 <title>【K3s 系列 01】从零搭建 K3s</title>
 
 
-<link rel="canonical" href="//localhost:1313/k3s-01/">
+<link rel="canonical" href="http://localhost:1313/k3s-01/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="【K3s 系列 01】从零搭建 K3s">
 <meta property='og:description' content="一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。） pig@vm-debian-13:~$ uname -m x86_64\n#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。） pig@vm-debian-13:~$ lscpu | grep -E &ldquo;Model name|CPU(s):&rdquo; CPU(s): 2 Model name: 13th Gen Intel(R) Core(TM) i5-13400 NUMA node0 CPU(s): 0,1\n#内存大小 pig@vm-debian-13:~$ free -m total used free shared buff/cache available Mem: 3883 886 1917 0 1334 2997 Swap: 0 0 安装脚本\n官方的脚本太慢，国内用户使用这个脚本进行加速\n$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -\n">
-<meta property='og:url' content='//localhost:1313/k3s-01/'>
+<meta property='og:url' content='http://localhost:1313/k3s-01/'>
 <meta property='og:site_name' content='我的个人博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-06-29T09:19:11&#43;00:00'/><meta property='article:modified_time' content='2026-06-29T09:19:11&#43;00:00'/>
 <meta name="twitter:title" content="【K3s 系列 01】从零搭建 K3s">

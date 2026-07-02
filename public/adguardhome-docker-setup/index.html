@@ -5,7 +5,7 @@
 <title>AdguardHome容器化部署</title>
 
 
-<link rel="canonical" href="//localhost:1313/adguardhome-docker-setup/">
+<link rel="canonical" href="http://localhost:1313/adguardhome-docker-setup/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
@@ -14,7 +14,7 @@
 
 <link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="AdguardHome容器化部署">
 <meta property='og:description' content="家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。\n概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。\nPART1 服务端环境准备 Debian,docker,AdguardHome镜像源 主机IP:192.168.5.200\n镜像源可以自行查找\n编写Docker-compose.yml\nservices: adguardhome: image: docker.1ms.run/adguard/adguardhome:v0.107.76 container_name: adguardhome restart: unless-stopped # 宿主机目录挂载，确保升级或重启时数据不丢失 volumes: - ./ag_work:/opt/adguardhome/work - ./ag_conf:/opt/adguardhome/conf ports: - &ldquo;53:53/tcp&rdquo; - &ldquo;53:53/udp&rdquo; - &ldquo;8081:8081/tcp&rdquo; - &ldquo;443:443/tcp&rdquo; - &ldquo;443:443/udp&rdquo; - &ldquo;3000:3000/tcp&rdquo;\n这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意\n启用命令\nsudo docker compose up -d\n启动后\ndog@debian:~/adguard$ docker ps |grep adguard 98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &ldquo;/opt/adguardhome/Ad…&rdquo; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome\n">
-<meta property='og:url' content='//localhost:1313/adguardhome-docker-setup/'>
+<meta property='og:url' content='http://localhost:1313/adguardhome-docker-setup/'>
 <meta property='og:site_name' content='我的个人博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='AdguardHome' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='linux' /><meta property='article:published_time' content='2026-05-30T06:23:38&#43;00:00'/><meta property='article:modified_time' content='2026-05-30T06:23:38&#43;00:00'/>
 <meta name="twitter:title" content="AdguardHome容器化部署">
