@@ -1,0 +1,14 @@
+baseURL = '/'
+# 建议将 languageCode 改为 locale，避免 Hugo 的弃用警告
+locale = 'zh-cn' 
+title = '我的个人博客'
+theme = 'stack'
+
+# 忽略 HTML 渲染警告
+ignoreLogs = ['warning-goldmark-raw-html']
+
+# 核心：允许渲染 Markdown 中的 HTML（必须这样分层嵌套）
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

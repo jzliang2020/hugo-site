@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\n为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\n目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\n前提：开放Loki端3000，3100端口\n准备工作：创建统一目录\n# mkdir -p /opt/loki-stack\ncd /opt/loki-stack 第一步：服务端机器下载并安装 Loki Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\n1.下载官方二进制包与默认配置：\n# 下载 Loki 主程序 wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip #或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\n解压 unzip loki-linux-amd64.zip mv loki-linux-amd64 loki\n下载官方标准配置文件 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml #或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\n2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\nauth_enabled: false\nserver: http_listen_port: 3100 grpc_listen_port: 9096\ncommon: instance_addr: 127.0.0.1 path_prefix: /tmp/loki storage: filesystem: chunks_directory: /tmp/loki/chunks rules_directory: /tmp/loki/rules replication_factor: 1 ring: kvstore: store: inmemory\n">
+<title>Loki日志管理</title>
+
+
+<link rel="canonical" href="//localhost:1313/building-grafana-loki-log-analysis/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.e62e09c60ba428a627e03568fa3df938f6a8224f815b5846f00816c17d4a0be4.css"><meta property='og:title' content="Loki日志管理">
+<meta property='og:description' content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\n为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\n目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\n前提：开放Loki端3000，3100端口\n准备工作：创建统一目录\n# mkdir -p /opt/loki-stack\ncd /opt/loki-stack 第一步：服务端机器下载并安装 Loki Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\n1.下载官方二进制包与默认配置：\n# 下载 Loki 主程序 wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip #或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\n解压 unzip loki-linux-amd64.zip mv loki-linux-amd64 loki\n下载官方标准配置文件 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml #或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\n2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\nauth_enabled: false\nserver: http_listen_port: 3100 grpc_listen_port: 9096\ncommon: instance_addr: 127.0.0.1 path_prefix: /tmp/loki storage: filesystem: chunks_directory: /tmp/loki/chunks rules_directory: /tmp/loki/rules replication_factor: 1 ring: kvstore: store: inmemory\n">
+<meta property='og:url' content='//localhost:1313/building-grafana-loki-log-analysis/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-06-27T03:38:22&#43;00:00'/><meta property='article:modified_time' content='2026-06-27T03:38:22&#43;00:00'/>
+<meta name="twitter:title" content="Loki日志管理">
+<meta name="twitter:description" content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\n为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\n目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\n前提：开放Loki端3000，3100端口\n准备工作：创建统一目录\n# mkdir -p /opt/loki-stack\ncd /opt/loki-stack 第一步：服务端机器下载并安装 Loki Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\n1.下载官方二进制包与默认配置：\n# 下载 Loki 主程序 wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip #或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\n解压 unzip loki-linux-amd64.zip mv loki-linux-amd64 loki\n下载官方标准配置文件 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml #或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\n2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\nauth_enabled: false\nserver: http_listen_port: 3100 grpc_listen_port: 9096\ncommon: instance_addr: 127.0.0.1 path_prefix: /tmp/loki storage: filesystem: chunks_directory: /tmp/loki/chunks rules_directory: /tmp/loki/rules replication_factor: 1 ring: kvstore: store: inmemory\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/" style="background-color: hsl(231, 60%, 84%); color: hsl(231, 60%, 15%);">
+                运维实践
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/building-grafana-loki-log-analysis/">Loki日志管理</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-06-27T03:38:22Z'>Saturday, June 27, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        2 minutes read
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。</p>
+<p>为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的<strong>单机二进制（Binary）部署指导</strong>（比 Docker 性能更好、更直观）。</p>
+<p>目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志</p>
+<p>前提：开放Loki端3000，3100端口</p>
+<p>准备工作：创建统一目录</p>
+<p><code># mkdir -p /opt/loki-stack</p>
+<h1 id="cd-optloki-stack">cd /opt/loki-stack</code></pre>
+</h1><h2 id="第一步服务端机器下载并安装-loki">第一步：服务端机器下载并安装 Loki
+</h2><p>Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。</p>
+<p><strong>1.下载官方二进制包与默认配置</strong>：</p>
+<p><code># 下载 Loki 主程序
+wget <a class="link" href="https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip"  target="_blank" rel="noopener"
+    >https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip</a>
+#或者使用国内GitHub镜像下载Loki主程序
+wget <a class="link" href="https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip"  target="_blank" rel="noopener"
+    >https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip</a></p>
+<h1 id="解压">解压
+</h1><p>unzip loki-linux-amd64.zip
+mv loki-linux-amd64 loki</p>
+<h1 id="下载官方标准配置文件">下载官方标准配置文件
+</h1><p>wget <a class="link" href="https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml"  target="_blank" rel="noopener"
+    >https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml</a> -O loki-config.yaml
+#或者使用ghfast.top代理下载
+#wget <a class="link" href="https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml"  target="_blank" rel="noopener"
+    >https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml</a> -O loki-config.yaml</code></pre></p>
+<p><strong>2.清空原来的配置文件以添加“自动清理策略”</strong>（防止撑爆磁盘）： 打开 <code>loki-config.yaml</code>，在文件末尾添加以下内容：</p>
+<p><code>auth_enabled: false</p>
+<p>server:
+http_listen_port: 3100
+grpc_listen_port: 9096</p>
+<p>common:
+instance_addr: 127.0.0.1
+path_prefix: /tmp/loki
+storage:
+filesystem:
+chunks_directory: /tmp/loki/chunks
+rules_directory: /tmp/loki/rules
+replication_factor: 1
+ring:
+kvstore:
+store: inmemory</p>
+<p>schema_config:
+configs:
+- from: 2024-01-01
+store: tsdb
+object_store: filesystem
+schema: v13
+index:
+prefix: index_
+period: 24h</p>
+<p>limits_config:
+retention_period: 168h #地保留7天日志，绝不重复</p>
+<p>compactor:
+working_directory: /tmp/loki/retention
+compaction_interval: 10m
+retention_enabled: true
+delete_request_store: filesystem # 解决元数据存放问题</code></pre></p>
+<p><strong>3.使用 Systemd 保持后台运行</strong>： 创建系统服务文件 <code>vi /etc/systemd/system/loki.service</code>：</p>
+<p><code>[Unit]
+Description=Grafana Loki Log Aggregator
+After=network.target</p>
+<p>[Service]
+Type=simple
+ExecStart=/opt/loki-stack/loki -config.file=/opt/loki-stack/loki-config.yaml
+Restart=on-failure</p>
+<p>[Install]
+WantedBy=multi-user.target</code></pre></p>
+<p><strong>启动 Loki</strong>：</p>
+<p><code>systemctl daemon-reload
+systemctl enable loki &ndash;now</p>
+<h1 id="检查状态看到-active-running-即成功">检查状态，看到 active (running) 即成功
+</h1><p>systemctl status loki</code></pre></p>
+<h2 id="第二步目标机器下载并配置-promtail-收集端">第二步：目标机器下载并配置 Promtail (收集端)
+</h2><p>Promtail 需要在日志收集端部署。</p>
+<p><strong>1.规范创建所有必要目录</strong></p>
+<p><code># 创建 Promtail 程序及配置目录
+mkdir -p /opt/loki-stack/promtail</p>
+<h1 id="创建你要监控的-fastapi-日志存放目录如果研发还没创建的话">创建你要监控的 FastAPI 日志存放目录（如果研发还没创建的话）
+</h1><p>mkdir -p /var/log/fastapi</code></pre></p>
+<p><strong>2. 下载并解压主程序</strong></p>
+<p>进入刚刚创建好的工作目录，下载官方二进制包：</p>
+<p><code>cd /opt/loki-stack/promtail</p>
+<h1 id="下载官方-v300-二进制包">下载官方 v3.0.0 二进制包
+</h1><p>wget <a class="link" href="https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip"  target="_blank" rel="noopener"
+    >https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip</a></p>
+<h1 id="或者使用-ghproxy-代理加速下载">或者使用 ghproxy 代理加速下载
+</h1><p>wget <a class="link" href="https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip"  target="_blank" rel="noopener"
+    >https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip</a></p>
+<h1 id="解压若提示找不到命令请先执行-yum-install-unzip--y">解压（若提示找不到命令，请先执行 yum install unzip -y）
+</h1><p>unzip promtail-linux-amd64.zip</p>
+<h1 id="将解压出来的文件重命名方便后续调用">将解压出来的文件重命名，方便后续调用
+</h1><p>mv promtail-linux-amd64 promtail</p>
+<h1 id="清理无用的压缩包">清理无用的压缩包
+</h1><p>rm -f promtail-linux-amd64.zip</code></pre></p>
+<p><strong>3. 创建配置文件</strong></p>
+<p>在当前目录下创建配置文件：<code>vi /opt/loki-stack/promtail/promtail-config.yaml</code>，写入官方标准模板：</p>
+<p><code>positions: {}
+server:
+http_listen_port: 9080
+grpc_listen_port: 0</p>
+<p>positions:
+filename: /opt/loki-stack/promtail/positions.yaml</p>
+<p>clients:</p>
+<ul>
+<li>url: http://10.1.0.14:3100/loki/api/v1/push</li>
+</ul>
+<p>scrape_configs:</p>
+<ul>
+<li>
+<p>job_name: fastapi-cluster
+static_configs:</p>
+<ul>
+<li>targets:
+<ul>
+<li>localhost
+labels:
+job: fastapi
+host: api
+<strong>path</strong>: /home/ubuntu/api/nohup.out  #需要监控的日志文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>job_name: fastapi-app-logs
+static_configs:</p>
+<ul>
+<li>targets:
+<ul>
+<li>localhost
+labels:
+job: fastapi
+host: api
+<strong>path</strong>: /home/ubuntu/api/log/app.log*  #需要监控的日志文件
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>保存退出</p>
+<p>配置Systemd服务文件</p>
+<p><code>vi /etc/systemd/system/promtail.service</code></pre></p>
+<p>直接把下面的标准配置贴进去：</p>
+<p><code>[Unit]
+Description=Promtail Log Client
+After=network.target</p>
+<p>[Service]
+Type=simple</p>
+<h1 id="-使用绝对路径确保后台能正确拉起程序和读到配置文件">👈 使用绝对路径，确保后台能正确拉起程序和读到配置文件
+</h1><p>ExecStart=/opt/loki-stack/promtail/promtail -config.file=/opt/loki-stack/promtail/promtail-config.yaml
+Restart=on-failure</p>
+<p>[Install]
+WantedBy=multi-user.target</code></pre></p>
+<ol start="2">
+<li>重新加载并一键启动</li>
+</ol>
+<p>保存退出后（<code>:wq</code>），依次执行以下命令让系统识别新服务并运行：</p>
+<p><code># 1. 刷新后台
+systemctl daemon-reload</p>
+<h1 id="2-设置开机自启并现在立刻启动它">2. 设置开机自启，并现在立刻启动它
+</h1><p>systemctl enable promtail &ndash;now</p>
+<h1 id="3-检查状态">3. 检查状态
+</h1><p>systemctl status promtail</code></pre></p>
+<p>直接拉起Promtail服务</p>
+<p><code>systemctl restart promtail
+systemctl status promtail</code></pre></p>
+<p><strong>安装grafana</strong></p>
+<p><code># 1. 通过代理地址下载 Grafana 官方商业版/开源版安装包
+wget <a class="link" href="https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/pool/main/g/grafana/grafana_10.4.1_amd64.deb"  target="_blank" rel="noopener"
+    >https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/pool/main/g/grafana/grafana_10.4.1_amd64.deb</a></p>
+<h1 id="2-使用-dpkg-强制安装">2. 使用 dpkg 强制安装
+</h1><p>sudo dpkg -i grafana_10.4.1_amd64.deb</p>
+<h1 id="3-设置开机自启并现在立刻启动">3. 设置开机自启并现在立刻启动
+</h1><p>sudo systemctl daemon-reload
+sudo systemctl enable grafana-server &ndash;now</p>
+<h1 id="4-清理安装包">4. 清理安装包
+</h1><p>rm -f grafana_10.4.1_amd64.deb</code></pre></p>
+<p>访问 granfana http://ip:3000</p>
+<h3 id="添加-loki-数据源">添加 Loki 数据源
+</h3><p>进入主界面后：</p>
+<ol start="1" class="wp-block-list">
+  <li>
+    点击左侧菜单栏的 <strong>Connections</strong>（连接图标），然后选择 <strong>Data sources</strong>（数据源）。
+  </li>
+  <li>
+    点击右上角的蓝色按钮 <strong>Add data source</strong>。
+  </li>
+  <li>
+    在搜索框中输入 <code>Loki</code>，看到 Loki 图标后点击它进入配置页面。
+  </li>
+</ol>
+<h3 id="第三步填写连接地址">第三步：填写连接地址
+</h3><p>在 Loki 配置表单中，你只需要填写一个地方：</p>
+<ol start="1" class="wp-block-list">
+  <li>
+    找到 <strong>URL</strong> 输入框，因为 Loki 和 Grafana 都在这同一台机器上，直接输入本地回环地址即可：
+  </li>
+</ol><figure class="wp-block-image size-large">
+<p><img loading="lazy" decoding="async" width="1024" height="577" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-43-1024x577.png" alt="" class="wp-image-190" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-1024x577.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-300x169.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-768x433.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43.png 1353w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+<p>2回到Explore的 <strong>Run query</strong> 按钮。</p>
+<figure class="wp-block-image size-large">
+<p><img loading="lazy" decoding="async" width="1024" height="413" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1024x413.jpg" alt="" class="wp-image-191" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1024x413.jpg 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-300x121.jpg 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-768x310.jpg 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1536x620.jpg 1536w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-2048x827.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure></p>
+<ol start="1" class="wp-block-list">
+</ol>
+<p>现在你就可以在屏幕下方尽情翻阅、搜索和过滤这 500M 历史日志以及动态更新的 FastAPI 实时数据了！看看有没有成功刷出来？</p>
+<h3 id="-验收">🔍 验收
+</h3><p>服务启动后，你可以静静等待一会。此时 Promtail 已经在后台把日志数据倒腾给 Loki 了。</p>
+<p>接下来你就可以登录 <code>http://ip:3000</code>，在 Explore 里面选择 Loki 数据源，通过 <code>{host=&ldquo;api&rdquo;}</code> 语法，翻阅配置的日志，再也不需要频繁登录服务器了。</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+
+        <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="4.0.3">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.39cbcc0a6b605821ce15f884c71720d2949279a0f9264cf7ba2a4303759c2136.js" defer></script>
+
+
+    </body>
+</html>
