@@ -28,7 +28,7 @@ tags:
   今天收到腾讯云的告警信息，原来是昨天部署的grafana被漏洞扫描识别到。
 <figure class="wp-block-image size-full">
 
-<img loading="lazy" decoding="async" width="355" height="343" src="http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png" alt="" class="wp-image-181" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-41.png 355w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-41-300x290.png 300w" sizes="auto, (max-width: 355px) 100vw, 355px" /> </figure> 
+<img loading="lazy" decoding="async" width="355" height="343" src="http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png" alt="" class="wp-image-181" srcset="/wp-content/uploads/2026/06/image-41.png 355w, /wp-content/uploads/2026/06/image-41-300x290.png 300w" sizes="auto, (max-width: 355px) 100vw, 355px" /> </figure> 
 
 
 
@@ -81,7 +81,7 @@ sudo systemctl reload nginx</code></pre>
 
 ## 6.验证 <figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="177" src="http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png" alt="" class="wp-image-182" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-300x52.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-768x133.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42.png 1259w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="177" src="http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png" alt="" class="wp-image-182" srcset="/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, /wp-content/uploads/2026/06/image-42-300x52.png 300w, /wp-content/uploads/2026/06/image-42-768x133.png 768w, /wp-content/uploads/2026/06/image-42.png 1259w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 ### 命令解析： 
 

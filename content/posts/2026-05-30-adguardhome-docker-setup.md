@@ -81,7 +81,7 @@ tags:
   访问首页，并设置密码
 <figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="629" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1024x629.png" alt="" class="wp-image-40" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1024x629.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-300x184.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-768x472.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1536x943.png 1536w, https://liangjinzhi.com/wp-content/uploads/2026/05/image.png 1601w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="629" src="/wp-content/uploads/2026/05/image-1024x629.png" alt="" class="wp-image-40" srcset="/wp-content/uploads/2026/05/image-1024x629.png 1024w, /wp-content/uploads/2026/05/image-300x184.png 300w, /wp-content/uploads/2026/05/image-768x472.png 768w, /wp-content/uploads/2026/05/image-1536x943.png 1536w, /wp-content/uploads/2026/05/image.png 1601w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 ## 回到首页-设置-DNS设置 
 
@@ -123,7 +123,7 @@ https://doh.360.cn/dns-query
   以中兴路由器为例，网络-配置DNS服务器为服务器端的IP。（我这里是192.168.5.200）
 <figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="511" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1024x511.png" alt="" class="wp-image-47" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1024x511.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-300x150.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-768x383.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2-1536x767.png 1536w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-2.png 1623w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="511" src="/wp-content/uploads/2026/05/image-2-1024x511.png" alt="" class="wp-image-47" srcset="/wp-content/uploads/2026/05/image-2-1024x511.png 1024w, /wp-content/uploads/2026/05/image-2-300x150.png 300w, /wp-content/uploads/2026/05/image-2-768x383.png 768w, /wp-content/uploads/2026/05/image-2-1536x767.png 1536w, /wp-content/uploads/2026/05/image-2.png 1623w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 ## PART3 终端电脑 
 
@@ -135,13 +135,13 @@ https://doh.360.cn/dns-query
   1.按下 Win + R 键，输入 cmd 并按 Enter 打开命令提示符。<br />2.输入ipconfig /flushdns 刷新DNS缓存
 <figure class="wp-block-image size-full is-resized">
 
-<img loading="lazy" decoding="async" width="494" height="311" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-3.png" alt="" class="wp-image-48" style="width:532px;height:auto" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-3.png 494w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-3-300x189.png 300w" sizes="auto, (max-width: 494px) 100vw, 494px" /> </figure> 
+<img loading="lazy" decoding="async" width="494" height="311" src="/wp-content/uploads/2026/05/image-3.png" alt="" class="wp-image-48" style="width:532px;height:auto" srcset="/wp-content/uploads/2026/05/image-3.png 494w, /wp-content/uploads/2026/05/image-3-300x189.png 300w" sizes="auto, (max-width: 494px) 100vw, 494px" /> </figure> 
 
 
   刷新后，你可以通过以下命令查看当前电脑实际使用的 DNS 服务器地址，确保它确实是你设置的 AdGuardHome 主机 IP
 <figure class="wp-block-image size-full">
 
-<img loading="lazy" decoding="async" width="355" height="241" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-4.png" alt="" class="wp-image-49" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-4.png 355w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-4-300x204.png 300w" sizes="auto, (max-width: 355px) 100vw, 355px" /> </figure> 
+<img loading="lazy" decoding="async" width="355" height="241" src="/wp-content/uploads/2026/05/image-4.png" alt="" class="wp-image-49" srcset="/wp-content/uploads/2026/05/image-4.png 355w, /wp-content/uploads/2026/05/image-4-300x204.png 300w" sizes="auto, (max-width: 355px) 100vw, 355px" /> </figure> 
 
 
   <br />
@@ -153,7 +153,7 @@ https://doh.360.cn/dns-query
   通过电脑任意访问一个网站如<a href="https://news.qq.com/">https://news.qq.com/</a> 回到查询日志-选择已过滤
 <figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="492" src="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-1024x492.png" alt="" class="wp-image-42" srcset="https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-1024x492.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-300x144.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1-768x369.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/05/image-1.png 1534w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="492" src="/wp-content/uploads/2026/05/image-1-1024x492.png" alt="" class="wp-image-42" srcset="/wp-content/uploads/2026/05/image-1-1024x492.png 1024w, /wp-content/uploads/2026/05/image-1-300x144.png 300w, /wp-content/uploads/2026/05/image-1-768x369.png 768w, /wp-content/uploads/2026/05/image-1.png 1534w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 
 

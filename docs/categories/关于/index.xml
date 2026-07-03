@@ -5,7 +5,13 @@
         <description>Recent content in 关于 on 我的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 22 Jun 2026 14:37:06 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 02 Jul 2026 21:06:43 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>My First Post</title>
+            <link>https://liangjinzhi.com/posts/my-first-post/</link>
+            <pubDate>Thu, 02 Jul 2026 21:06:43 +0800</pubDate>
+            <guid>https://liangjinzhi.com/posts/my-first-post/</guid>
+            <description>&lt;p&gt;这是文章正文&amp;hellip;&lt;/p&gt;&#xA;</description>
+        </item><item>
             <title>关于博客本人</title>
             <link>https://liangjinzhi.com/about-author/</link>
             <pubDate>Mon, 22 Jun 2026 14:37:06 +0000</pubDate>

@@ -314,13 +314,13 @@ rm -f grafana_10.4.1_amd64.deb</code></pre>
   </li>
 </ol><figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="577" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-43-1024x577.png" alt="" class="wp-image-190" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-1024x577.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-300x169.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43-768x433.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-43.png 1353w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="577" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-43-1024x577.png" alt="" class="wp-image-190" srcset="/wp-content/uploads/2026/06/image-43-1024x577.png 1024w, /wp-content/uploads/2026/06/image-43-300x169.png 300w, /wp-content/uploads/2026/06/image-43-768x433.png 768w, /wp-content/uploads/2026/06/image-43.png 1353w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 
   2回到Explore的 <strong>Run query</strong> 按钮。
 <figure class="wp-block-image size-large">
 
-<img loading="lazy" decoding="async" width="1024" height="413" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1024x413.jpg" alt="" class="wp-image-191" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1024x413.jpg 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-300x121.jpg 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-768x310.jpg 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1536x620.jpg 1536w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-44-2048x827.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<img loading="lazy" decoding="async" width="1024" height="413" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-44-1024x413.jpg" alt="" class="wp-image-191" srcset="/wp-content/uploads/2026/06/image-44-1024x413.jpg 1024w, /wp-content/uploads/2026/06/image-44-300x121.jpg 300w, /wp-content/uploads/2026/06/image-44-768x310.jpg 768w, /wp-content/uploads/2026/06/image-44-1536x620.jpg 1536w, /wp-content/uploads/2026/06/image-44-2048x827.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
 
 <ol start="1" class="wp-block-list">
 </ol>

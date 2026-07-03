@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>GitHub on 我的个人博客</title>
+        <link>https://liangjinzhi.com/tags/github/</link>
+        <description>Recent content in GitHub on 我的个人博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 02 Jul 2026 21:06:43 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/tags/github/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>My First Post</title>
+            <link>https://liangjinzhi.com/posts/my-first-post/</link>
+            <pubDate>Thu, 02 Jul 2026 21:06:43 +0800</pubDate>
+            <guid>https://liangjinzhi.com/posts/my-first-post/</guid>
+            <description>&lt;p&gt;这是文章正文&amp;hellip;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

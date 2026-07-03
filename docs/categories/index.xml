@@ -5,7 +5,13 @@
         <description>Recent content in Categories on 我的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 30 Jun 2026 03:28:12 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 02 Jul 2026 21:06:43 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>关于</title>
+            <link>https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/</link>
+            <pubDate>Thu, 02 Jul 2026 21:06:43 +0800</pubDate>
+            <guid>https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/</guid>
+            <description></description>
+        </item><item>
             <title>生产案例</title>
             <link>https://liangjinzhi.com/categories/%E7%94%9F%E4%BA%A7%E6%A1%88%E4%BE%8B/</link>
             <pubDate>Tue, 30 Jun 2026 03:28:12 +0000</pubDate>
@@ -28,12 +34,6 @@
             <link>https://liangjinzhi.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
             <pubDate>Thu, 25 Jun 2026 03:01:36 +0000</pubDate>
             <guid>https://liangjinzhi.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</guid>
-            <description></description>
-        </item><item>
-            <title>关于</title>
-            <link>https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/</link>
-            <pubDate>Mon, 22 Jun 2026 14:37:06 +0000</pubDate>
-            <guid>https://liangjinzhi.com/categories/%E5%85%B3%E4%BA%8E/</guid>
             <description></description>
         </item></channel>
 </rss>

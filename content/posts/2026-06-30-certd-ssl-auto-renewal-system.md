@@ -70,16 +70,16 @@ categories:
   首页
 <figure class="wp-block-image size-full">
 
-<img loading="lazy" decoding="async" width="1899" height="627" src="https://liangjinzhi.com/wp-content/uploads/2026/06/01-01-2.webp" alt="" class="wp-image-318" /> </figure> 
+<img loading="lazy" decoding="async" width="1899" height="627" src="/wp-content/uploads/2026/06/01-01-2.webp" alt="" class="wp-image-318" /> </figure> 
 
 
   证书自动化流水线
 <figure class="wp-block-image size-full">
 
-<img loading="lazy" decoding="async" width="1702" height="651" src="https://liangjinzhi.com/wp-content/uploads/2026/06/02.webp" alt="" class="wp-image-319" /> </figure> 
+<img loading="lazy" decoding="async" width="1702" height="651" src="/wp-content/uploads/2026/06/02.webp" alt="" class="wp-image-319" /> </figure> 
 
 
   执行历史记录
 <figure class="wp-block-image size-full">
 
-<img loading="lazy" decoding="async" width="1667" height="638" src="https://liangjinzhi.com/wp-content/uploads/2026/06/03.webp" alt="" class="wp-image-320" /> </figure>
+<img loading="lazy" decoding="async" width="1667" height="638" src="/wp-content/uploads/2026/06/03.webp" alt="" class="wp-image-320" /> </figure>

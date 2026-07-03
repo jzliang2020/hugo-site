@@ -190,21 +190,21 @@ Swap:              0           0   </code></pre></p>
 <p>官方的脚本太慢，国内用户使用这个脚本进行加速</p>
 <p><code>$ curl -sfL <a class="link" href="https://rancher-mirror.rancher.cn/k3s/k3s-install.sh"  target="_blank" rel="noopener"
     >https://rancher-mirror.rancher.cn/k3s/k3s-install.sh</a> | INSTALL_K3S_MIRROR=cn sh -</code></pre><figure class="wp-block-image size-full"></p>
-<p><img loading="lazy" decoding="async" width="1238" height="505" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-74.png" alt="" class="wp-image-340" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="1238" height="505" src="/wp-content/uploads/2026/06/image-74.png" alt="" class="wp-image-340" /> </figure></p>
 <p>检查k3s服务状态</p>
 <p><code>$ systemctl status k3s</code></pre><figure class="wp-block-image size-full"></p>
-<p><img loading="lazy" decoding="async" width="858" height="270" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-32.png" alt="" class="wp-image-147" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-32.png 858w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-32-300x94.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-32-768x242.png 768w" sizes="auto, (max-width: 858px) 100vw, 858px" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="858" height="270" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-32.png" alt="" class="wp-image-147" srcset="/wp-content/uploads/2026/06/image-32.png 858w, /wp-content/uploads/2026/06/image-32-300x94.png 300w, /wp-content/uploads/2026/06/image-32-768x242.png 768w" sizes="auto, (max-width: 858px) 100vw, 858px" /> </figure></p>
 <p>查看集群节点状态</p>
 <p><code>$ sudo kubectl get node</code></pre><figure class="wp-block-image size-full"></p>
-<p><img loading="lazy" decoding="async" width="816" height="64" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-33.png" alt="" class="wp-image-148" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-33.png 816w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-33-300x24.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-33-768x60.png 768w" sizes="auto, (max-width: 816px) 100vw, 816px" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="816" height="64" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-33.png" alt="" class="wp-image-148" srcset="/wp-content/uploads/2026/06/image-33.png 816w, /wp-content/uploads/2026/06/image-33-300x24.png 300w, /wp-content/uploads/2026/06/image-33-768x60.png 768w" sizes="auto, (max-width: 816px) 100vw, 816px" /> </figure></p>
 <p>查看集群中运行的pod</p>
 <p><code>$ sudo kubectl get pods -A</code></pre><figure class="wp-block-image size-full"></p>
-<p><img loading="lazy" decoding="async" width="942" height="135" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-34.png" alt="" class="wp-image-149" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-34.png 942w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-34-300x43.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-34-768x110.png 768w" sizes="auto, (max-width: 942px) 100vw, 942px" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="942" height="135" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-34.png" alt="" class="wp-image-149" srcset="/wp-content/uploads/2026/06/image-34.png 942w, /wp-content/uploads/2026/06/image-34-300x43.png 300w, /wp-content/uploads/2026/06/image-34-768x110.png 768w" sizes="auto, (max-width: 942px) 100vw, 942px" /> </figure></p>
 <p><a href="https://docs.k3s.io/zh/quick-start" data-type="link" data-id="https://docs.k3s.io/zh/quick-start">K3s 官方经典架构与安装文档</a></p>
 <h2 id="二配置kubectl-普通用户">二、配置kubectl （普通用户）
 </h2><p>普通用户执行命令 <em><kbd>kubectl get nodes</kbd></em> 提示没有权限</p>
 <figure class="wp-block-image size-full">
-<p><img loading="lazy" decoding="async" width="934" height="127" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-35.png" alt="" class="wp-image-151" srcset="https://liangjinzhi.com/wp-content/uploads/2026/06/image-35.png 934w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-35-300x41.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-35-768x104.png 768w" sizes="auto, (max-width: 934px) 100vw, 934px" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="934" height="127" src="http://liangjinzhi.com/wp-content/uploads/2026/06/image-35.png" alt="" class="wp-image-151" srcset="/wp-content/uploads/2026/06/image-35.png 934w, /wp-content/uploads/2026/06/image-35-300x41.png 300w, /wp-content/uploads/2026/06/image-35-768x104.png 768w" sizes="auto, (max-width: 934px) 100vw, 934px" /> </figure></p>
 <p><code>pig@vm-debian:~$ mkdir -p <del>/.kube   #创建 .kube 目录
 pig@vm-debian:</del>$ sudo cp /etc/rancher/k3s/k3s.yaml  <del>/.kube/config #复制 K3s 默认配置
 pig@vm-debian:</del>$ sudo chown $USER:$USER <del>/.kube/config #修改文件所属用户
@@ -299,17 +299,17 @@ type: ClusterIP
 type: NodePort</code></pre></p>
 <p>$kubectl get svc -n kubernetes-dashboard #查看端口</p>
 <figure class="wp-block-image size-full">
-<p><img loading="lazy" decoding="async" width="1020" height="130" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-71.png" alt="" class="wp-image-336" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="1020" height="130" src="/wp-content/uploads/2026/06/image-71.png" alt="" class="wp-image-336" /> </figure></p>
 <p>主机访问：https://ip:port</p>
 <figure class="wp-block-image size-full">
-<p><img loading="lazy" decoding="async" width="1495" height="606" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-72.png" alt="" class="wp-image-337" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="1495" height="606" src="/wp-content/uploads/2026/06/image-72.png" alt="" class="wp-image-337" /> </figure></p>
 <p>生成token</p>
 <p><code>$ kubectl -n kubernetes-dashboard create token admin-user
 eyJhbGciOiJSUz&hellip;..qGeyA  #这里进行省略输出
 </code></pre></p>
 <p>获取token并进行登录</p>
 <figure class="wp-block-image size-full">
-<p><img loading="lazy" decoding="async" width="2538" height="994" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-73.png" alt="" class="wp-image-338" /> </figure></p>
+<p><img loading="lazy" decoding="async" width="2538" height="994" src="/wp-content/uploads/2026/06/image-73.png" alt="" class="wp-image-338" /> </figure></p>
 <p>至此，K3s 单节点环境已完成基础验证，包括：</p>
 <ul class="wp-block-list">
   <li>

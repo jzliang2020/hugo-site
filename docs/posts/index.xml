@@ -5,7 +5,13 @@
         <description>Recent content in Posts on 我的个人博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 30 Jun 2026 03:28:12 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 02 Jul 2026 21:06:43 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/posts/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>My First Post</title>
+            <link>https://liangjinzhi.com/posts/my-first-post/</link>
+            <pubDate>Thu, 02 Jul 2026 21:06:43 +0800</pubDate>
+            <guid>https://liangjinzhi.com/posts/my-first-post/</guid>
+            <description>&lt;p&gt;这是文章正文&amp;hellip;&lt;/p&gt;&#xA;</description>
+        </item><item>
             <title>Certd全自动证书管理系统</title>
             <link>https://liangjinzhi.com/certd-ssl-auto-renewal-system/</link>
             <pubDate>Tue, 30 Jun 2026 03:28:12 +0000</pubDate>
