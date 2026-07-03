@@ -15,4 +15,5 @@ ignoreLogs = ['warning-goldmark-raw-html']
       unsafe = true
 
 # 关键：告诉 Hugo 不要尝试智能截取，除非遇到 [params]
+[params]
   summaryLength = 0
