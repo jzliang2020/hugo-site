@@ -1,0 +1,61 @@
+{{ define "body-class" }}
+    article-page
+    {{/* 
+        Enable the right sidebar if
+            - Widget different from 'TOC' is enabled
+            - TOC is enabled and not empty
+    */}}
+    {{- $HasWidgetNotTOC := false -}}
+    {{- $TOCWidgetEnabled := false -}}
+    {{- range .Site.Params.widgets.page -}}
+        {{- if ne .type "toc" -}}
+            {{ $HasWidgetNotTOC = true -}}
+        {{- else -}}
+            {{ $TOCWidgetEnabled = true -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- $TOCEnabled := and (default .Site.Params.article.toc .Params.toc) $TOCWidgetEnabled -}}
+    {{- $hasTOC := ge (len .TableOfContents) 100 -}}
+    {{- .Scratch.Set "TOCEnabled" (and $TOCEnabled $hasTOC) -}}
+    
+    {{- .Scratch.Set "hasWidget" (or $HasWidgetNotTOC (and $TOCEnabled $hasTOC)) -}}
+{{ end }}
+
+{{ define "main" }}
+    {{ partial "article/article.html" . }}
+
+<div class="article-content">
+    <span id="busuanzi_container_page_pv" style="font-size: 0.9em; color: var(--text-color-secondary);">
+        本文阅读量: <span id="busuanzi_page_pv">---</span> 次
+    </span>
+</div>
+
+<script>
+    // 强制延迟重试加载，确保 Busuanzi 脚本已加载完毕
+    setTimeout(function() {
+        if (typeof busuanzi !== 'undefined') {
+            busuanzi.fetch();
+        }
+    }, 1000);
+</script>
+
+    {{ if .Params.links }}
+        {{ partial "article/components/links" . }}
+    {{ end }}
+
+    {{ partial "article/components/related-content" . }}
+     
+    {{ if not (eq .Params.comments false) }}
+        {{ partial "comments/include" . }}
+    {{ end }}
+
+    {{ partialCached "footer/footer" . }}
+
+    {{ partialCached "article/components/photoswipe" . }}
+    {{ partial "article/components/mermaid" . }}
+{{ end }}
+
+{{ define "right-sidebar" }}
+    {{ if .Scratch.Get "hasWidget" }}{{ partial "sidebar/right.html" (dict "Context" . "Scope" "page") }}{{ end}}
+{{ end }}

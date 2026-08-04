@@ -1,19 +1,41 @@
 baseURL = "https://liangjinzhi.com/"
-# 建议将 languageCode 改为 locale，避免 Hugo 的弃用警告
-locale = 'zh-cn' 
+defaultContentLanguage = "zh-cn"
+locale = 'zh-cn'
 title = '我的个人博客'
 theme = 'stack'
 publishDir = "docs"
 
-# 忽略 HTML 渲染警告
-ignoreLogs = ['warning-goldmark-raw-html']
+# 强制要求生成 JSON 索引，这是搜索框显示的唯一前提
+[outputs]
+  home = ["HTML", "JSON"]
 
-# 核心：允许渲染 Markdown 中的 HTML（必须这样分层嵌套）
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "index"
+  isPlainText = true
 
-# 关键：告诉 Hugo 不要尝试智能截取，除非遇到 [params]
 [params]
-  summaryLength = 0
+  mainSections = ["posts"]
+
+[params.sidebar]
+  emoji = "👋"
+  subtitle = "记录运维与开发的笔记"
+  avatar = "/img/avatar.png"
+  avatarLink = "/posts/about-author/"
+  widgets = ["search", "archives", "categories", "tags", "recent_posts"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[menu.main]]
+  identifier = "about"
+  name = "关于作者"
+  url = "/posts/about-author/"
+  weight = 20
+  
+[params.sidebar.search]
+  enable = true
