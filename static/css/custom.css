@@ -1,3 +1,4 @@
+.article-content pre,
 .article-content pre.wp-block-code {
     position: relative;
     overflow-x: auto;
@@ -17,6 +18,7 @@
     box-shadow: none;
 }
 
+.article-content pre::before,
 .article-content pre.wp-block-code::before {
     content: "Code";
     position: absolute;
@@ -36,6 +38,7 @@
     border-radius: 8px 8px 0 0;
 }
 
+.article-content pre code,
 .article-content pre.wp-block-code code {
     color: inherit;
     background: none;
@@ -84,13 +87,48 @@
     display: none;
 }
 
+body {
+    background: #f7f7f8;
+}
+
+.main-article,
+.article-list article {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.article-title a,
+.article-list .article-title {
+    color: #111827;
+}
+
+.article-content {
+    color: #111827;
+}
+
+.article-content p,
+.article-content li {
+    line-height: 1.78;
+}
+
+.article-content code:not(pre code) {
+    background: #f1f5f9;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 0.12em 0.35em;
+}
+
 @media (prefers-color-scheme: dark) {
+    .article-content pre,
     .article-content pre.wp-block-code {
         background: #1f2937;
         color: #f9fafb;
         border-color: #374151;
     }
 
+    .article-content pre::before,
     .article-content pre.wp-block-code::before {
         background: #111827;
         color: #d1d5db;
@@ -104,9 +142,32 @@
     .article-content .wp-code-copy:hover {
         background: #374151;
     }
+
+    body {
+        background: #111827;
+    }
+
+    .main-article,
+    .article-list article {
+        border-color: #374151;
+        box-shadow: none;
+    }
+
+    .article-title a,
+    .article-list .article-title,
+    .article-content {
+        color: #f9fafb;
+    }
+
+    .article-content code:not(pre code) {
+        background: #1f2937;
+        color: #f9fafb;
+        border-color: #374151;
+    }
 }
 
 @media (max-width: 768px) {
+    .article-content pre,
     .article-content pre.wp-block-code {
         font-size: 0.86em;
         padding: 3rem 1rem 1.15rem;
