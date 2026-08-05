@@ -24,22 +24,6 @@
 
 {{ define "main" }}
     {{ partial "article/article.html" . }}
-
-<div class="article-content">
-    <span id="busuanzi_container_page_pv" style="font-size: 0.9em; color: var(--text-color-secondary);">
-        本文阅读量: <span id="busuanzi_page_pv">---</span> 次
-    </span>
-</div>
-
-<script>
-    // 强制延迟重试加载，确保 Busuanzi 脚本已加载完毕
-    setTimeout(function() {
-        if (typeof busuanzi !== 'undefined') {
-            busuanzi.fetch();
-        }
-    }, 1000);
-</script>
-
     {{ if .Params.links }}
         {{ partial "article/components/links" . }}
     {{ end }}

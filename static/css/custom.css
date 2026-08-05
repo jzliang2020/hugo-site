@@ -76,6 +76,14 @@
     border-radius: 4px;
 }
 
+.article-footer:empty {
+    display: none;
+}
+
+.main-article > .article-details > .article-meta .article-tags {
+    display: none;
+}
+
 @media (prefers-color-scheme: dark) {
     .article-content pre.wp-block-code {
         background: #1f2937;
