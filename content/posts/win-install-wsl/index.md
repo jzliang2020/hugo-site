@@ -1,7 +1,7 @@
 +++
 title = 'windows安装wsl失败'
 date = 2026-08-05T22:18:29+08:00
-draft = true
+draft = false
 categories = ['运维实践']
 tags = ['Windows', 'WSL']
 +++
