@@ -93,6 +93,7 @@ body {
 
 .main-article,
 .article-list article {
+    background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
@@ -120,7 +121,7 @@ body {
     padding: 0.12em 0.35em;
 }
 
-@media (prefers-color-scheme: dark) {
+[data-scheme="dark"] {
     .article-content pre,
     .article-content pre.wp-block-code {
         background: #1f2937;
@@ -149,6 +150,7 @@ body {
 
     .main-article,
     .article-list article {
+        background: #1f2937;
         border-color: #374151;
         box-shadow: none;
     }
