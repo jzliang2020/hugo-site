@@ -19,6 +19,11 @@ function Check-Tools {
     }
 }
 
+function Sync-Remote {
+    Step "Pull latest changes"
+    git pull --rebase origin main
+}
+
 function Build-Site {
     param([switch]$IncludeDraft)
 
@@ -92,6 +97,7 @@ Set-Location $repo
 Check-Tools
 
 if ($Message -or $Draft) {
+    Sync-Remote
     Build-Site -IncludeDraft:$Draft
     Commit-And-Push -CommitMessage $Message
     exit 0
@@ -111,6 +117,7 @@ while ($true) {
         }
         "3" {
             $msg = Read-Host "Commit message (press Enter for default)"
+            Sync-Remote
             Build-Site
             Commit-And-Push -CommitMessage $msg
             Read-Host "Done. Press Enter to continue"

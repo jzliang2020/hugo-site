@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Windows on 我的个人博客</title>
-        <link>https://liangjinzhi.com/tags/windows/</link>
-        <description>Recent content in Windows on 我的个人博客</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Wed, 05 Aug 2026 22:18:29 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/tags/windows/index.xml" rel="self" type="application/rss+xml" /><item>
-            <title>windows安装wsl失败</title>
-            <link>https://liangjinzhi.com/posts/win-install-wsl/</link>
-            <pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate>
-            <guid>https://liangjinzhi.com/posts/win-install-wsl/</guid>
-            <description>&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;install -d Ubuntu&#xA;安装过程中出现错误。分发名称: &amp;lsquo;Ubuntu&amp;rsquo; 错误代码: 0x8000ffff&lt;/p&gt;&#xA;&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;update&#xA;正在安装: 适用于 Linux 的 Windows 子系统&#xA;灾难性故障&#xA;设备名&#x9;DESKTOP-CH432AQ&#xA;处理器&#x9;12th Gen Intel(R) Core(TM) i5-12400F   2.50 GHz&#xA;机带 RAM&#x9;32.0 GB (31.8 GB 可用)&#xA;存储&#x9;466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB&#xA;显卡&#x9;NVIDIA GeForce RTX 3060 Laptop GPU (12 GB)&#xA;设备 ID&#x9;65F4DCDC-5059-4AE7-AB42-3D376CCF00CA&#xA;产品 ID&#x9;00330-80000-00000-AA243&#xA;系统类型&#x9;64 位操作系统, 基于 x64 的处理器&#xA;笔和触控&#x9;没有可用于此显示器的笔或触控输入&lt;/p&gt;&#xA;&lt;p&gt;不复杂，按这个顺序来，重点是&lt;strong&gt;用管理员 PowerShell&lt;/strong&gt;，这里搞错了，不是普通 CMD。&lt;/p&gt;&#xA;&lt;p&gt;先右键开始菜单 → &lt;strong&gt;Windows PowerShell / Terminal 管理员&lt;/strong&gt;，执行：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart&#xD;&#xA;dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart&#xD;&#xA;bcdedit /set hypervisorlaunchtype auto&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后重启电脑。&lt;/p&gt;&#xA;&lt;p&gt;重启后继续管理员 PowerShell：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wsl --update --web-download&#xD;&#xA;wsl --install --web-download -d Ubuntu&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;你这个 &lt;code&gt;wsl --update&lt;/code&gt; 走 Store 时失败，所以关键是加 &lt;code&gt;--web-download&lt;/code&gt;，绕过 Microsoft Store 下载。&lt;/p&gt;&#xA;&lt;p&gt;如果还失败，就手动下载安装：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;打开官方 WSL GitHub 最新版：&#xA;&lt;a class=&#34;link&#34; href=&#34;https://github.com/microsoft/WSL/releases/latest&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xD;&#xA;    &gt;https://github.com/microsoft/WSL/releases/latest&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;下载：&lt;code&gt;Microsoft.WSL.x64.msixbundle&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;双击安装，或管理员 PowerShell 执行：&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Add-AppxPackage .\Microsoft.WSL.x64.msixbundle&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;&#xA;&lt;li&gt;再执行：&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wsl --install --web-download -d Ubuntu&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;微软官方也推荐 &lt;code&gt;--web-download&lt;/code&gt; 用来绕过 Store 下载 WSL/发行版：&#xA;&lt;a class=&#34;link&#34; href=&#34;https://learn.microsoft.com/en-us/windows/wsl/install&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xD;&#xA;    &gt;Microsoft WSL install docs&lt;/a&gt;&lt;/p&gt;&#xA;</description>
-        </item></channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on 我的个人博客</title><link>https://liangjinzhi.com/tags/windows/</link><description>Recent content in Windows on 我的个人博客</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 05 Aug 2026 22:18:29 +0800</lastBuildDate><atom:link href="https://liangjinzhi.com/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>windows安装wsl失败</title><link>https://liangjinzhi.com/posts/win-install-wsl/</link><pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate><guid>https://liangjinzhi.com/posts/win-install-wsl/</guid><description>&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;install -d Ubuntu
+安装过程中出现错误。分发名称: &amp;lsquo;Ubuntu&amp;rsquo; 错误代码: 0x8000ffff&lt;/p&gt;
+&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;update
+正在安装: 适用于 Linux 的 Windows 子系统
+灾难性故障
+设备名	DESKTOP-CH432AQ
+处理器	12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz
+机带 RAM	32.0 GB (31.8 GB 可用)
+存储	466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB
+显卡	NVIDIA GeForce RTX 3060 Laptop GPU (12 GB)
+设备 ID	65F4DCDC-5059-4AE7-AB42-3D376CCF00CA
+产品 ID	00330-80000-00000-AA243
+系统类型	64 位操作系统, 基于 x64 的处理器
+笔和触控	没有可用于此显示器的笔或触控输入&lt;/p&gt;
+&lt;p&gt;不复杂，按这个顺序来，重点是&lt;strong&gt;用管理员 PowerShell&lt;/strong&gt;，这里搞错了，不是普通 CMD。&lt;/p&gt;
+&lt;p&gt;先右键开始菜单 → &lt;strong&gt;Windows PowerShell / Terminal 管理员&lt;/strong&gt;，执行：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+bcdedit /set hypervisorlaunchtype auto
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后重启电脑。&lt;/p&gt;
+&lt;p&gt;重启后继续管理员 PowerShell：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;wsl --update --web-download
+wsl --install --web-download -d Ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;你这个 &lt;code&gt;wsl --update&lt;/code&gt; 走 Store 时失败，所以关键是加 &lt;code&gt;--web-download&lt;/code&gt;，绕过 Microsoft Store 下载。&lt;/p&gt;
+&lt;p&gt;如果还失败，就手动下载安装：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开官方 WSL GitHub 最新版：
+&lt;a class="link" href="https://github.com/microsoft/WSL/releases/latest" target="_blank" rel="noopener"
+ &gt;https://github.com/microsoft/WSL/releases/latest&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;下载：&lt;code&gt;Microsoft.WSL.x64.msixbundle&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;双击安装，或管理员 PowerShell 执行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;Add-AppxPackage .\Microsoft.WSL.x64.msixbundle
+&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&lt;li&gt;再执行：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;wsl --install --web-download -d Ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;微软官方也推荐 &lt;code&gt;--web-download&lt;/code&gt; 用来绕过 Store 下载 WSL/发行版：
+&lt;a class="link" href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener"
+ &gt;Microsoft WSL install docs&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
