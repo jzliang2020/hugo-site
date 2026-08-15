@@ -1,7 +1,7 @@
 ---
 title: 内网环境基于 Docker Compose 部署 Prometheus + Grafana 监控系统（含 Windows 节点接入）
 toc: true
-date: 2026-03-29
+date: 2026-08-15
 categories:
   - 运维实践
 tags:
