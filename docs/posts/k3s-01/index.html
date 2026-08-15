@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="auto" data-theme="auto">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
-<title>【K3s 系列 01】从零搭建 K3s | 我的个人博客</title>
-<meta name="keywords" content="">
-<meta name="description" content="一、获取系统基础硬件信息
+<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>【K3s 系列 01】从零搭建 K3s | 我的个人博客</title><meta name=keywords content><meta name=description content='一、获取系统基础硬件信息
 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）
 pig@vm-debian-13:~$ uname -m
 x86_64
 #处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）
-pig@vm-debian-13:~$ lscpu | grep -E &#34;Model name|CPU\(s\):&#34;
+pig@vm-debian-13:~$ lscpu | grep -E "Model name|CPU\(s\):"
 CPU(s):                                  2
 Model name:                              13th Gen Intel(R) Core(TM) i5-13400
 NUMA node0 CPU(s):                       0,1
@@ -33,118 +24,9 @@ $ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_M
   
 
   检查k3s服务状态
-">
-<meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/k3s-01/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/posts/k3s-01/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-                color-scheme: dark;
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .toc {
-                background: var(--entry);
-            }
-        }
-
-    </style>
-</noscript>
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else if (localStorage.getItem("pref-theme") === "light") {
-       document.querySelector("html").dataset.theme = 'light';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.querySelector("html").dataset.theme = 'dark';
-    } else {
-        document.querySelector("html").dataset.theme = 'light';
-    }
-
-</script>
-</head>
-<body id="top">
-    <header class="header">
-    <nav class="header-nav">
-        <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="我的个人博客 (Alt + H)">我的个人博客</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu" class="menu">
-            <li>
-                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
-                    <span>关于作者</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
-
-<article class="post-single">
-  <header class="post-header">
-    
-    <h1 class="post-title entry-hint-parent">
-      【K3s 系列 01】从零搭建 K3s
-    </h1>
-    <div class="post-meta">
-
-<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span>
-
-</div>
-  </header> 
-  <div class="post-content md-content"><h2 class="wp-block-heading" id="一获取系统基础硬件信息">一、获取系统基础硬件信息</h2>
-<pre class="wp-block-code"><code>#基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）
+'><meta name=author content><link rel=canonical href=https://liangjinzhi.com/posts/k3s-01/><link crossorigin=anonymous href=/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as=style><link rel=icon href=https://liangjinzhi.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://liangjinzhi.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://liangjinzhi.com/favicon-32x32.png><link rel=apple-touch-icon href=https://liangjinzhi.com/apple-touch-icon.png><link rel=mask-icon href=https://liangjinzhi.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://liangjinzhi.com/posts/k3s-01/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://liangjinzhi.com/posts/k3s-01/"><meta property="og:site_name" content="我的个人博客"><meta property="og:title" content="【K3s 系列 01】从零搭建 K3s"><meta property="og:description" content='一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）pig@vm-debian-13:~$ uname -mx86_64#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）pig@vm-debian-13:~$ lscpu | grep -E "Model name|CPU\(s\):"CPU(s): 2Model name: 13th Gen Intel(R) Core(TM) i5-13400NUMA node0 CPU(s): 0,1#内存大小pig@vm-debian-13:~$ free -mtotal used free shared buff/cache availableMem: 3883 886 1917 0 1334 2997Swap: 0 0 安装脚本官方的脚本太慢，国内用户使用这个脚本进行加速$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -检查k3s服务状态'><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-07-04T00:00:00+00:00"><meta property="article:modified_time" content="2026-07-04T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="【K3s 系列 01】从零搭建 K3s"><meta name=twitter:description content='一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）pig@vm-debian-13:~$ uname -mx86_64#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）pig@vm-debian-13:~$ lscpu | grep -E "Model name|CPU\(s\):"CPU(s): 2Model name: 13th Gen Intel(R) Core(TM) i5-13400NUMA node0 CPU(s): 0,1#内存大小pig@vm-debian-13:~$ free -mtotal used free shared buff/cache availableMem: 3883 886 1917 0 1334 2997Swap: 0 0 安装脚本官方的脚本太慢，国内用户使用这个脚本进行加速$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -检查k3s服务状态'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://liangjinzhi.com/posts/"},{"@type":"ListItem","position":2,"name":"【K3s 系列 01】从零搭建 K3s","item":"https://liangjinzhi.com/posts/k3s-01/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"【K3s 系列 01】从零搭建 K3s","name":"【K3s 系列 01】从零搭建 K3s","description":"一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）\rpig@vm-debian-13:~$ uname -m\rx86_64\r#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）\rpig@vm-debian-13:~$ lscpu | grep -E \"Model name|CPU\\(s\\):\"\rCPU(s): 2\rModel name: 13th Gen Intel(R) Core(TM) i5-13400\rNUMA node0 CPU(s): 0,1\r#内存大小\rpig@vm-debian-13:~$ free -m\rtotal used free shared buff/cache available\rMem: 3883 886 1917 0 1334 2997\rSwap: 0 0 安装脚本\r官方的脚本太慢，国内用户使用这个脚本进行加速\r$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -\r检查k3s服务状态\r","keywords":[],"articleBody":"一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）\rpig@vm-debian-13:~$ uname -m\rx86_64\r#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）\rpig@vm-debian-13:~$ lscpu | grep -E \"Model name|CPU\\(s\\):\"\rCPU(s): 2\rModel name: 13th Gen Intel(R) Core(TM) i5-13400\rNUMA node0 CPU(s): 0,1\r#内存大小\rpig@vm-debian-13:~$ free -m\rtotal used free shared buff/cache available\rMem: 3883 886 1917 0 1334 2997\rSwap: 0 0 安装脚本\r官方的脚本太慢，国内用户使用这个脚本进行加速\r$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -\r检查k3s服务状态\r$ systemctl status k3s\r查看集群节点状态\r$ sudo kubectl get node\r查看集群中运行的pod\r$ sudo kubectl get pods -A\rK3s 官方经典架构与安装文档\r## 二、配置kubectl （普通用户） {.wp-block-heading}\r普通用户执行命令 kubectl get nodes 提示没有权限\rpig@vm-debian:~$ mkdir -p ~/.kube #创建 .kube 目录\rpig@vm-debian:~$ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config #复制 K3s 默认配置\rpig@vm-debian:~$ sudo chown $USER:$USER ~/.kube/config #修改文件所属用户\rpig@vm-debian:~$ echo 'export KUBECONFIG=$HOME/.kube/config' \u003e\u003e ~/.bashrc #配置环境变量\rsource ~/.bashrc\rpig@vm-debian:~$ kubectl get nodes #验证配置\rNAME STATUS ROLES AGE VERSION\rvm-debian-13 Ready control-plane 175m v1.35.5+k3s1\r如上，说明当前普通用户已经可以正常访问 Kubernetes API。\r运维思考\r生产环境中，不建议长期使用root用户进行Kubernetes管理。\r推荐使用普通用户，通过 sudo 执行系统级操作（如管理服务、修改配置），而将 kubectl 配置为普通用户直接使用。\r这样既符合Linux最小权限原则，也更符合企业运维的实际工作方式。\r## 三、配置dashboard {.wp-block-heading}\r为了避免下载失败的情况，这里使用国内可访问的镜像仓库\r### 3.1下载YAML {.wp-block-heading}\rwget https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml\r### 3.2修改类似内容 {.wp-block-heading}\r找到类似内容：\rimage: kubernetesui/dashboard:v2.7.0\r改成（示例）：\rimage: docker.m.daocloud.io/kubernetesui/dashboard:v2.7.0\r再找到：\rimage: kubernetesui/metrics-scraper:v1.0.8\r改成：\rimage: docker.m.daocloud.io/kubernetesui/metrics-scraper:v1.0.8\r### 3.3开始部署 {.wp-block-heading}\r$ kubectl apply -f recommended.yaml\rnamespace/kubernetes-dashboard unchanged\rserviceaccount/kubernetes-dashboard unchanged\rservice/kubernetes-dashboard unchanged\rsecret/kubernetes-dashboard-certs unchanged\rsecret/kubernetes-dashboard-csrf unchanged\rsecret/kubernetes-dashboard-key-holder unchanged\rconfigmap/kubernetes-dashboard-settings unchanged\rrole.rbac.authorization.k8s.io/kubernetes-dashboard unchanged\rclusterrole.rbac.authorization.k8s.io/kubernetes-dashboard unchanged\rrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard unchanged\rclusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard unchanged\rdeployment.apps/kubernetes-dashboard configured\rservice/dashboard-metrics-scraper unchanged\rdeployment.apps/dashboard-metrics-scraper configured\r3.4验证是否成功\r这里有2个之前创建创建的pod\r$ kubectl get pods -n kubernetes-dashboard\rNAME READY STATUS RESTARTS AGE\rdashboard-metrics-scraper-7764d6f57c-r26sm 0/1 ContainerCreating 0 13m\rdashboard-metrics-scraper-8d46b45f6-4c6bv 0/1 ContainerCreating 0 23h\rkubernetes-dashboard-659cf4fdd5-l2gp9 0/1 ContainerCreating 0 13m\rkubernetes-dashboard-b44857bbb-9k9kc 0/1 ContainerCreating 0 23h\r这里READY一直是0，失败了，需要 排查一下。\r查看pod卡在哪里了\rkubectkubectl describe pod -n kubernetes-dashboard-659cf4fdd5-l2gp9\rNo resources found in kubernetes-dashboard-659cf4fdd5-l2gp9 namespace.\rpig@vm-debian:~$\rpig@vm-debian:~$ kubectl describe pod -n kubernetes-dashboard dashboard-metrics-scraper-7764d6f57c-r26sm |tail\rWarning FailedCreatePodSandBox 17m kubelet Failed to create pod sandbox: rpc error: code = DeadlineExceeded desc = failed to start sandbox \"74e4795e553dc82c49e53c89a724293525e65e3134fa2ae09787ff197831d938\": failed to get sandbox image \"rancher/mirrored-pause:3.6\": failed to pull image \"rancher/mirrored-pause:3.6\": failed to pull and unpack image \"docker.io/rancher/mirrored-pause:3.6\": failed to resolve reference \"docker.io/rancher/mirrored-pause:3.6\": failed to do request: Head \"https://registry-1.docker.io/v2/rancher/mirrored-pause/manifests/3.6\": dial tcp 182.50.139.56:443: i/o timeout-n kubernetes-dashboard-659cf4fdd5-l2gp9\rNo resources found in kubernetes-dashboard-659cf4fdd5-l2gp9 namespace.\rpig@vm-debian:~$\rpig@vm-debian:~$ kubectl describe pod -n kubernetes-dashboard dashboard-metrics-scraper-7764d6f57c-r26sm |tail\rWarning FailedCreatePodSandBox 17m kubelet Failed to create pod sandbox: rpc error: code = DeadlineExceeded desc = failed to start sandbox \"74e4795e553dc82c49e53c89a724293525e65e3134fa2ae09787ff197831d938\": failed to get sandbox image \"rancher/mirrored-pause:3.6\": failed to pull image \"rancher/mirrored-pause:3.6\": failed to pull and unpack image \"docker.io/rancher/mirrored-pause:3.6\": failed to resolve reference \"docker.io/rancher/mirrored-pause:3.6\": failed to do request: Head \"https://registry-1.docker.io/v2/rancher/mirrored-pause/manifests/3.6\": dial tcp 182.50.139.56:443: i/o timeout\rKubernetes 无法拉取 pause 镜像（sandbox基础镜像）\r解决方案：\r#修改 K3s 的 pause 镜像\r$ sudo vi /etc/rancher/k3s/registries.yaml #编辑以下文件\rmirrors:\rdocker.io:\rendpoint:\r- \"https://docker.m.daocloud.io\"\r#然后进行重启\r$sudo systemctl restart k3s\r$ kubectl get pods -n kubernetes-dashboard #这个时候已经创建成功了\rNAME READY STATUS RESTARTS AGE\rdashboard-metrics-scraper-7764d6f57c-r26sm 1/1 Running 0 28m\rkubernetes-dashboard-659cf4fdd5-l2gp9 1/1 Running 1 (2m45s ago) 28m\r3.4配置Dashboard进行访问\r可以通过 kubectl proxy，或者配置NodePort进行进行访问。\r我们这里通过配置NodePort来继续。\r$kubectl edit svc -n kubernetes-dashboard kubernetes-dashboard\r#找到：\rtype: ClusterIP\r#修改成\rtype: NodePort\r$kubectl get svc -n kubernetes-dashboard #查看端口\r主机访问：https://ip:port\r生成token\r$ kubectl -n kubernetes-dashboard create token admin-user\reyJhbGciOiJSUz.....qGeyA #这里进行省略输出\r获取token并进行登录\r至此，K3s 单节点环境已完成基础验证，包括：\rkubectl 可用\rPod 正常运行\rDashboard 可访问并登录成功\r","wordCount":"489","inLanguage":"zh-cn","datePublished":"2026-07-04T00:00:00Z","dateModified":"2026-07-04T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://liangjinzhi.com/posts/k3s-01/"},"publisher":{"@type":"Organization","name":"我的个人博客","logo":{"@type":"ImageObject","url":"https://liangjinzhi.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://liangjinzhi.com/ accesskey=h title="我的个人博客 (Alt + H)">我的个人博客</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
+<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://liangjinzhi.com/posts/about-author/ title=关于作者><span>关于作者</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">【K3s 系列 01】从零搭建 K3s</h1><div class=post-meta><span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></div></header><div class="post-content md-content"><h2 class=wp-block-heading id=一获取系统基础硬件信息>一、获取系统基础硬件信息</h2><pre class=wp-block-code><code>#基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）
 pig@vm-debian-13:~$ uname -m
 x86_64
 #处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）
@@ -156,45 +38,7 @@ NUMA node0 CPU(s):                       0,1
 pig@vm-debian-13:~$ free -m
                total        used        free      shared  buff/cache   available
 Mem:            3883         886        1917           0        1334        2997
-Swap:              0           0   </code></pre>
-<p class="wp-block-paragraph">
-</p>
-<p class="wp-block-paragraph">
-  <strong>安装脚本</strong>
-</p>
-<p class="wp-block-paragraph">
-  官方的脚本太慢，国内用户使用这个脚本进行加速
-</p>
-<pre class="wp-block-code"><code>$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -</code></pre><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="1238" height="505" src="/wp-content/uploads/2026/06/image-74.png" alt="" class="wp-image-340" /> </figure> 
-<p class="wp-block-paragraph">
-  检查k3s服务状态
-</p>
-<pre class="wp-block-code"><code>$ systemctl status k3s</code></pre><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="858" height="270" src="/wp-content/uploads/2026/06/image-32.png" alt="" class="wp-image-147" srcset="/wp-content/uploads/2026/06/image-32.png 858w, /wp-content/uploads/2026/06/image-32-300x94.png 300w, /wp-content/uploads/2026/06/image-32-768x242.png 768w" sizes="auto, (max-width: 858px) 100vw, 858px" /> </figure> 
-<p class="wp-block-paragraph">
-  查看集群节点状态
-</p>
-<pre class="wp-block-code"><code>$ sudo kubectl get node</code></pre><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="816" height="64" src="/wp-content/uploads/2026/06/image-33.png" alt="" class="wp-image-148" srcset="/wp-content/uploads/2026/06/image-33.png 816w, /wp-content/uploads/2026/06/image-33-300x24.png 300w, /wp-content/uploads/2026/06/image-33-768x60.png 768w" sizes="auto, (max-width: 816px) 100vw, 816px" /> </figure> 
-<p class="wp-block-paragraph">
-  查看集群中运行的pod
-</p>
-<pre class="wp-block-code"><code>$ sudo kubectl get pods -A</code></pre><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="942" height="135" src="/wp-content/uploads/2026/06/image-34.png" alt="" class="wp-image-149" srcset="/wp-content/uploads/2026/06/image-34.png 942w, /wp-content/uploads/2026/06/image-34-300x43.png 300w, /wp-content/uploads/2026/06/image-34-768x110.png 768w" sizes="auto, (max-width: 942px) 100vw, 942px" /> </figure> 
-<p class="wp-block-paragraph">
-</p>
-<p class="wp-block-paragraph">
-  <a href="https://docs.k3s.io/zh/quick-start" data-type="link" data-id="https://docs.k3s.io/zh/quick-start">K3s 官方经典架构与安装文档</a>
-</p>
-<p class="wp-block-paragraph">
-</p>
-## 二、配置kubectl （普通用户） {.wp-block-heading}
-<p class="wp-block-paragraph">
-  普通用户执行命令 <em><kbd>kubectl get nodes</kbd></em> 提示没有权限
-</p><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="934" height="127" src="/wp-content/uploads/2026/06/image-35.png" alt="" class="wp-image-151" srcset="/wp-content/uploads/2026/06/image-35.png 934w, /wp-content/uploads/2026/06/image-35-300x41.png 300w, /wp-content/uploads/2026/06/image-35-768x104.png 768w" sizes="auto, (max-width: 934px) 100vw, 934px" /> </figure> 
-<pre class="wp-block-code"><code>pig@vm-debian:~$ mkdir -p ~/.kube   #创建 .kube 目录
+Swap:              0           0   </code></pre><p class=wp-block-paragraph></p><p class=wp-block-paragraph><strong>安装脚本</strong></p><p class=wp-block-paragraph>官方的脚本太慢，国内用户使用这个脚本进行加速</p><pre class=wp-block-code><code>$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -</code></pre><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1238 height=505 src=/wp-content/uploads/2026/06/image-74.png alt class=wp-image-340></figure><p class=wp-block-paragraph>检查k3s服务状态</p><pre class=wp-block-code><code>$ systemctl status k3s</code></pre><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=858 height=270 src=/wp-content/uploads/2026/06/image-32.png alt class=wp-image-147 srcset="/wp-content/uploads/2026/06/image-32.png 858w, /wp-content/uploads/2026/06/image-32-300x94.png 300w, /wp-content/uploads/2026/06/image-32-768x242.png 768w" sizes="auto, (max-width: 858px) 100vw, 858px"></figure><p class=wp-block-paragraph>查看集群节点状态</p><pre class=wp-block-code><code>$ sudo kubectl get node</code></pre><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=816 height=64 src=/wp-content/uploads/2026/06/image-33.png alt class=wp-image-148 srcset="/wp-content/uploads/2026/06/image-33.png 816w, /wp-content/uploads/2026/06/image-33-300x24.png 300w, /wp-content/uploads/2026/06/image-33-768x60.png 768w" sizes="auto, (max-width: 816px) 100vw, 816px"></figure><p class=wp-block-paragraph>查看集群中运行的pod</p><pre class=wp-block-code><code>$ sudo kubectl get pods -A</code></pre><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=942 height=135 src=/wp-content/uploads/2026/06/image-34.png alt class=wp-image-149 srcset="/wp-content/uploads/2026/06/image-34.png 942w, /wp-content/uploads/2026/06/image-34-300x43.png 300w, /wp-content/uploads/2026/06/image-34-768x110.png 768w" sizes="auto, (max-width: 942px) 100vw, 942px"></figure><p class=wp-block-paragraph></p><p class=wp-block-paragraph><a href=https://docs.k3s.io/zh/quick-start data-type=link data-id=https://docs.k3s.io/zh/quick-start>K3s 官方经典架构与安装文档</a></p><p class=wp-block-paragraph></p>## 二、配置kubectl （普通用户） {.wp-block-heading}<p class=wp-block-paragraph>普通用户执行命令 <em><kbd>kubectl get nodes</kbd></em> 提示没有权限</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=934 height=127 src=/wp-content/uploads/2026/06/image-35.png alt class=wp-image-151 srcset="/wp-content/uploads/2026/06/image-35.png 934w, /wp-content/uploads/2026/06/image-35-300x41.png 300w, /wp-content/uploads/2026/06/image-35-768x104.png 768w" sizes="auto, (max-width: 934px) 100vw, 934px"></figure><pre class=wp-block-code><code>pig@vm-debian:~$ mkdir -p ~/.kube   #创建 .kube 目录
 pig@vm-debian:~$ sudo cp /etc/rancher/k3s/k3s.yaml  ~/.kube/config #复制 K3s 默认配置
 pig@vm-debian:~$ sudo chown $USER:$USER ~/.kube/config #修改文件所属用户
 pig@vm-debian:~$ echo 'export KUBECONFIG=$HOME/.kube/config' &gt;&gt; ~/.bashrc #配置环境变量
@@ -202,39 +46,14 @@ source ~/.bashrc
 pig@vm-debian:~$ kubectl get nodes #验证配置
 NAME           STATUS   ROLES           AGE    VERSION
 vm-debian-13   Ready    control-plane   175m   v1.35.5+k3s1
-</code></pre>
-<p class="wp-block-paragraph">
-  如上，说明当前普通用户已经可以正常访问 Kubernetes API。
-</p>
-<p class="wp-block-paragraph">
-  <strong>运维思考</strong>
-</p>
-<p class="wp-block-paragraph">
-  生产环境中，不建议长期使用root用户进行Kubernetes管理。
-</p>
-<p class="wp-block-paragraph">
-  推荐使用普通用户，通过 <kbd>sudo</kbd> 执行系统级操作（如管理服务、修改配置），而将 <kbd>kubectl</kbd> 配置为普通用户直接使用。
-</p>
-<p class="wp-block-paragraph">
-  这样既符合Linux最小权限原则，也更符合企业运维的实际工作方式。
-</p>
-## 三、配置dashboard {.wp-block-heading}
-<p class="wp-block-paragraph">
-  为了避免下载失败的情况，这里使用国内可访问的镜像仓库
-</p>
-### 3.1下载YAML {.wp-block-heading}
-<pre class="wp-block-code"><code>wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml</code></pre>
-### 3.2修改类似内容 {.wp-block-heading}
-<pre class="wp-block-code"><code>找到类似内容：
+</code></pre><p class=wp-block-paragraph>如上，说明当前普通用户已经可以正常访问 Kubernetes API。</p><p class=wp-block-paragraph><strong>运维思考</strong></p><p class=wp-block-paragraph>生产环境中，不建议长期使用root用户进行Kubernetes管理。</p><p class=wp-block-paragraph>推荐使用普通用户，通过 <kbd>sudo</kbd> 执行系统级操作（如管理服务、修改配置），而将 <kbd>kubectl</kbd> 配置为普通用户直接使用。</p><p class=wp-block-paragraph>这样既符合Linux最小权限原则，也更符合企业运维的实际工作方式。</p>## 三、配置dashboard {.wp-block-heading}<p class=wp-block-paragraph>为了避免下载失败的情况，这里使用国内可访问的镜像仓库</p>### 3.1下载YAML {.wp-block-heading}<pre class=wp-block-code><code>wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml</code></pre>### 3.2修改类似内容 {.wp-block-heading}<pre class=wp-block-code><code>找到类似内容：
 image: kubernetesui/dashboard:v2.7.0
 改成（示例）：
 image: docker.m.daocloud.io/kubernetesui/dashboard:v2.7.0
 再找到：
 image: kubernetesui/metrics-scraper:v1.0.8
 改成：
-image: docker.m.daocloud.io/kubernetesui/metrics-scraper:v1.0.8</code></pre>
-### 3.3开始部署 {.wp-block-heading}
-<pre class="wp-block-code"><code>$ kubectl apply -f recommended.yaml
+image: docker.m.daocloud.io/kubernetesui/metrics-scraper:v1.0.8</code></pre>### 3.3开始部署 {.wp-block-heading}<pre class=wp-block-code><code>$ kubectl apply -f recommended.yaml
 namespace/kubernetes-dashboard unchanged
 serviceaccount/kubernetes-dashboard unchanged
 service/kubernetes-dashboard unchanged
@@ -249,27 +68,13 @@ clusterrolebinding.rbac.authorization.k8s.io/kubernetes-dashboard unchanged
 deployment.apps/kubernetes-dashboard configured
 service/dashboard-metrics-scraper unchanged
 deployment.apps/dashboard-metrics-scraper configured
-</code></pre>
-<p class="wp-block-paragraph">
-  3.4验证是否成功
-</p>
-<p class="wp-block-paragraph">
-  这里有2个之前创建创建的pod
-</p>
-<pre class="wp-block-code"><code>$ kubectl get pods -n kubernetes-dashboard
+</code></pre><p class=wp-block-paragraph>3.4验证是否成功</p><p class=wp-block-paragraph>这里有2个之前创建创建的pod</p><pre class=wp-block-code><code>$ kubectl get pods -n kubernetes-dashboard
 NAME                                         READY   STATUS              RESTARTS   AGE
 dashboard-metrics-scraper-7764d6f57c-r26sm   0/1     ContainerCreating   0          13m
 dashboard-metrics-scraper-8d46b45f6-4c6bv    0/1     ContainerCreating   0          23h
 kubernetes-dashboard-659cf4fdd5-l2gp9        0/1     ContainerCreating   0          13m
 kubernetes-dashboard-b44857bbb-9k9kc         0/1     ContainerCreating   0          23h
-</code></pre>
-<p class="wp-block-paragraph">
-  这里READY一直是0，失败了，需要 排查一下。
-</p>
-<p class="wp-block-paragraph">
-  查看pod卡在哪里了
-</p>
-<pre class="wp-block-code"><code>kubectkubectl describe pod -n kubernetes-dashboard-659cf4fdd5-l2gp9
+</code></pre><p class=wp-block-paragraph>这里READY一直是0，失败了，需要 排查一下。</p><p class=wp-block-paragraph>查看pod卡在哪里了</p><pre class=wp-block-code><code>kubectkubectl describe pod -n kubernetes-dashboard-659cf4fdd5-l2gp9
 No resources found in kubernetes-dashboard-659cf4fdd5-l2gp9 namespace.
 pig@vm-debian:~$
 pig@vm-debian:~$ kubectl describe pod -n kubernetes-dashboard dashboard-metrics-scraper-7764d6f57c-r26sm |tail
@@ -278,14 +83,7 @@ No resources found in kubernetes-dashboard-659cf4fdd5-l2gp9 namespace.
 pig@vm-debian:~$
 pig@vm-debian:~$ kubectl describe pod -n kubernetes-dashboard dashboard-metrics-scraper-7764d6f57c-r26sm |tail
   Warning  FailedCreatePodSandBox  17m                 kubelet            Failed to create pod sandbox: rpc error: code = DeadlineExceeded desc = failed to start sandbox "74e4795e553dc82c49e53c89a724293525e65e3134fa2ae09787ff197831d938": failed to get sandbox image "rancher/mirrored-pause:3.6": failed to pull image "rancher/mirrored-pause:3.6": failed to pull and unpack image "docker.io/rancher/mirrored-pause:3.6": failed to resolve reference "docker.io/rancher/mirrored-pause:3.6": failed to do request: Head "https://registry-1.docker.io/v2/rancher/mirrored-pause/manifests/3.6": dial tcp 182.50.139.56:443: i/o timeout
-</code></pre>
-<p class="wp-block-paragraph">
-  Kubernetes 无法拉取 pause 镜像（sandbox基础镜像）
-</p>
-<p class="wp-block-paragraph">
-  解决方案：
-</p>
-<pre class="wp-block-code"><code>
+</code></pre><p class=wp-block-paragraph>Kubernetes 无法拉取 pause 镜像（sandbox基础镜像）</p><p class=wp-block-paragraph>解决方案：</p><pre class=wp-block-code><code>
 #修改 K3s 的 pause 镜像
 $ sudo vi  /etc/rancher/k3s/registries.yaml #编辑以下文件
 mirrors:
@@ -298,142 +96,14 @@ $ kubectl get pods -n kubernetes-dashboard  #这个时候已经创建成功了
 NAME                                         READY   STATUS    RESTARTS        AGE
 dashboard-metrics-scraper-7764d6f57c-r26sm   1/1     Running   0               28m
 kubernetes-dashboard-659cf4fdd5-l2gp9        1/1     Running   1 (2m45s ago)   28m
-</code></pre>
-<p class="wp-block-paragraph">
-  3.4配置Dashboard进行访问
-</p>
-<p class="wp-block-paragraph">
-  可以通过 kubectl proxy，或者配置NodePort进行进行访问。
-</p>
-<p class="wp-block-paragraph">
-  我们这里通过配置NodePort来继续。
-</p>
-<pre class="wp-block-code"><code>$kubectl edit svc -n kubernetes-dashboard kubernetes-dashboard
+</code></pre><p class=wp-block-paragraph>3.4配置Dashboard进行访问</p><p class=wp-block-paragraph>可以通过 kubectl proxy，或者配置NodePort进行进行访问。</p><p class=wp-block-paragraph>我们这里通过配置NodePort来继续。</p><pre class=wp-block-code><code>$kubectl edit svc -n kubernetes-dashboard kubernetes-dashboard
 #找到：
 type: ClusterIP
 #修改成
-type: NodePort</code></pre>
-<p class="wp-block-paragraph">
-  $kubectl get svc -n kubernetes-dashboard #查看端口
-</p><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="1020" height="130" src="/wp-content/uploads/2026/06/image-71.png" alt="" class="wp-image-336" /> </figure> 
-<p class="wp-block-paragraph">
-  主机访问：https://ip:port
-</p><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="1495" height="606" src="/wp-content/uploads/2026/06/image-72.png" alt="" class="wp-image-337" /> </figure> 
-<p class="wp-block-paragraph">
-  生成token
-</p>
-<pre class="wp-block-code"><code>$ kubectl -n kubernetes-dashboard create token admin-user
+type: NodePort</code></pre><p class=wp-block-paragraph>$kubectl get svc -n kubernetes-dashboard #查看端口</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1020 height=130 src=/wp-content/uploads/2026/06/image-71.png alt class=wp-image-336></figure><p class=wp-block-paragraph>主机访问：https://ip:port</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1495 height=606 src=/wp-content/uploads/2026/06/image-72.png alt class=wp-image-337></figure><p class=wp-block-paragraph>生成token</p><pre class=wp-block-code><code>$ kubectl -n kubernetes-dashboard create token admin-user
 eyJhbGciOiJSUz.....qGeyA  #这里进行省略输出
-</code></pre>
-<p class="wp-block-paragraph">
-  获取token并进行登录
-</p><figure class="wp-block-image size-full">
-<img loading="lazy" decoding="async" width="2538" height="994" src="/wp-content/uploads/2026/06/image-73.png" alt="" class="wp-image-338" /> </figure> 
-<p class="wp-block-paragraph">
-  至此，K3s 单节点环境已完成基础验证，包括：
-</p>
-<ul class="wp-block-list">
-  <li>
-    kubectl 可用
-  </li>
-  <li>
-    Pod 正常运行
-  </li>
-  <li>
-    Dashboard 可访问并登录成功
-  </li>
-</ul>
-
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/">我的个人博客</a></span> · 
-
-    
-    
-    <span>
-        Powered by
-        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
-        <polyline points="17 11 12 6 7 11"></polyline>
-        <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-</a>
-
-<script>
-    let menu = document.getElementById('menu');
-    if (menu) {
-        
-        const scrollPosition = localStorage.getItem("menu-scroll-position");
-        if (scrollPosition) {
-            menu.scrollLeft = parseInt(scrollPosition, 10);
-        }
-        
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
-        }
-    };
-
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        const html = document.querySelector("html");
-        if (html.dataset.theme === "dark") {
-            html.dataset.theme = 'light';
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            html.dataset.theme = 'dark';
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-</body>
-
-</html>
+</code></pre><p class=wp-block-paragraph>获取token并进行登录</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=2538 height=994 src=/wp-content/uploads/2026/06/image-73.png alt class=wp-image-338></figure><p class=wp-block-paragraph>至此，K3s 单节点环境已完成基础验证，包括：</p><ul class=wp-block-list><li>kubectl 可用</li><li>Pod 正常运行</li><li>Dashboard 可访问并登录成功</li></ul></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://liangjinzhi.com/>我的个人博客</a></span> ·
+<span>Powered by
+<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
+</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
