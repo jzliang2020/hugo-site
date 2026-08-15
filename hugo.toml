@@ -2,7 +2,7 @@ baseURL = "https://liangjinzhi.com/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
 title = "\u6211\u7684\u4e2a\u4eba\u535a\u5ba2"
-theme = "stack"
+theme = "PaperMod"
 publishDir = "docs"
 
 # Generate JSON index for search.
