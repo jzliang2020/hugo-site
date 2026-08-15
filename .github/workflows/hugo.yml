@@ -1,9 +1,17 @@
-﻿name: Hugo Actions
+﻿name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -23,3 +31,19 @@ jobs:
 
       - name: Build
         run: hugo --minify
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs  # 如果你的 hugo.toml 里 publishDir 是 public，这里就改写 ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
