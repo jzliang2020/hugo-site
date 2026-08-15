@@ -1,0 +1,49 @@
+baseURL = "https://liangjinzhi.com/"
+defaultContentLanguage = "zh-cn"
+locale = "zh-cn"
+title = "\u6211\u7684\u4e2a\u4eba\u535a\u5ba2"
+theme = "PaperMod"
+publishDir = "docs"
+
+# Generate JSON index for search.
+[outputs]
+  home = ["HTML", "JSON"]
+
+[outputFormats.JSON]
+  mediatype = "application/json"
+  baseName = "index"
+  isPlainText = true
+
+[params]
+  mainSections = ["posts"]
+  digestInHTML = false
+
+[params.sidebar]
+  emoji = "\U0001F44B"
+  subtitle = "\u8bb0\u5f55\u8fd0\u7ef4\u4e0e\u5f00\u53d1\u7684\u7b14\u8bb0"
+  avatar = "/img/avatar.png"
+  avatarLink = "/posts/about-author/"
+  widgets = ["search", "archives", "categories", "tags", "recent_posts"]
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[menu.main]]
+  identifier = "about"
+  name = "\u5173\u4e8e\u4f5c\u8005"
+  url = "/posts/about-author/"
+  weight = 20
+
+[params.sidebar.search]
+  enable = true
+
+[params.colorScheme]
+  toggle = false
+  default = "light"
+
+[params.comments]
+  enabled = false

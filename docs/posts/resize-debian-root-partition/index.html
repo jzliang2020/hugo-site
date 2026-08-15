@@ -1,23 +1,340 @@
-<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>调整debian根分区为最大空间 | 我的个人博客</title><meta name=keywords content><meta name=description content="
-  安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" data-theme="light">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2&gt;/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l &#43;100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab这样就好了">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/resize-debian-root-partition/">
+	<meta property="og:site_name" content="我的个人博客">
+	<meta property="og:title" content="调整debian根分区为最大空间">
+	<meta property="og:description" content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2&gt;/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l &#43;100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab这样就好了">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-07-04T00:00:00+00:00">
+		<meta property="article:modified_time" content="2026-07-04T00:00:00+00:00">
+
+
+	<meta itemprop="name" content="调整debian根分区为最大空间">
+	<meta itemprop="description" content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2&gt;/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l &#43;100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab这样就好了">
+	<meta itemprop="datePublished" content="2026-07-04T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2026-07-04T00:00:00+00:00">
+	<meta itemprop="wordCount" content="73">
+	<meta itemprop="keywords" content="运维实践,技术笔记">
+
+<title>调整debian根分区为最大空间 • 我的个人博客</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/posts/resize-debian-root-partition/">
+<link rel="stylesheet" href="/book.min.4d77e98d764f495b145946ef9260681bab38aaf7bc01f96a6f61a3a0fea19dbf.css" integrity="sha256-TXfpjXZPSVsUWUbvkmBoG6s4qve8Aflqb2GjoP6hnb8=" crossorigin="anonymous">
+
+
+
+  <script defer type="module" src="/zh-cn.search.min.4a297f085584129cbe8ac8c3daa69cb49d042f8fc85db459c26ef4863a66110c.js" integrity="sha256-Sil/CFWEEpy&#43;isjD2qactJ0EL4/IXbRZwm70hjpmEQw=" crossorigin="anonymous"></script>
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>我的个人博客</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/win-install-wsl/" class="">
+      windows安装wsl失败</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/k3s-01/" class="">
+      【K3s 系列 01】从零搭建 K3s</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/adguardhome-docker-setup/" class="">
+      AdguardHome容器化部署</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/how-to-apply-aws-free-tier/" class="">
+      AWS免费服务器申请教程</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/certd-ssl-auto-renewal-system/" class="">
+      Certd全自动证书管理系统</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/building-grafana-loki-log-analysis/" class="">
+      Loki日志管理</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/nginx-htpasswd-generator/" class="">
+      Nginx  htpasswd防护</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/resize-debian-root-partition/" class="active">
+      调整debian根分区为最大空间</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/about-author/" class="">
+      关于博客本人</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/use-one-mouse-keyboard-across-devices/" class="">
+      一套键鼠操作多终端</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/home-prometheus-monitoring/" class="">
+      内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>调整debian根分区为最大空间</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    调整debian根分区为最大空间
+  </h1>
+  
+  <div class="flex align-center text-small book-post-date">
+    <img src="/icons/calendar.svg" class="book-icon" alt="Calendar" />
+    <span>July 4, 2026</span>
+  </div>
+
+
+
+  
+  <div class="text-small">
+    
+      <a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/">运维实践</a>, 
+      <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a>
+  </div>
+  
 
   
 
+
+  <div class="book-post-content markdown-inner"><p class="wp-block-paragraph">
+  安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。
+</p><figure class="wp-block-image size-large">
+<img loading="lazy" decoding="async" width="1024" height="233" src="/wp-content/uploads/2026/06/image-28-1024x233.png" alt="" class="wp-image-115" srcset="/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, /wp-content/uploads/2026/06/image-28-300x68.png 300w, /wp-content/uploads/2026/06/image-28-768x175.png 768w, /wp-content/uploads/2026/06/image-28.png 1312w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<p class="wp-block-paragraph">
   备份/home目录
-
-# 1. 临时备份 home 目录的数据到 /tmp
+</p>
+<pre class="wp-block-code"><code># 1. 临时备份 home 目录的数据到 /tmp
 sudo cp -a /home/* /tmp/ 2>/dev/null
 # 2. 卸载 /home 挂载点
-sudo umount /home
-
+sudo umount /home</code></pre>
+<p class="wp-block-paragraph">
   切换到其他目录，并停止相关进程，否则不能卸载/home
-
-# 杀掉所有占用 /home 的进程
-sudo fuser -vkm /home
-
+</p>
+<pre class="wp-block-code"><code># 杀掉所有占用 /home 的进程
+sudo fuser -vkm /home</code></pre>
+<p class="wp-block-paragraph">
   调整好后卸载/home
-
-# 1. 重新卸载
+</p>
+<pre class="wp-block-code"><code># 1. 重新卸载
 sudo umount /home
 # 2. 删除 home 逻辑卷
 sudo lvremove -y /dev/mapper/vm--debian--13--vg-home
@@ -26,26 +343,95 @@ sudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root
 # 4. 刷新文件系统
 sudo resize2fs /dev/mapper/vm--debian--13--vg-root
 # 5. 清理 fstab 挂载配置
-sudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab
-
+sudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab</code></pre>
+<p class="wp-block-paragraph">
   这样就好了
-"><meta name=author content><link rel=canonical href=https://liangjinzhi.com/posts/resize-debian-root-partition/><link crossorigin=anonymous href=/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as=style><link rel=icon href=https://liangjinzhi.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://liangjinzhi.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://liangjinzhi.com/favicon-32x32.png><link rel=apple-touch-icon href=https://liangjinzhi.com/apple-touch-icon.png><link rel=mask-icon href=https://liangjinzhi.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://liangjinzhi.com/posts/resize-debian-root-partition/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://liangjinzhi.com/posts/resize-debian-root-partition/"><meta property="og:site_name" content="我的个人博客"><meta property="og:title" content="调整debian根分区为最大空间"><meta property="og:description" content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2>/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab这样就好了"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-07-04T00:00:00+00:00"><meta property="article:modified_time" content="2026-07-04T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="调整debian根分区为最大空间"><meta name=twitter:description content="安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2>/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab这样就好了"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://liangjinzhi.com/posts/"},{"@type":"ListItem","position":2,"name":"调整debian根分区为最大空间","item":"https://liangjinzhi.com/posts/resize-debian-root-partition/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"调整debian根分区为最大空间","name":"调整debian根分区为最大空间","description":"\r安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\r备份/home目录\r# 1. 临时备份 home 目录的数据到 /tmp\rsudo cp -a /home/* /tmp/ 2\u003e/dev/null\r# 2. 卸载 /home 挂载点\rsudo umount /home\r切换到其他目录，并停止相关进程，否则不能卸载/home\r# 杀掉所有占用 /home 的进程\rsudo fuser -vkm /home\r调整好后卸载/home\r# 1. 重新卸载\rsudo umount /home\r# 2. 删除 home 逻辑卷\rsudo lvremove -y /dev/mapper/vm--debian--13--vg-home\r# 3. 100% 扩容给根分区\rsudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root\r# 4. 刷新文件系统\rsudo resize2fs /dev/mapper/vm--debian--13--vg-root\r# 5. 清理 fstab 挂载配置\rsudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab\r这样就好了\r","keywords":[],"articleBody":"\r安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。\r备份/home目录\r# 1. 临时备份 home 目录的数据到 /tmp\rsudo cp -a /home/* /tmp/ 2\u003e/dev/null\r# 2. 卸载 /home 挂载点\rsudo umount /home\r切换到其他目录，并停止相关进程，否则不能卸载/home\r# 杀掉所有占用 /home 的进程\rsudo fuser -vkm /home\r调整好后卸载/home\r# 1. 重新卸载\rsudo umount /home\r# 2. 删除 home 逻辑卷\rsudo lvremove -y /dev/mapper/vm--debian--13--vg-home\r# 3. 100% 扩容给根分区\rsudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root\r# 4. 刷新文件系统\rsudo resize2fs /dev/mapper/vm--debian--13--vg-root\r# 5. 清理 fstab 挂载配置\rsudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab\r这样就好了\r","wordCount":"73","inLanguage":"zh-cn","datePublished":"2026-07-04T00:00:00Z","dateModified":"2026-07-04T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://liangjinzhi.com/posts/resize-debian-root-partition/"},"publisher":{"@type":"Organization","name":"我的个人博客","logo":{"@type":"ImageObject","url":"https://liangjinzhi.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://liangjinzhi.com/ accesskey=h title="我的个人博客 (Alt + H)">我的个人博客</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://liangjinzhi.com/posts/about-author/ title=关于作者><span>关于作者</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">调整debian根分区为最大空间</h1><div class=post-meta><span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></div></header><div class="post-content md-content"><p class=wp-block-paragraph>安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。</p><figure class="wp-block-image size-large"><img loading=lazy decoding=async width=1024 height=233 src=/wp-content/uploads/2026/06/image-28-1024x233.png alt class=wp-image-115 srcset="/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, /wp-content/uploads/2026/06/image-28-300x68.png 300w, /wp-content/uploads/2026/06/image-28-768x175.png 768w, /wp-content/uploads/2026/06/image-28.png 1312w" sizes="auto, (max-width: 1024px) 100vw, 1024px"></figure><p class=wp-block-paragraph>备份/home目录</p><pre class=wp-block-code><code># 1. 临时备份 home 目录的数据到 /tmp
-sudo cp -a /home/* /tmp/ 2>/dev/null
-# 2. 卸载 /home 挂载点
-sudo umount /home</code></pre><p class=wp-block-paragraph>切换到其他目录，并停止相关进程，否则不能卸载/home</p><pre class=wp-block-code><code># 杀掉所有占用 /home 的进程
-sudo fuser -vkm /home</code></pre><p class=wp-block-paragraph>调整好后卸载/home</p><pre class=wp-block-code><code># 1. 重新卸载
-sudo umount /home
-# 2. 删除 home 逻辑卷
-sudo lvremove -y /dev/mapper/vm--debian--13--vg-home
-# 3. 100% 扩容给根分区
-sudo lvextend -l +100%FREE /dev/mapper/vm--debian--13--vg-root
-# 4. 刷新文件系统
-sudo resize2fs /dev/mapper/vm--debian--13--vg-root
-# 5. 清理 fstab 挂载配置
-sudo sed -i '/vm--debian--13--vg-home/d' /etc/fstab</code></pre><p class=wp-block-paragraph>这样就好了</p><figure class="wp-block-image size-large"><img loading=lazy decoding=async width=1024 height=237 src=/wp-content/uploads/2026/06/image-29-1024x237.png alt class=wp-image-116 srcset="/wp-content/uploads/2026/06/image-29-1024x237.png 1024w, /wp-content/uploads/2026/06/image-29-300x70.png 300w, /wp-content/uploads/2026/06/image-29-768x178.png 768w, /wp-content/uploads/2026/06/image-29.png 1182w" sizes="auto, (max-width: 1024px) 100vw, 1024px"></figure><p class=wp-block-paragraph></p></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://liangjinzhi.com/>我的个人博客</a></span> ·
-<span>Powered by
-<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
-</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
+</p><figure class="wp-block-image size-large">
+<img loading="lazy" decoding="async" width="1024" height="237" src="/wp-content/uploads/2026/06/image-29-1024x237.png" alt="" class="wp-image-116" srcset="/wp-content/uploads/2026/06/image-29-1024x237.png 1024w, /wp-content/uploads/2026/06/image-29-300x70.png 300w, /wp-content/uploads/2026/06/image-29-768x178.png 768w, /wp-content/uploads/2026/06/image-29.png 1182w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<p class="wp-block-paragraph">
+</p></div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/posts/nginx-htpasswd-generator/" class="flex align-center">
+      <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>Nginx  htpasswd防护</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/posts/about-author/" class="flex align-center">
+      <span>关于博客本人</span>
+      <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents"></nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

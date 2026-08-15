@@ -1,28 +1,344 @@
-<!doctype html><html lang=zh-cn dir=auto data-theme=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Loki日志管理 | 我的个人博客</title><meta name=keywords content><meta name=description content="
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" data-theme="light">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/posts/building-grafana-loki-log-analysis/">
+	<meta property="og:site_name" content="我的个人博客">
+	<meta property="og:title" content="Loki日志管理">
+	<meta property="og:description" content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：">
+	<meta property="og:locale" content="zh_cn">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-07-04T00:00:00+00:00">
+		<meta property="article:modified_time" content="2026-07-04T00:00:00+00:00">
+
+
+	<meta itemprop="name" content="Loki日志管理">
+	<meta itemprop="description" content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：">
+	<meta itemprop="datePublished" content="2026-07-04T00:00:00+00:00">
+	<meta itemprop="dateModified" content="2026-07-04T00:00:00+00:00">
+	<meta itemprop="wordCount" content="396">
+	<meta itemprop="keywords" content="运维实践">
+
+<title>Loki日志管理 • 我的个人博客</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:1313/posts/building-grafana-loki-log-analysis/">
+<link rel="stylesheet" href="/book.min.4d77e98d764f495b145946ef9260681bab38aaf7bc01f96a6f61a3a0fea19dbf.css" integrity="sha256-TXfpjXZPSVsUWUbvkmBoG6s4qve8Aflqb2GjoP6hnb8=" crossorigin="anonymous">
+
+
+
+  <script defer type="module" src="/zh-cn.search.min.4a297f085584129cbe8ac8c3daa69cb49d042f8fc85db459c26ef4863a66110c.js" integrity="sha256-Sil/CFWEEpy&#43;isjD2qactJ0EL4/IXbRZwm70hjpmEQw=" crossorigin="anonymous"></script>
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>我的个人博客</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/win-install-wsl/" class="">
+      windows安装wsl失败</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/k3s-01/" class="">
+      【K3s 系列 01】从零搭建 K3s</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/adguardhome-docker-setup/" class="">
+      AdguardHome容器化部署</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/how-to-apply-aws-free-tier/" class="">
+      AWS免费服务器申请教程</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/certd-ssl-auto-renewal-system/" class="">
+      Certd全自动证书管理系统</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/building-grafana-loki-log-analysis/" class="active">
+      Loki日志管理</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/nginx-htpasswd-generator/" class="">
+      Nginx  htpasswd防护</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/resize-debian-root-partition/" class="">
+      调整debian根分区为最大空间</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/about-author/" class="">
+      关于博客本人</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/use-one-mouse-keyboard-across-devices/" class="">
+      一套键鼠操作多终端</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/posts/home-prometheus-monitoring/" class="">
+      内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Loki日志管理</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents"></nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    Loki日志管理
+  </h1>
+  
+  <div class="flex align-center text-small book-post-date">
+    <img src="/icons/calendar.svg" class="book-icon" alt="Calendar" />
+    <span>July 4, 2026</span>
+  </div>
+
+
+
+  
+  <div class="text-small">
+    
+      <a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/">运维实践</a>
+  </div>
+  
+
+  
+
+
+  <div class="book-post-content markdown-inner"><p class="wp-block-paragraph">
   5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。
-
-
-  为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。
-
-
+</p>
+<p class="wp-block-paragraph">
+  为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的<strong>单机二进制（Binary）部署指导</strong>（比 Docker 性能更好、更直观）。
+</p>
+<p class="wp-block-paragraph">
   目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志
-
-
+</p>
+<p class="wp-block-paragraph">
   前提：开放Loki端3000，3100端口
-
-
+</p>
+<p class="wp-block-paragraph">
   准备工作：创建统一目录
-
-# mkdir -p /opt/loki-stack
-# cd /opt/loki-stack
+</p>
+<pre class="wp-block-code"><code># mkdir -p /opt/loki-stack
+# cd /opt/loki-stack</code></pre>
 ## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}
-
+<p class="wp-block-paragraph">
   Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。
-
-
-  1.下载官方二进制包与默认配置：
-
-# 下载 Loki 主程序
+</p>
+<p class="wp-block-paragraph">
+  <strong>1.下载官方二进制包与默认配置</strong>：
+</p>
+<pre class="wp-block-code"><code># 下载 Loki 主程序
 wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip
 #或者使用国内GitHub镜像下载Loki主程序 
 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip
@@ -32,11 +348,11 @@ mv loki-linux-amd64 loki
 # 下载官方标准配置文件
 wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml
 #或者使用ghfast.top代理下载 
-#wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml
-
-  2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：
-
-auth_enabled: false
+#wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml</code></pre>
+<p class="wp-block-paragraph">
+  <strong>2.清空原来的配置文件以添加“自动清理策略”</strong>（防止撑爆磁盘）： 打开 <code>loki-config.yaml</code>，在文件末尾添加以下内容：
+</p>
+<pre class="wp-block-code"><code>auth_enabled: false
 server:
   http_listen_port: 3100
   grpc_listen_port: 9096
@@ -66,53 +382,11 @@ compactor:
   working_directory: /tmp/loki/retention
   compaction_interval: 10m
   retention_enabled: true
-  delete_request_store: filesystem # 解决元数据存放问题
-
-  3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：
-"><meta name=author content><link rel=canonical href=https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/><link crossorigin=anonymous href=/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as=style><link rel=icon href=https://liangjinzhi.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://liangjinzhi.com/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://liangjinzhi.com/favicon-32x32.png><link rel=apple-touch-icon href=https://liangjinzhi.com/apple-touch-icon.png><link rel=mask-icon href=https://liangjinzhi.com/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51);color-scheme:dark}.list{background:var(--theme)}.toc{background:var(--entry)}}</style></noscript><script>localStorage.getItem("pref-theme")==="dark"?document.querySelector("html").dataset.theme="dark":localStorage.getItem("pref-theme")==="light"?document.querySelector("html").dataset.theme="light":window.matchMedia("(prefers-color-scheme: dark)").matches?document.querySelector("html").dataset.theme="dark":document.querySelector("html").dataset.theme="light"</script><meta property="og:url" content="https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/"><meta property="og:site_name" content="我的个人博客"><meta property="og:title" content="Loki日志管理"><meta property="og:description" content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service："><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-07-04T00:00:00+00:00"><meta property="article:modified_time" content="2026-07-04T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Loki日志管理"><meta name=twitter:description content="5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service："><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://liangjinzhi.com/posts/"},{"@type":"ListItem","position":2,"name":"Loki日志管理","item":"https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Loki日志管理","name":"Loki日志管理","description":"\r5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\r为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\r目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\r前提：开放Loki端3000，3100端口\r准备工作：创建统一目录\r# mkdir -p /opt/loki-stack\r# cd /opt/loki-stack\r## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}\rLoki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\r1.下载官方二进制包与默认配置：\r# 下载 Loki 主程序\rwget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\r#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\r# 解压\runzip loki-linux-amd64.zip\rmv loki-linux-amd64 loki\r# 下载官方标准配置文件\rwget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\r#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\r2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\rauth_enabled: false\rserver:\rhttp_listen_port: 3100\rgrpc_listen_port: 9096\rcommon:\rinstance_addr: 127.0.0.1\rpath_prefix: /tmp/loki\rstorage:\rfilesystem:\rchunks_directory: /tmp/loki/chunks\rrules_directory: /tmp/loki/rules\rreplication_factor: 1\rring:\rkvstore:\rstore: inmemory\rschema_config:\rconfigs:\r- from: 2024-01-01\rstore: tsdb\robject_store: filesystem\rschema: v13\rindex:\rprefix: index_\rperiod: 24h\rlimits_config:\rretention_period: 168h #地保留7天日志，绝不重复\rcompactor:\rworking_directory: /tmp/loki/retention\rcompaction_interval: 10m\rretention_enabled: true\rdelete_request_store: filesystem # 解决元数据存放问题\r3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：\r","keywords":[],"articleBody":"\r5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。\r为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。\r目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志\r前提：开放Loki端3000，3100端口\r准备工作：创建统一目录\r# mkdir -p /opt/loki-stack\r# cd /opt/loki-stack\r## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}\rLoki 官方提供编译好的单文件二进制包，直接下载解压即可运行。\r1.下载官方二进制包与默认配置：\r# 下载 Loki 主程序\rwget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\r#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip\r# 解压\runzip loki-linux-amd64.zip\rmv loki-linux-amd64 loki\r# 下载官方标准配置文件\rwget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\r#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml\r2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：\rauth_enabled: false\rserver:\rhttp_listen_port: 3100\rgrpc_listen_port: 9096\rcommon:\rinstance_addr: 127.0.0.1\rpath_prefix: /tmp/loki\rstorage:\rfilesystem:\rchunks_directory: /tmp/loki/chunks\rrules_directory: /tmp/loki/rules\rreplication_factor: 1\rring:\rkvstore:\rstore: inmemory\rschema_config:\rconfigs:\r- from: 2024-01-01\rstore: tsdb\robject_store: filesystem\rschema: v13\rindex:\rprefix: index_\rperiod: 24h\rlimits_config:\rretention_period: 168h #地保留7天日志，绝不重复\rcompactor:\rworking_directory: /tmp/loki/retention\rcompaction_interval: 10m\rretention_enabled: true\rdelete_request_store: filesystem # 解决元数据存放问题\r3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：\r[Unit]\rDescription=Grafana Loki Log Aggregator\rAfter=network.target\r[Service]\rType=simple\rExecStart=/opt/loki-stack/loki -config.file=/opt/loki-stack/loki-config.yaml\rRestart=on-failure\r[Install]\rWantedBy=multi-user.target\r启动 Loki：\rsystemctl daemon-reload\rsystemctl enable loki --now\r# 检查状态，看到 active (running) 即成功\rsystemctl status loki\r## 第二步：目标机器下载并配置 Promtail (收集端) {.wp-block-heading}\rPromtail 需要在日志收集端部署。\r1.规范创建所有必要目录\r# 创建 Promtail 程序及配置目录\rmkdir -p /opt/loki-stack/promtail\r# 创建你要监控的 FastAPI 日志存放目录（如果研发还没创建的话）\rmkdir -p /var/log/fastapi\r2. 下载并解压主程序\r进入刚刚创建好的工作目录，下载官方二进制包：\rcd /opt/loki-stack/promtail\r# 下载官方 v3.0.0 二进制包\rwget https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip\r# 或者使用 ghproxy 代理加速下载\rwget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip\r# 解压（若提示找不到命令，请先执行 yum install unzip -y）\runzip promtail-linux-amd64.zip\r# 将解压出来的文件重命名，方便后续调用\rmv promtail-linux-amd64 promtail\r# 清理无用的压缩包\rrm -f promtail-linux-amd64.zip\r3. 创建配置文件\r在当前目录下创建配置文件：vi /opt/loki-stack/promtail/promtail-config.yaml，写入官方标准模板：\rpositions: {}\rserver:\rhttp_listen_port: 9080\rgrpc_listen_port: 0\rpositions:\rfilename: /opt/loki-stack/promtail/positions.yaml\rclients:\r- url: http://10.1.0.14:3100/loki/api/v1/push\rscrape_configs:\r- job_name: fastapi-cluster\rstatic_configs:\r- targets:\r- localhost\rlabels:\rjob: fastapi\rhost: api\r__path__: /home/ubuntu/api/nohup.out #需要监控的日志文件\r- job_name: fastapi-app-logs\rstatic_configs:\r- targets:\r- localhost\rlabels:\rjob: fastapi\rhost: api\r__path__: /home/ubuntu/api/log/app.log* #需要监控的日志文件\r保存退出\r配置Systemd服务文件\rvi /etc/systemd/system/promtail.service\r直接把下面的标准配置贴进去：\r[Unit]\rDescription=Promtail Log Client\rAfter=network.target\r[Service]\rType=simple\r# 👈 使用绝对路径，确保后台能正确拉起程序和读到配置文件\rExecStart=/opt/loki-stack/promtail/promtail -config.file=/opt/loki-stack/promtail/promtail-config.yaml\rRestart=on-failure\r[Install]\rWantedBy=multi-user.target\r2. 重新加载并一键启动\r保存退出后（:wq），依次执行以下命令让系统识别新服务并运行：\r# 1. 刷新后台\rsystemctl daemon-reload\r# 2. 设置开机自启，并现在立刻启动它\rsystemctl enable promtail --now\r# 3. 检查状态\rsystemctl status promtail\r直接拉起Promtail服务\rsystemctl restart promtail\rsystemctl status promtail\r安装grafana\r# 1. 通过代理地址下载 Grafana 官方商业版/开源版安装包\rwget https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/pool/main/g/grafana/grafana_10.4.1_amd64.deb\r# 2. 使用 dpkg 强制安装\rsudo dpkg -i grafana_10.4.1_amd64.deb\r# 3. 设置开机自启并现在立刻启动\rsudo systemctl daemon-reload\rsudo systemctl enable grafana-server --now\r# 4. 清理安装包\rrm -f grafana_10.4.1_amd64.deb\r访问 granfana http://ip:3000\r### 添加 Loki 数据源 {.wp-block-heading}\r进入主界面后：\r点击左侧菜单栏的 Connections（连接图标），然后选择 Data sources（数据源）。\r点击右上角的蓝色按钮 Add data source。\r在搜索框中输入 Loki，看到 Loki 图标后点击它进入配置页面。\r### 第三步：填写连接地址 {.wp-block-heading}\r在 Loki 配置表单中，你只需要填写一个地方：\r找到 URL 输入框，因为 Loki 和 Grafana 都在这同一台机器上，直接输入本地回环地址即可：\r2回到Explore的 Run query 按钮。\r现在你就可以在屏幕下方尽情翻阅、搜索和过滤这 500M 历史日志以及动态更新的 FastAPI 实时数据了！看看有没有成功刷出来？\r### 🔍 验收 {.wp-block-heading}\r服务启动后，你可以静静等待一会。此时 Promtail 已经在后台把日志数据倒腾给 Loki 了。\r接下来你就可以登录 http://ip:3000，在 Explore 里面选择 Loki 数据源，通过 {host=\"api\"} 语法，翻阅配置的日志，再也不需要频繁登录服务器了。\r","wordCount":"396","inLanguage":"zh-cn","datePublished":"2026-07-04T00:00:00Z","dateModified":"2026-07-04T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/"},"publisher":{"@type":"Organization","name":"我的个人博客","logo":{"@type":"ImageObject","url":"https://liangjinzhi.com/favicon.ico"}}}</script></head><body id=top><header class=header><nav class=header-nav><div class=logo><a href=https://liangjinzhi.com/ accesskey=h title="我的个人博客 (Alt + H)">我的个人博客</a><div class=logo-switches><button id=theme-toggle class=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu class=menu><li><a href=https://liangjinzhi.com/posts/about-author/ title=关于作者><span>关于作者</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">Loki日志管理</h1><div class=post-meta><span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></div></header><div class="post-content md-content"><p class=wp-block-paragraph>5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。</p><p class=wp-block-paragraph>为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的<strong>单机二进制（Binary）部署指导</strong>（比 Docker 性能更好、更直观）。</p><p class=wp-block-paragraph>目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志</p><p class=wp-block-paragraph>前提：开放Loki端3000，3100端口</p><p class=wp-block-paragraph>准备工作：创建统一目录</p><pre class=wp-block-code><code># mkdir -p /opt/loki-stack
-# cd /opt/loki-stack</code></pre>## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}<p class=wp-block-paragraph>Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。</p><p class=wp-block-paragraph><strong>1.下载官方二进制包与默认配置</strong>：</p><pre class=wp-block-code><code># 下载 Loki 主程序
-wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip
-#或者使用国内GitHub镜像下载Loki主程序 
-wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip
-# 解压
-unzip loki-linux-amd64.zip
-mv loki-linux-amd64 loki
-# 下载官方标准配置文件
-wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml
-#或者使用ghfast.top代理下载 
-#wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml</code></pre><p class=wp-block-paragraph><strong>2.清空原来的配置文件以添加“自动清理策略”</strong>（防止撑爆磁盘）： 打开 <code>loki-config.yaml</code>，在文件末尾添加以下内容：</p><pre class=wp-block-code><code>auth_enabled: false
-server:
-  http_listen_port: 3100
-  grpc_listen_port: 9096
-common:
-  instance_addr: 127.0.0.1
-  path_prefix: /tmp/loki
-  storage:
-    filesystem:
-      chunks_directory: /tmp/loki/chunks
-      rules_directory: /tmp/loki/rules
-  replication_factor: 1
-  ring:
-    kvstore:
-      store: inmemory
-schema_config:
-  configs:
-    - from: 2024-01-01
-      store: tsdb
-      object_store: filesystem
-      schema: v13
-      index:
-        prefix: index_
-        period: 24h
-limits_config:
-  retention_period: 168h #地保留7天日志，绝不重复
-compactor:
-  working_directory: /tmp/loki/retention
-  compaction_interval: 10m
-  retention_enabled: true
-  delete_request_store: filesystem # 解决元数据存放问题</code></pre><p class=wp-block-paragraph><strong>3.使用 Systemd 保持后台运行</strong>： 创建系统服务文件 <code>vi /etc/systemd/system/loki.service</code>：</p><pre class=wp-block-code><code>&#91;Unit]
+  delete_request_store: filesystem # 解决元数据存放问题</code></pre>
+<p class="wp-block-paragraph">
+  <strong>3.使用 Systemd 保持后台运行</strong>： 创建系统服务文件 <code>vi /etc/systemd/system/loki.service</code>：
+</p>
+<pre class="wp-block-code"><code>&#91;Unit]
 Description=Grafana Loki Log Aggregator
 After=network.target
 &#91;Service]
@@ -120,13 +394,32 @@ Type=simple
 ExecStart=/opt/loki-stack/loki -config.file=/opt/loki-stack/loki-config.yaml
 Restart=on-failure
 &#91;Install]
-WantedBy=multi-user.target</code></pre><p class=wp-block-paragraph><strong>启动 Loki</strong>：</p><pre class=wp-block-code><code>systemctl daemon-reload
+WantedBy=multi-user.target</code></pre>
+<p class="wp-block-paragraph">
+  <strong>启动 Loki</strong>：
+</p>
+<pre class="wp-block-code"><code>systemctl daemon-reload
 systemctl enable loki --now
 # 检查状态，看到 active (running) 即成功
-systemctl status loki</code></pre>## 第二步：目标机器下载并配置 Promtail (收集端) {.wp-block-heading}<p class=wp-block-paragraph>Promtail 需要在日志收集端部署。</p><p class=wp-block-paragraph><strong>1.规范创建所有必要目录</strong></p><pre class=wp-block-code><code># 创建 Promtail 程序及配置目录
+systemctl status loki</code></pre>
+## 第二步：目标机器下载并配置 Promtail (收集端) {.wp-block-heading}
+<p class="wp-block-paragraph">
+  Promtail 需要在日志收集端部署。
+</p>
+<p class="wp-block-paragraph">
+  <strong>1.规范创建所有必要目录</strong>
+</p>
+<pre class="wp-block-code"><code># 创建 Promtail 程序及配置目录
 mkdir -p /opt/loki-stack/promtail
 # 创建你要监控的 FastAPI 日志存放目录（如果研发还没创建的话）
-mkdir -p /var/log/fastapi</code></pre><p class=wp-block-paragraph><strong>2. 下载并解压主程序</strong></p><p class=wp-block-paragraph>进入刚刚创建好的工作目录，下载官方二进制包：</p><pre class=wp-block-code><code>cd /opt/loki-stack/promtail
+mkdir -p /var/log/fastapi</code></pre>
+<p class="wp-block-paragraph">
+  <strong>2. 下载并解压主程序</strong>
+</p>
+<p class="wp-block-paragraph">
+  进入刚刚创建好的工作目录，下载官方二进制包：
+</p>
+<pre class="wp-block-code"><code>cd /opt/loki-stack/promtail
 # 下载官方 v3.0.0 二进制包
 wget https://github.com/grafana/loki/releases/download/v3.0.0/promtail-linux-amd64.zip
 # 或者使用 ghproxy 代理加速下载
@@ -136,7 +429,14 @@ unzip promtail-linux-amd64.zip
 # 将解压出来的文件重命名，方便后续调用
 mv promtail-linux-amd64 promtail
 # 清理无用的压缩包
-rm -f promtail-linux-amd64.zip</code></pre><p class=wp-block-paragraph><strong>3. 创建配置文件</strong></p><p class=wp-block-paragraph>在当前目录下创建配置文件：<code>vi /opt/loki-stack/promtail/promtail-config.yaml</code>，写入官方标准模板：</p><pre class=wp-block-code><code>positions: {}
+rm -f promtail-linux-amd64.zip</code></pre>
+<p class="wp-block-paragraph">
+  <strong>3. 创建配置文件</strong>
+</p>
+<p class="wp-block-paragraph">
+  在当前目录下创建配置文件：<code>vi /opt/loki-stack/promtail/promtail-config.yaml</code>，写入官方标准模板：
+</p>
+<pre class="wp-block-code"><code>positions: {}
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
@@ -161,7 +461,18 @@ scrape_configs:
           job: fastapi
           host: api
           __path__: /home/ubuntu/api/log/app.log*  #需要监控的日志文件
-</code></pre><p class=wp-block-paragraph>保存退出</p><p class=wp-block-paragraph>配置Systemd服务文件</p><pre class=wp-block-code><code>vi /etc/systemd/system/promtail.service</code></pre><p class=wp-block-paragraph>直接把下面的标准配置贴进去：</p><pre class=wp-block-code><code>&#91;Unit]
+</code></pre>
+<p class="wp-block-paragraph">
+  保存退出
+</p>
+<p class="wp-block-paragraph">
+  配置Systemd服务文件
+</p>
+<pre class="wp-block-code"><code>vi /etc/systemd/system/promtail.service</code></pre>
+<p class="wp-block-paragraph">
+  直接把下面的标准配置贴进去：
+</p>
+<pre class="wp-block-code"><code>&#91;Unit]
 Description=Promtail Log Client
 After=network.target
 &#91;Service]
@@ -170,13 +481,28 @@ Type=simple
 ExecStart=/opt/loki-stack/promtail/promtail -config.file=/opt/loki-stack/promtail/promtail-config.yaml
 Restart=on-failure
 &#91;Install]
-WantedBy=multi-user.target</code></pre><p class=wp-block-paragraph>2. 重新加载并一键启动</p><p class=wp-block-paragraph>保存退出后（<code>:wq</code>），依次执行以下命令让系统识别新服务并运行：</p><pre class=wp-block-code><code># 1. 刷新后台
+WantedBy=multi-user.target</code></pre>
+<p class="wp-block-paragraph">
+  2. 重新加载并一键启动
+</p>
+<p class="wp-block-paragraph">
+  保存退出后（<code>:wq</code>），依次执行以下命令让系统识别新服务并运行：
+</p>
+<pre class="wp-block-code"><code># 1. 刷新后台
 systemctl daemon-reload
 # 2. 设置开机自启，并现在立刻启动它
 systemctl enable promtail --now
 # 3. 检查状态
-systemctl status promtail</code></pre><p class=wp-block-paragraph>直接拉起Promtail服务</p><pre class=wp-block-code><code>systemctl restart promtail
-systemctl status promtail</code></pre><p class=wp-block-paragraph><strong>安装grafana</strong></p><pre class=wp-block-code><code># 1. 通过代理地址下载 Grafana 官方商业版/开源版安装包
+systemctl status promtail</code></pre>
+<p class="wp-block-paragraph">
+  直接拉起Promtail服务
+</p>
+<pre class="wp-block-code"><code>systemctl restart promtail
+systemctl status promtail</code></pre>
+<p class="wp-block-paragraph">
+  <strong>安装grafana</strong>
+</p>
+<pre class="wp-block-code"><code># 1. 通过代理地址下载 Grafana 官方商业版/开源版安装包
 wget https://mirrors.tuna.tsinghua.edu.cn/grafana/apt/pool/main/g/grafana/grafana_10.4.1_amd64.deb
 # 2. 使用 dpkg 强制安装
 sudo dpkg -i grafana_10.4.1_amd64.deb
@@ -184,8 +510,137 @@ sudo dpkg -i grafana_10.4.1_amd64.deb
 sudo systemctl daemon-reload
 sudo systemctl enable grafana-server --now
 # 4. 清理安装包
-rm -f grafana_10.4.1_amd64.deb</code></pre><p class=wp-block-paragraph>访问 granfana http://ip:3000</p>### 添加 Loki 数据源 {.wp-block-heading}<p class=wp-block-paragraph>进入主界面后：</p><ol start=1 class=wp-block-list><li>点击左侧菜单栏的 <strong>Connections</strong>（连接图标），然后选择 <strong>Data sources</strong>（数据源）。</li><li>点击右上角的蓝色按钮 <strong>Add data source</strong>。</li><li>在搜索框中输入 <code>Loki</code>，看到 Loki 图标后点击它进入配置页面。</li></ol>### 第三步：填写连接地址 {.wp-block-heading}<p class=wp-block-paragraph>在 Loki 配置表单中，你只需要填写一个地方：</p><ol start=1 class=wp-block-list><li>找到 <strong>URL</strong> 输入框，因为 Loki 和 Grafana 都在这同一台机器上，直接输入本地回环地址即可：</li></ol><figure class="wp-block-image size-large"><img loading=lazy decoding=async width=1024 height=577 src=/wp-content/uploads/2026/06/image-43-1024x577.png alt class=wp-image-190 srcset="/wp-content/uploads/2026/06/image-43-1024x577.png 1024w, /wp-content/uploads/2026/06/image-43-300x169.png 300w, /wp-content/uploads/2026/06/image-43-768x433.png 768w, /wp-content/uploads/2026/06/image-43.png 1353w" sizes="auto, (max-width: 1024px) 100vw, 1024px"></figure><p class=wp-block-paragraph>2回到Explore的 <strong>Run query</strong> 按钮。</p><figure class="wp-block-image size-large"><img loading=lazy decoding=async width=1024 height=413 src=/wp-content/uploads/2026/06/image-44-1024x413.jpg alt class=wp-image-191 srcset="/wp-content/uploads/2026/06/image-44-1024x413.jpg 1024w, /wp-content/uploads/2026/06/image-44-300x121.jpg 300w, /wp-content/uploads/2026/06/image-44-768x310.jpg 768w, /wp-content/uploads/2026/06/image-44-1536x620.jpg 1536w, /wp-content/uploads/2026/06/image-44-2048x827.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px"></figure><ol start=1 class=wp-block-list></ol><p class=wp-block-paragraph>现在你就可以在屏幕下方尽情翻阅、搜索和过滤这 500M 历史日志以及动态更新的 FastAPI 实时数据了！看看有没有成功刷出来？</p><p class=wp-block-paragraph></p>### 🔍 验收 {.wp-block-heading}<p class=wp-block-paragraph>服务启动后，你可以静静等待一会。此时 Promtail 已经在后台把日志数据倒腾给 Loki 了。</p><p class=wp-block-paragraph>接下来你就可以登录 <code>http://ip:3000</code>，在 Explore 里面选择 Loki 数据源，通过 <code>{host="api"}</code> 语法，翻阅配置的日志，再也不需要频繁登录服务器了。</p><p class=wp-block-paragraph></p></div><footer class=post-footer><ul class=post-tags></ul></footer></article></main><footer class=footer><span>&copy; 2026 <a href=https://liangjinzhi.com/>我的个人博客</a></span> ·
-<span>Powered by
-<a href="https://gohugo.io/?utm_source=papermod" rel=noopener target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top id=top-link class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey=g><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up"><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg>
-</a><script>let menu=document.getElementById("menu");if(menu){const e=localStorage.getItem("menu-scroll-position");e&&(menu.scrollLeft=parseInt(e,10)),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}}document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var toplink=document.getElementById("top-link");window.onscroll=function(){const e=window.innerHeight;document.body.scrollTop>e||document.documentElement.scrollTop>e?toplink.classList.remove("hidden"):toplink.classList.add("hidden")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{const e=document.querySelector("html");e.dataset.theme==="dark"?(e.dataset.theme="light",localStorage.setItem("pref-theme","light")):(e.dataset.theme="dark",localStorage.setItem("pref-theme","dark"))})</script></body></html>
+rm -f grafana_10.4.1_amd64.deb</code></pre>
+<p class="wp-block-paragraph">
+  访问 granfana http://ip:3000
+</p>
+### 添加 Loki 数据源 {.wp-block-heading}
+<p class="wp-block-paragraph">
+  进入主界面后：
+</p>
+<ol start="1" class="wp-block-list">
+  <li>
+    点击左侧菜单栏的 <strong>Connections</strong>（连接图标），然后选择 <strong>Data sources</strong>（数据源）。
+  </li>
+  <li>
+    点击右上角的蓝色按钮 <strong>Add data source</strong>。
+  </li>
+  <li>
+    在搜索框中输入 <code>Loki</code>，看到 Loki 图标后点击它进入配置页面。
+  </li>
+</ol>
+### 第三步：填写连接地址 {.wp-block-heading}
+<p class="wp-block-paragraph">
+  在 Loki 配置表单中，你只需要填写一个地方：
+</p>
+<ol start="1" class="wp-block-list">
+  <li>
+    找到 <strong>URL</strong> 输入框，因为 Loki 和 Grafana 都在这同一台机器上，直接输入本地回环地址即可：
+  </li>
+</ol><figure class="wp-block-image size-large">
+<img loading="lazy" decoding="async" width="1024" height="577" src="/wp-content/uploads/2026/06/image-43-1024x577.png" alt="" class="wp-image-190" srcset="/wp-content/uploads/2026/06/image-43-1024x577.png 1024w, /wp-content/uploads/2026/06/image-43-300x169.png 300w, /wp-content/uploads/2026/06/image-43-768x433.png 768w, /wp-content/uploads/2026/06/image-43.png 1353w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<p class="wp-block-paragraph">
+  2回到Explore的 <strong>Run query</strong> 按钮。
+</p><figure class="wp-block-image size-large">
+<img loading="lazy" decoding="async" width="1024" height="413" src="/wp-content/uploads/2026/06/image-44-1024x413.jpg" alt="" class="wp-image-191" srcset="/wp-content/uploads/2026/06/image-44-1024x413.jpg 1024w, /wp-content/uploads/2026/06/image-44-300x121.jpg 300w, /wp-content/uploads/2026/06/image-44-768x310.jpg 768w, /wp-content/uploads/2026/06/image-44-1536x620.jpg 1536w, /wp-content/uploads/2026/06/image-44-2048x827.jpg 2048w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
+<ol start="1" class="wp-block-list">
+</ol>
+<p class="wp-block-paragraph">
+  现在你就可以在屏幕下方尽情翻阅、搜索和过滤这 500M 历史日志以及动态更新的 FastAPI 实时数据了！看看有没有成功刷出来？
+</p>
+<p class="wp-block-paragraph">
+</p>
+### 🔍 验收 {.wp-block-heading}
+<p class="wp-block-paragraph">
+  服务启动后，你可以静静等待一会。此时 Promtail 已经在后台把日志数据倒腾给 Loki 了。
+</p>
+<p class="wp-block-paragraph">
+  接下来你就可以登录 <code>http://ip:3000</code>，在 Explore 里面选择 Loki 数据源，通过 <code>{host="api"}</code> 语法，翻阅配置的日志，再也不需要频繁登录服务器了。
+</p>
+<p class="wp-block-paragraph">
+</p></div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/posts/certd-ssl-auto-renewal-system/" class="flex align-center">
+      <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>Certd全自动证书管理系统</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/posts/nginx-htpasswd-generator/" class="flex align-center">
+      <span>Nginx  htpasswd防护</span>
+      <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+        
+        
+  
+ 
+        
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents"></nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

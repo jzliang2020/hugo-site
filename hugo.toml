@@ -2,48 +2,18 @@ baseURL = "https://liangjinzhi.com/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
 title = "\u6211\u7684\u4e2a\u4eba\u535a\u5ba2"
-theme = "PaperMod"
+theme = "hugo-book"
 publishDir = "docs"
+ignoreLogs = ['warning-goldmark-raw-html'] # 顺便隐藏那个 raw-html 警告
 
-# Generate JSON index for search.
-[outputs]
-  home = ["HTML", "JSON"]
-
-[outputFormats.JSON]
-  mediatype = "application/json"
-  baseName = "index"
-  isPlainText = true
-
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # 允许渲染 Markdown 文章里的 HTML 标签（解决正文空白问题）
+      
 [params]
-  mainSections = ["posts"]
-  digestInHTML = false
+  env = "production"
+  title = "我的个人博客"
+  digestInHTML = false # 关闭指纹校验，防止 CSS 渲染失败
+  BookSection = 'posts' # <--- 加上这一行，指定读取 content/posts 目录
 
-[params.sidebar]
-  emoji = "\U0001F44B"
-  subtitle = "\u8bb0\u5f55\u8fd0\u7ef4\u4e0e\u5f00\u53d1\u7684\u7b14\u8bb0"
-  avatar = "/img/avatar.png"
-  avatarLink = "/posts/about-author/"
-  widgets = ["search", "archives", "categories", "tags", "recent_posts"]
-
-[taxonomies]
-  category = "categories"
-  tag = "tags"
-
-[markup.goldmark.renderer]
-  unsafe = true
-
-[[menu.main]]
-  identifier = "about"
-  name = "\u5173\u4e8e\u4f5c\u8005"
-  url = "/posts/about-author/"
-  weight = 20
-
-[params.sidebar.search]
-  enable = true
-
-[params.colorScheme]
-  toggle = false
-  default = "light"
-
-[params.comments]
-  enabled = false

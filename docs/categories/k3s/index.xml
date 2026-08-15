@@ -1,27 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>K3s on 我的个人博客</title><link>https://liangjinzhi.com/categories/k3s/</link><description>Recent content in K3s on 我的个人博客</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 04 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/categories/k3s/index.xml" rel="self" type="application/rss+xml"/><item><title>【K3s 系列 01】从零搭建 K3s</title><link>https://liangjinzhi.com/posts/k3s-01/</link><pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate><guid>https://liangjinzhi.com/posts/k3s-01/</guid><description>&lt;h2 class="wp-block-heading" id="一获取系统基础硬件信息"&gt;一、获取系统基础硬件信息&lt;/h2&gt;
-&lt;pre class="wp-block-code"&gt;&lt;code&gt;#基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）
-pig@vm-debian-13:~$ uname -m
-x86_64
-#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）
-pig@vm-debian-13:~$ lscpu | grep -E "Model name|CPU\(s\):"
-CPU(s): 2
-Model name: 13th Gen Intel(R) Core(TM) i5-13400
-NUMA node0 CPU(s): 0,1
-#内存大小
-pig@vm-debian-13:~$ free -m
-total used free shared buff/cache available
-Mem: 3883 886 1917 0 1334 2997
-Swap: 0 0 &lt;/code&gt;&lt;/pre&gt;
-&lt;p class="wp-block-paragraph"&gt;
-&lt;/p&gt;
-&lt;p class="wp-block-paragraph"&gt;
-&lt;strong&gt;安装脚本&lt;/strong&gt;
-&lt;/p&gt;
-&lt;p class="wp-block-paragraph"&gt;
-官方的脚本太慢，国内用户使用这个脚本进行加速
-&lt;/p&gt;
-&lt;pre class="wp-block-code"&gt;&lt;code&gt;$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -&lt;/code&gt;&lt;/pre&gt;&lt;figure class="wp-block-image size-full"&gt;
-&lt;img loading="lazy" decoding="async" width="1238" height="505" src="https://liangjinzhi.com/wp-content/uploads/2026/06/image-74.png" alt="" class="wp-image-340" /&gt; &lt;/figure&gt;
-&lt;p class="wp-block-paragraph"&gt;
-检查k3s服务状态
-&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>K3s on 我的个人博客</title>
+		<link>http://localhost:1313/categories/k3s/</link>
+		<description>Recent content in K3s on 我的个人博客</description>
+		<generator>Hugo</generator>
+		<language>zh-cn</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 04 Jul 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/categories/k3s/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>【K3s 系列 01】从零搭建 K3s</title>
+				<link>http://localhost:1313/posts/k3s-01/</link>
+				<pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/k3s-01/</guid>
+				<description>&lt;h2 id=&#34;一获取系统基础硬件信息&#34;class=&#34;wp-block-heading&#34;&gt;一、获取系统基础硬件信息&lt;a class=&#34;anchor&#34; href=&#34;#%e4%b8%80%e8%8e%b7%e5%8f%96%e7%b3%bb%e7%bb%9f%e5%9f%ba%e7%a1%80%e7%a1%ac%e4%bb%b6%e4%bf%a1%e6%81%af&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;#基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）&#xD;&#xA;pig@vm-debian-13:~$ uname -m&#xD;&#xA;x86_64&#xD;&#xA;#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）&#xD;&#xA;pig@vm-debian-13:~$ lscpu | grep -E &#34;Model name|CPU\(s\):&#34;&#xD;&#xA;CPU(s):                                  2&#xD;&#xA;Model name:                              13th Gen Intel(R) Core(TM) i5-13400&#xD;&#xA;NUMA node0 CPU(s):                       0,1&#xD;&#xA;#内存大小&#xD;&#xA;pig@vm-debian-13:~$ free -m&#xD;&#xA;               total        used        free      shared  buff/cache   available&#xD;&#xA;Mem:            3883         886        1917           0        1334        2997&#xD;&#xA;Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;&#xD;&#xA;&lt;p class=&#34;wp-block-paragraph&#34;&gt;&#xD;&#xA;&lt;/p&gt;&#xD;&#xA;&lt;p class=&#34;wp-block-paragraph&#34;&gt;&#xD;&#xA;  &lt;strong&gt;安装脚本&lt;/strong&gt;&#xD;&#xA;&lt;/p&gt;&#xD;&#xA;&lt;p class=&#34;wp-block-paragraph&#34;&gt;&#xD;&#xA;  官方的脚本太慢，国内用户使用这个脚本进行加速&#xD;&#xA;&lt;/p&gt;&#xD;&#xA;&lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -&lt;/code&gt;&lt;/pre&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;&#xD;&#xA;&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1238&#34; height=&#34;505&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-74.png&#34; alt=&#34;&#34; class=&#34;wp-image-340&#34; /&gt; &lt;/figure&gt; &#xD;&#xA;&lt;p class=&#34;wp-block-paragraph&#34;&gt;&#xD;&#xA;  检查k3s服务状态&#xD;&#xA;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
