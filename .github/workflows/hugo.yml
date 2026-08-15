@@ -28,5 +28,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./docs
           # 如果你的静态文件输出到 docs 目录，请把上一行改成 publish_dir: ./docs
+
