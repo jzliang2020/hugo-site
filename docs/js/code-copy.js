@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.article-content pre.wp-block-code').forEach(function (pre) {
+    document.querySelectorAll('.article-content pre').forEach(function (pre) {
         if (pre.querySelector('.wp-code-copy')) return;
 
         var button = document.createElement('button');
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', function () {
             var code = pre.querySelector('code');
             var text = code ? code.textContent : pre.textContent;
+            text = text.replace(button.textContent, '').trim();
 
             navigator.clipboard.writeText(text).then(function () {
                 button.textContent = 'Copied';

@@ -1,10 +1,269 @@
-<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r"><title>Certd全自动证书管理系统</title><link rel=canonical href=https://liangjinzhi.com/posts/certd-ssl-auto-renewal-system/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href=/scss/style.min.706a0b67142f35d43c290703355d8dc28be129a569576f1cc989d97920e468eb.css><meta property='og:title' content="Certd全自动证书管理系统"><meta property='og:description' content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r"><meta property='og:url' content='https://liangjinzhi.com/posts/certd-ssl-auto-renewal-system/'><meta property='og:site_name' content='我的个人博客'><meta property='og:type' content='article'><meta property='article:section' content='Posts'><meta property='article:published_time' content='2026-07-04T00:00:00+00:00'><meta property='article:modified_time' content='2026-07-04T00:00:00+00:00'><meta name=twitter:title content="Certd全自动证书管理系统"><meta name=twitter:description content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r"><link rel=stylesheet href=/css/custom.css><script defer src=/js/code-copy.js></script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label>
-<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar.png width height class=site-logo loading=lazy alt=Avatar>
-</a><span class=emoji>👋</span></figure><div class=site-meta><h1 class=site-name><a href=/>我的个人博客</a></h1><h2 class=site-description>记录运维与开发的笔记</h2></div></header><ol class=menu id=main-menu><li><a href=/posts/about-author/><span>关于作者</span></a></li><li class=menu-bottom-section><ol class=menu></ol></li></ol></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/ style=background-color:#bec5ef;color:#0f163d>运维实践</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/posts/certd-ssl-auto-renewal-system/>Certd全自动证书管理系统</a></h2></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published datetime=2026-07-04T00:00:00Z>Saturday, July 4, 2026</time>
-<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading></time></div></footer></div></header><section class=article-content><h2 id=背景>背景</h2><p class=wp-block-paragraph>公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。</p>## 解决方案 {.wp-block-heading}<p class=wp-block-paragraph>部署Certd平台，实现</p><ul class=wp-block-list><li>自动申请证书</li></ul><ul class=wp-block-list><li>自动续签</li></ul><ul class=wp-block-list><li>统一证书管理</li></ul>## 部署方式 {.wp-block-heading}<p class=wp-block-paragraph>Docker部署Certd</p>## 实现效果 {.wp-block-heading}<ul class=wp-block-list><li>证书更新从“人工操作” → “自动续期”</li></ul><ul class=wp-block-list><li>避免证书过期导致服务中断</li></ul><ul class=wp-block-list><li>降低运维维护成本</li></ul>## 运行截图 {.wp-block-heading}<p class=wp-block-paragraph>首页</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1899 height=627 src=/wp-content/uploads/2026/06/01-01-2.webp alt class=wp-image-318></figure><p class=wp-block-paragraph>证书自动化流水线</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1702 height=651 src=/wp-content/uploads/2026/06/02.webp alt class=wp-image-319></figure><p class=wp-block-paragraph>执行历史记录</p><figure class="wp-block-image size-full"><img loading=lazy decoding=async width=1667 height=638 src=/wp-content/uploads/2026/06/03.webp alt class=wp-image-320></figure></section><footer class="article-meta article-footer"></footer></article><footer class=site-footer><section class=copyright>&copy;
-2026 我的个人博客</section><section class=powerby><br></section></footer><script type=module>
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r">
+<title>Certd全自动证书管理系统</title>
+
+
+<link rel="canonical" href="http://localhost:1313/posts/certd-ssl-auto-renewal-system/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.706a0b67142f35d43c290703355d8dc28be129a569576f1cc989d97920e468eb.css"><meta property='og:title' content="Certd全自动证书管理系统">
+<meta property='og:description' content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r">
+<meta property='og:url' content='http://localhost:1313/posts/certd-ssl-auto-renewal-system/'>
+<meta property='og:site_name' content='我的个人博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:published_time' content='2026-07-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-07-04T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Certd全自动证书管理系统">
+<meta name="twitter:description" content="背景\r公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。\r## 解决方案 {.wp-block-heading}\r部署Certd平台，实现\r自动申请证书\r自动续签\r统一证书管理\r## 部署方式 {.wp-block-heading}\rDocker部署Certd\r## 实现效果 {.wp-block-heading}\r证书更新从“人工操作” → “自动续期”\r避免证书过期导致服务中断\r降低运维维护成本\r## 运行截图 {.wp-block-heading}\r首页\r证书自动化流水线\r执行历史记录\r"><link rel="stylesheet" href="/css/custom.css">
+<script defer src="/js/code-copy.js"></script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "light");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="/img/avatar.png" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+                    <span class="emoji">👋</span>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">我的个人博客</a></h1>
+            <h2 class="site-description">记录运维与开发的笔记</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/posts/about-author/' >
+                
+                <span>关于作者</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/" style="background-color: hsl(231, 60%, 84%); color: hsl(231, 60%, 15%);">
+                运维实践
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/certd-ssl-auto-renewal-system/">Certd全自动证书管理系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-07-04T00:00:00Z'>Saturday, July 4, 2026</time>
+                
+
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                    <time class="article-time--reading">
+                        
+                    </time>
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="背景">背景
+</h2><p class="wp-block-paragraph">
+  公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。
+</p>
+## 解决方案 {.wp-block-heading}
+<p class="wp-block-paragraph">
+  部署Certd平台，实现
+</p>
+<ul class="wp-block-list">
+  <li>
+    自动申请证书
+  </li>
+</ul>
+<ul class="wp-block-list">
+  <li>
+    自动续签
+  </li>
+</ul>
+<ul class="wp-block-list">
+  <li>
+    统一证书管理
+  </li>
+</ul>
+## 部署方式 {.wp-block-heading}
+<p class="wp-block-paragraph">
+  Docker部署Certd
+</p>
+## 实现效果 {.wp-block-heading}
+<ul class="wp-block-list">
+  <li>
+    证书更新从“人工操作” → “自动续期”
+  </li>
+</ul>
+<ul class="wp-block-list">
+  <li>
+    避免证书过期导致服务中断
+  </li>
+</ul>
+<ul class="wp-block-list">
+  <li>
+    降低运维维护成本
+  </li>
+</ul>
+## 运行截图  {.wp-block-heading}
+<p class="wp-block-paragraph">
+  首页
+</p><figure class="wp-block-image size-full">
+<img loading="lazy" decoding="async" width="1899" height="627" src="/wp-content/uploads/2026/06/01-01-2.webp" alt="" class="wp-image-318" /> </figure> 
+<p class="wp-block-paragraph">
+  证书自动化流水线
+</p><figure class="wp-block-image size-full">
+<img loading="lazy" decoding="async" width="1702" height="651" src="/wp-content/uploads/2026/06/02.webp" alt="" class="wp-image-319" /> </figure> 
+<p class="wp-block-paragraph">
+  执行历史记录
+</p><figure class="wp-block-image size-full">
+<img loading="lazy" decoding="async" width="1667" height="638" src="/wp-content/uploads/2026/06/03.webp" alt="" class="wp-image-320" /> </figure>
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+    
+
+    
+
+     
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 我的个人博客
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
     import gallery from '\/ts\/gallery.js';
 
     const articleContent = document.querySelector('.article-content');
@@ -28,4 +287,15 @@
         });
         lightbox.init();
     }
-</script></main></div><script type=text/javascript src=/ts/main.d00997a2f4a6ce525f496da0c3ae6ad392b0468b8a9024f23309fdfc75c67a35.js defer></script></body></html>
+</script>
+
+    
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.139db4ad6e4f25b4ea76a46184f7ee7ef0fe7b8230741405f24f0fac10b82082.js" defer></script>
+
+
+    </body>
+</html>
