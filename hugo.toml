@@ -16,6 +16,7 @@ publishDir = "docs"
 
 [params]
   mainSections = ["posts"]
+  digestInHTML = false
 
 [params.sidebar]
   emoji = "\U0001F44B"
