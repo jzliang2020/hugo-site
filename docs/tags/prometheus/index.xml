@@ -1,2 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Prometheus on 我的个人博客</title><link>https://liangjinzhi.com/tags/prometheus/</link><description>Recent content in Prometheus on 我的个人博客</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sun, 29 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://liangjinzhi.com/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>内网环境基于 Docker Compose 部署 Prometheus + Grafana 监控系统（含 Windows 节点接入）</title><link>https://liangjinzhi.com/posts/home-prometheus-monitoring/</link><pubDate>Sun, 29 Mar 2026 00:00:00 +0000</pubDate><guid>https://liangjinzhi.com/posts/home-prometheus-monitoring/</guid><description>&lt;h1&gt;&lt;/h1&gt;
-&lt;p&gt;本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Prometheus on 我的个人博客</title>
+    <link>http://localhost:1313/tags/prometheus/</link>
+    <description>Recent content in Prometheus on 我的个人博客</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 15 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）</title>
+      <link>http://localhost:1313/posts/home-prometheus-monitoring/</link>
+      <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/home-prometheus-monitoring/</guid>
+      <description>&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
