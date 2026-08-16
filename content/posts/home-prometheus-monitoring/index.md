@@ -10,7 +10,7 @@ tags:
   - Docker
   - Homelab
 draft: false
----# # 
+--- 
 
 本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。
 
