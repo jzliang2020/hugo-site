@@ -1,7 +1,7 @@
 baseURL = "https://liangjinzhi.com/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
-title = "\u6211\u7684\u4e2a\u4eba\u535a\u5ba2"
+title = "梁锦志 | 运维与开发笔记"
 theme = "PaperMod"
 publishDir = "docs"
 
@@ -19,8 +19,8 @@ publishDir = "docs"
   digestInHTML = false
 
 [params.sidebar]
-  emoji = "\U0001F44B"
-  subtitle = "\u8bb0\u5f55\u8fd0\u7ef4\u4e0e\u5f00\u53d1\u7684\u7b14\u8bb0"
+  emoji = "👋"
+  subtitle = "记录运维与开发的笔记"
   avatar = "/img/avatar.png"
   avatarLink = "/posts/about-author/"
   widgets = ["search", "archives", "categories", "tags", "recent_posts"]
@@ -34,7 +34,7 @@ publishDir = "docs"
 
 [[menu.main]]
   identifier = "about"
-  name = "\u5173\u4e8e\u4f5c\u8005"
+  name = "关于作者"
   url = "/posts/about-author/"
   weight = 20
 

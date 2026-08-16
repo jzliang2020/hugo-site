@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>技术笔记 on 我的个人博客</title>
-    <link>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
-    <description>Recent content in 技术笔记 on 我的个人博客</description>
+    <title>技术笔记 on 梁锦志 | 运维与开发笔记</title>
+    <link>https://liangjinzhi.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 技术笔记 on 梁锦志 | 运维与开发笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 04 Jul 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://liangjinzhi.com/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nginx  htpasswd防护</title>
-      <link>http://localhost:1313/posts/nginx-htpasswd-generator/</link>
+      <link>https://liangjinzhi.com/posts/nginx-htpasswd-generator/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/nginx-htpasswd-generator/</guid>
+      <guid>https://liangjinzhi.com/posts/nginx-htpasswd-generator/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   今天收到腾讯云的告警信息，原来是昨天部署的grafana被漏洞扫描识别到。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;355&#34; height=&#34;343&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png&#34; alt=&#34;&#34; class=&#34;wp-image-181&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-41.png 355w, http://localhost:1313/wp-content/uploads/2026/06/image-41-300x290.png 300w&#34; sizes=&#34;auto, (max-width: 355px) 100vw, 355px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;355&#34; height=&#34;343&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png&#34; alt=&#34;&#34; class=&#34;wp-image-181&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-41.png 355w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-41-300x290.png 300w&#34; sizes=&#34;auto, (max-width: 355px) 100vw, 355px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
 &lt;/p&gt;
 ## 1.安装必要的工具 {.wp-block-heading}
@@ -50,7 +50,7 @@ auth_basic_user_file /etc/nginx/.htpasswd;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;sudo nginx -t      # 检查配置语法是否正确
 sudo systemctl reload nginx&lt;/code&gt;&lt;/pre&gt;
 ## 6.验证 {.wp-block-heading}&lt;figure class=&#34;wp-block-image size-large&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;177&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png&#34; alt=&#34;&#34; class=&#34;wp-image-182&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, http://localhost:1313/wp-content/uploads/2026/06/image-42-300x52.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-42-768x133.png 768w, http://localhost:1313/wp-content/uploads/2026/06/image-42.png 1259w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;177&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png&#34; alt=&#34;&#34; class=&#34;wp-image-182&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-300x52.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-768x133.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42.png 1259w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
 ### 命令解析： {.wp-block-heading}
 &lt;ul class=&#34;wp-block-list&#34;&gt;
   &lt;li&gt;
@@ -69,13 +69,13 @@ sudo systemctl reload nginx&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>调整debian根分区为最大空间</title>
-      <link>http://localhost:1313/posts/resize-debian-root-partition/</link>
+      <link>https://liangjinzhi.com/posts/resize-debian-root-partition/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/resize-debian-root-partition/</guid>
+      <guid>https://liangjinzhi.com/posts/resize-debian-root-partition/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-large&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;233&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-28-1024x233.png&#34; alt=&#34;&#34; class=&#34;wp-image-115&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, http://localhost:1313/wp-content/uploads/2026/06/image-28-300x68.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-28-768x175.png 768w, http://localhost:1313/wp-content/uploads/2026/06/image-28.png 1312w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;233&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png&#34; alt=&#34;&#34; class=&#34;wp-image-115&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-300x68.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-768x175.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28.png 1312w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   备份/home目录
 &lt;/p&gt;
