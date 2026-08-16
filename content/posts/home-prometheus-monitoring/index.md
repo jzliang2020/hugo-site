@@ -1,7 +1,7 @@
 ---
 title: 内网环境基于 Docker Compose 部署 Prometheus + Grafana 监控系统（含 Windows 节点接入）
 toc: true
-date: 2026-03-29
+date: 2026-08-15
 categories:
   - 运维实践
 tags:
@@ -10,7 +10,7 @@ tags:
   - Docker
   - Homelab
 draft: false
----# # 
+--- 
 
 本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。
 
