@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>windows安装wsl失败 | 梁锦志 | 运维与开发笔记</title>
 <meta name="keywords" content="Windows, WSL">
 <meta name="description" content="C:\Users\yy&gt;wsl &ndash;install -d Ubuntu
@@ -22,16 +22,16 @@ C:\Users\yy&gt;wsl &ndash;update
 系统类型	64 位操作系统, 基于 x64 的处理器
 笔和触控	没有可用于此显示器的笔或触控输入">
 <meta name="author" content="">
-<link rel="canonical" href="https://liangjinzhi.com/posts/win-install-wsl/">
+<link rel="canonical" href="http://localhost:1313/posts/win-install-wsl/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://liangjinzhi.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://liangjinzhi.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://liangjinzhi.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://liangjinzhi.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://liangjinzhi.com/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://liangjinzhi.com/posts/win-install-wsl/">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/posts/win-install-wsl/">
 <noscript>
     <style>
         #theme-toggle,
@@ -77,80 +77,13 @@ C:\Users\yy&gt;wsl &ndash;update
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://liangjinzhi.com/posts/win-install-wsl/">
-  <meta property="og:site_name" content="梁锦志 | 运维与开发笔记">
-  <meta property="og:title" content="windows安装wsl失败">
-  <meta property="og:description" content="C:\Users\yy&gt;wsl –install -d Ubuntu 安装过程中出现错误。分发名称: ‘Ubuntu’ 错误代码: 0x8000ffff
-C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名	DESKTOP-CH432AQ 处理器	12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM	32.0 GB (31.8 GB 可用) 存储	466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡	NVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID	65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID	00330-80000-00000-AA243 系统类型	64 位操作系统, 基于 x64 的处理器 笔和触控	没有可用于此显示器的笔或触控输入">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2026-08-05T22:18:29+08:00">
-    <meta property="article:modified_time" content="2026-08-05T22:18:29+08:00">
-    <meta property="article:tag" content="Windows">
-    <meta property="article:tag" content="WSL">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="windows安装wsl失败">
-  <meta name="twitter:description" content="C:\Users\yy&gt;wsl –install -d Ubuntu 安装过程中出现错误。分发名称: ‘Ubuntu’ 错误代码: 0x8000ffff
-C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名	DESKTOP-CH432AQ 处理器	12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM	32.0 GB (31.8 GB 可用) 存储	466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡	NVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID	65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID	00330-80000-00000-AA243 系统类型	64 位操作系统, 基于 x64 的处理器 笔和触控	没有可用于此显示器的笔或触控输入">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://liangjinzhi.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "windows安装wsl失败",
-      "item": "https://liangjinzhi.com/posts/win-install-wsl/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "windows安装wsl失败",
-  "name": "windows安装wsl失败",
-  "description": "C:\\Users\\yy\u0026gt;wsl \u0026ndash;install -d Ubuntu 安装过程中出现错误。分发名称: \u0026lsquo;Ubuntu\u0026rsquo; 错误代码: 0x8000ffff\nC:\\Users\\yy\u0026gt;wsl \u0026ndash;update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名\tDESKTOP-CH432AQ 处理器\t12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM\t32.0 GB (31.8 GB 可用) 存储\t466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡\tNVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID\t65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID\t00330-80000-00000-AA243 系统类型\t64 位操作系统, 基于 x64 的处理器 笔和触控\t没有可用于此显示器的笔或触控输入\n",
-  "keywords": [
-    "Windows", "WSL"
-  ],
-  "articleBody": "C:\\Users\\yy\u003ewsl –install -d Ubuntu 安装过程中出现错误。分发名称: ‘Ubuntu’ 错误代码: 0x8000ffff\nC:\\Users\\yy\u003ewsl –update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名\tDESKTOP-CH432AQ 处理器\t12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM\t32.0 GB (31.8 GB 可用) 存储\t466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡\tNVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID\t65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID\t00330-80000-00000-AA243 系统类型\t64 位操作系统, 基于 x64 的处理器 笔和触控\t没有可用于此显示器的笔或触控输入\n不复杂，按这个顺序来，重点是用管理员 PowerShell，这里搞错了，不是普通 CMD。\n先右键开始菜单 → Windows PowerShell / Terminal 管理员，执行：\ndism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart\rdism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart\rbcdedit /set hypervisorlaunchtype auto 然后重启电脑。\n重启后继续管理员 PowerShell：\nwsl --update --web-download\rwsl --install --web-download -d Ubuntu 你这个 wsl --update 走 Store 时失败，所以关键是加 --web-download，绕过 Microsoft Store 下载。\n如果还失败，就手动下载安装：\n打开官方 WSL GitHub 最新版： https://github.com/microsoft/WSL/releases/latest 下载：Microsoft.WSL.x64.msixbundle 双击安装，或管理员 PowerShell 执行： Add-AppxPackage .\\Microsoft.WSL.x64.msixbundle 再执行： wsl --install --web-download -d Ubuntu 微软官方也推荐 --web-download 用来绕过 Store 下载 WSL/发行版： Microsoft WSL install docs\n",
-  "wordCount" : "149",
-  "inLanguage": "zh-cn",
-  "datePublished": "2026-08-05T22:18:29+08:00",
-  "dateModified": "2026-08-05T22:18:29+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://liangjinzhi.com/posts/win-install-wsl/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "梁锦志 | 运维与开发笔记",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://liangjinzhi.com/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://liangjinzhi.com/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
@@ -176,7 +109,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
         </div>
         <ul id="menu" class="menu">
             <li>
-                <a href="https://liangjinzhi.com/posts/about-author/" title="关于作者">
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
                     <span>关于作者</span>
                 </a>
             </li>
@@ -241,15 +174,15 @@ wsl --install --web-download -d Ubuntu
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://liangjinzhi.com/tags/windows/">Windows</a></li>
-      <li><a href="https://liangjinzhi.com/tags/wsl/">WSL</a></li>
+      <li><a href="http://localhost:1313/tags/windows/">Windows</a></li>
+      <li><a href="http://localhost:1313/tags/wsl/">WSL</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://liangjinzhi.com/">梁锦志 | 运维与开发笔记</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/">梁锦志 | 运维与开发笔记</a></span> · 
 
     
     

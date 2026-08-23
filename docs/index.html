@@ -2,25 +2,25 @@
 <html lang="zh-cn" dir="auto" data-theme="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.164.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.164.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>梁锦志 | 运维与开发笔记</title>
 
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://liangjinzhi.com/">
+<link rel="canonical" href="http://localhost:1313/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://liangjinzhi.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://liangjinzhi.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://liangjinzhi.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://liangjinzhi.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://liangjinzhi.com/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/json" href="https://liangjinzhi.com/index.json" title="json">
-<link rel="alternate" hreflang="zh-cn" href="https://liangjinzhi.com/">
+<link rel="alternate" type="application/json" href="http://localhost:1313/index.json" title="json">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/">
 <noscript>
     <style>
         #theme-toggle,
@@ -66,34 +66,13 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://liangjinzhi.com/">
-  <meta property="og:site_name" content="梁锦志 | 运维与开发笔记">
-  <meta property="og:title" content="梁锦志 | 运维与开发笔记">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="website">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="梁锦志 | 运维与开发笔记">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "梁锦志 | 运维与开发笔记",
-  "url": "https://liangjinzhi.com/",
-  "description": "",
-  "logo": "https://liangjinzhi.com/favicon.ico",
-  "sameAs": [
-      
-  ]
-}
 </script>
 </head>
 <body class="list" id="top">
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://liangjinzhi.com/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
@@ -119,7 +98,7 @@
         </div>
         <ul id="menu" class="menu">
             <li>
-                <a href="https://liangjinzhi.com/posts/about-author/" title="关于作者">
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
                     <span>关于作者</span>
                 </a>
             </li>
@@ -129,6 +108,30 @@
 <main class="main"> 
 
 <article class="first-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">FRP 内网穿透实现 OpenVPN 异地组网
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>概要 本文整理了通过 FRP 内网穿透实现 OpenVPN 异地组网的全套配置文件。包含服务端（frps）、客户端（frpc）、OpenVPN 服务端（server.conf）及 OpenVPN 客户端（client.ovpn）的配置示例。
+基于 FRP &#43; OpenVPN 实现内网穿透与跨网段访问配置指南 为了将局域网内部的 OpenVPN 服务暴露至公网，可以通过配置 FRP 隧道（TCP 协议）实现流量转发：
+网络架构逻辑与流量走向图
+graph TDsubgraph 公网与穿透层A[私网电脑] --&gt;|1. 发起 VPN 连接| B[阿里云公网服务器&lt;br&gt;203.0.113.x]endsubgraph 内网层 172.16.10.0/24B --&gt;|2. FRP 穿透隧道| Csubgraph 网关服务器 172.16.X.XC[frpc 进程] --&gt;|3. 本地转发端口 1194| D[OpenVPN 服务]endD --&gt;|4. 分配 VPN 网段 IP，访问内网| E[内网其他 Server 节点]subgraph 内网集群E --- E1(数据库服务器 172.16.x.x)E --- E2(应用服务器 172.16.x.x)E --- E3(GitLab / Jenkins / K8s 集群)endend 1. 公网服务端 FRP 配置 (frps.toml)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-23 00:09:08 +0800 CST'>August 23, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to FRP 内网穿透实现 OpenVPN 异地组网" href="http://localhost:1313/posts/openvpn-frp-guide/"></a>
+</article>
+
+<article class="post-entry"> 
   <header class="entry-header">
     <h2 class="entry-hint-parent">内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）
     </h2>
@@ -140,7 +143,7 @@
   <footer class="entry-footer">
 
 <span title='2026-08-15 00:00:00 +0000 UTC'>August 15, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to 内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）" href="https://liangjinzhi.com/posts/home-prometheus-monitoring/"></a>
+  <a class="entry-link" aria-label="post link to 内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）" href="http://localhost:1313/posts/home-prometheus-monitoring/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -156,7 +159,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-08-05 22:18:29 +0800 CST'>August 5, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to windows安装wsl失败" href="https://liangjinzhi.com/posts/win-install-wsl/"></a>
+  <a class="entry-link" aria-label="post link to windows安装wsl失败" href="http://localhost:1313/posts/win-install-wsl/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -170,7 +173,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to 【K3s 系列 01】从零搭建 K3s" href="https://liangjinzhi.com/posts/k3s-01/"></a>
+  <a class="entry-link" aria-label="post link to 【K3s 系列 01】从零搭建 K3s" href="http://localhost:1313/posts/k3s-01/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -184,7 +187,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to AdguardHome容器化部署" href="https://liangjinzhi.com/posts/adguardhome-docker-setup/"></a>
+  <a class="entry-link" aria-label="post link to AdguardHome容器化部署" href="http://localhost:1313/posts/adguardhome-docker-setup/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -198,7 +201,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to AWS免费服务器申请教程" href="https://liangjinzhi.com/posts/how-to-apply-aws-free-tier/"></a>
+  <a class="entry-link" aria-label="post link to AWS免费服务器申请教程" href="http://localhost:1313/posts/how-to-apply-aws-free-tier/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -212,7 +215,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to Certd全自动证书管理系统" href="https://liangjinzhi.com/posts/certd-ssl-auto-renewal-system/"></a>
+  <a class="entry-link" aria-label="post link to Certd全自动证书管理系统" href="http://localhost:1313/posts/certd-ssl-auto-renewal-system/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -226,7 +229,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to Loki日志管理" href="https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/"></a>
+  <a class="entry-link" aria-label="post link to Loki日志管理" href="http://localhost:1313/posts/building-grafana-loki-log-analysis/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -240,7 +243,7 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to Nginx  htpasswd防护" href="https://liangjinzhi.com/posts/nginx-htpasswd-generator/"></a>
+  <a class="entry-link" aria-label="post link to Nginx  htpasswd防护" href="http://localhost:1313/posts/nginx-htpasswd-generator/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -254,32 +257,18 @@ C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统
   <footer class="entry-footer">
 
 <span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to 调整debian根分区为最大空间" href="https://liangjinzhi.com/posts/resize-debian-root-partition/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">关于博客本人
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>一名90后运维工程师。热爱折腾技术，通过优化脚本从而实现自动化大量减少日常的重复劳动。日常工作中很多工作内容容易高度重复，因此在这里进行总结，希望能对大家有所帮助。Email：500063439@139.com微信号：ssssomeday</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to 关于博客本人" href="https://liangjinzhi.com/posts/about-author/"></a>
+  <a class="entry-link" aria-label="post link to 调整debian根分区为最大空间" href="http://localhost:1313/posts/resize-debian-root-partition/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
-    <a class="next" href="https://liangjinzhi.com/page/2/">&nbsp;&nbsp;»
+    <a class="next" href="http://localhost:1313/page/2/">&nbsp;&nbsp;»
     </a>
   </nav>
 </footer>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://liangjinzhi.com/">梁锦志 | 运维与开发笔记</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/">梁锦志 | 运维与开发笔记</a></span> · 
 
     
     

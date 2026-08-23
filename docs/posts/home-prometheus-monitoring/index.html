@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入） | 梁锦志 | 运维与开发笔记</title>
 <meta name="keywords" content="Prometheus, Grafana, Docker, Homelab">
 <meta name="description" content="本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus &#43; Grafana &#43; Node Exporter 监控体系，并接入 Windows 节点的系统指标。">
 <meta name="author" content="">
-<link rel="canonical" href="https://liangjinzhi.com/posts/home-prometheus-monitoring/">
+<link rel="canonical" href="http://localhost:1313/posts/home-prometheus-monitoring/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://liangjinzhi.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://liangjinzhi.com/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://liangjinzhi.com/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://liangjinzhi.com/apple-touch-icon.png">
-<link rel="mask-icon" href="https://liangjinzhi.com/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh-cn" href="https://liangjinzhi.com/posts/home-prometheus-monitoring/">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/posts/home-prometheus-monitoring/">
 <noscript>
     <style>
         #theme-toggle,
@@ -64,80 +64,13 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://liangjinzhi.com/posts/home-prometheus-monitoring/">
-  <meta property="og:site_name" content="梁锦志 | 运维与开发笔记">
-  <meta property="og:title" content="内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）">
-  <meta property="og:description" content="本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus &#43; Grafana &#43; Node Exporter 监控体系，并接入 Windows 节点的系统指标。">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2026-08-15T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-08-15T00:00:00+00:00">
-    <meta property="article:tag" content="Prometheus">
-    <meta property="article:tag" content="Grafana">
-    <meta property="article:tag" content="Docker">
-    <meta property="article:tag" content="Homelab">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）">
-  <meta name="twitter:description" content="本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus &#43; Grafana &#43; Node Exporter 监控体系，并接入 Windows 节点的系统指标。">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://liangjinzhi.com/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "内网环境基于 Docker Compose 部署 Prometheus + Grafana 监控系统（含 Windows 节点接入）",
-      "item": "https://liangjinzhi.com/posts/home-prometheus-monitoring/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "内网环境基于 Docker Compose 部署 Prometheus + Grafana 监控系统（含 Windows 节点接入）",
-  "name": "内网环境基于 Docker Compose 部署 Prometheus \u002b Grafana 监控系统（含 Windows 节点接入）",
-  "description": "本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。\n",
-  "keywords": [
-    "Prometheus", "Grafana", "Docker", "Homelab"
-  ],
-  "articleBody": "本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。\n1. 架构职责分工 角色 IP / 位置 部署组件 核心作用 单机监控节点 内网 192.168.5.200 Prometheus + Grafana + Node Exporter 采集本机指标、存储历史监控数据并提供可视化面板展示 Windows 被监控节点 内网 192.168.5.100 Windows Exporter 暴露 Windows 系统各项硬件与服务指标 2. Linux 主节点部署 步骤 1：准备工作目录与配置文件 创建并进入指定的工作目录：\nmkdir -p /home/dog/scripts/promethus cd /home/dog/scripts/promethus 在该目录下创建 docker-compose.yml 文件：\nservices: prometheus: image: [swr.cn-north-4.myhuaweicloud.com/ddn-k8s/quay.io/prometheus/prometheus:v3.5.0](https://swr.cn-north-4.myhuaweicloud.com/ddn-k8s/quay.io/prometheus/prometheus:v3.5.0) container_name: prometheus restart: always ports: - \"9090:9090\" volumes: - ./prometheus.yml:/etc/prometheus/prometheus.yml - prometheus_data:/prometheus grafana: image: docker.1ms.run/grafana/grafana:13.0.6 container_name: grafana restart: always ports: - \"3001:3000\" #这里3000跟我的环境冲突了，把原来的3000更改为3001 volumes: - grafana_data:/var/lib/grafana node-exporter: image: [swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/prom/node-exporter:v1.8.1](https://swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/prom/node-exporter:v1.8.1) container_name: node-exporter restart: always ports: - \"9100:9100\" volumes: - /proc:/host/proc:ro - /sys:/host/sys:ro - /:/rootfs:ro command: - '--path.procfs=/host/proc' - '--path.sysfs=/host/sys' - '--path.rootfs=/rootfs' volumes: prometheus_data: grafana_data: 在同一目录下创建基础 prometheus.yml 配置文件：\nglobal: scrape_interval: 15s scrape_configs: - job_name: 'home-single-node' static_configs: - targets: - 'node-exporter:9100' labels: env: 'home' instance: '192.168.5.200' 启动服务：\ndocker compose up -d 步骤 2：配置 Grafana 数据源与看板 登录 Grafana： 打开浏览器访问 http://192.168.5.200:3001（默认账号：admin，默认密码：admin）。 添加 Prometheus 数据源： 导航至 Connections -\u003e Data sources -\u003e 点击 Add data source -\u003e 选择 Prometheus。 URL：填入 http://prometheus:9090 或 http://192.168.5.200:9090。 点击 Save \u0026 test。 导入 Linux 监控看板： 点击右上角 + -\u003e Import dashboard。 输入社区看板 ID 1860，点击 Load。 数据源选择刚创建的 Prometheus，点击 Import 完成导入。 3. 接入 Windows 节点监控 步骤 1：安装 windows_exporter 下载安装包： 前往 windows_exporter Releases 下载 .msi 安装包。 安装并运行： 运行 .msi 程序，安装完成后会自动注册为 Windows 系统服务并随机启动。 验证服务： 在 Windows 本地访问 http://localhost:9182/metrics，若有文本指标输出则说明启动成功（默认端口：9182）。 注意： 请确保 Windows 防火墙已允许 TCP 9182 端口的入站访问。\n步骤 2：更新 Prometheus 配置 编辑 /home/dog/scripts/promethus/prometheus.yml：\nglobal: scrape_interval: 15s scrape_configs: - job_name: 'home-single-node' static_configs: - targets: - 'node-exporter:9100' labels: env: 'home' instance: '192.168.5.200' # 新增 Windows 节点监控 - job_name: 'windows-nodes' static_configs: - targets: - '192.168.5.100:9182' # 替换为实际 Windows 节点 IP labels: env: 'home' os: 'windows' 重启 Prometheus 使配置生效：\ndocker restart prometheus 步骤 3：导入 Windows 专属看板 打开 Grafana 界面（http://192.168.5.200:3001）。 点击 + -\u003e Import dashboard。 输入 Windows 仪表盘 ID 9276，点击 Load。 选择对应的 Prometheus 数据源，点击 Import。 4. 总结与落地效果 完成以上步骤后，所有监控数据将持久化在 Docker 卷中。可以在 Grafana 统一视图中实时监测 Linux 与 Windows 节点的 CPU、内存、磁盘及网络流量情况。\n",
-  "wordCount" : "301",
-  "inLanguage": "zh-cn",
-  "datePublished": "2026-08-15T00:00:00Z",
-  "dateModified": "2026-08-15T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://liangjinzhi.com/posts/home-prometheus-monitoring/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "梁锦志 | 运维与开发笔记",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://liangjinzhi.com/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://liangjinzhi.com/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
@@ -163,7 +96,7 @@
         </div>
         <ul id="menu" class="menu">
             <li>
-                <a href="https://liangjinzhi.com/posts/about-author/" title="关于作者">
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
                     <span>关于作者</span>
                 </a>
             </li>
@@ -346,17 +279,17 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://liangjinzhi.com/tags/prometheus/">Prometheus</a></li>
-      <li><a href="https://liangjinzhi.com/tags/grafana/">Grafana</a></li>
-      <li><a href="https://liangjinzhi.com/tags/docker/">Docker</a></li>
-      <li><a href="https://liangjinzhi.com/tags/homelab/">Homelab</a></li>
+      <li><a href="http://localhost:1313/tags/prometheus/">Prometheus</a></li>
+      <li><a href="http://localhost:1313/tags/grafana/">Grafana</a></li>
+      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:1313/tags/homelab/">Homelab</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://liangjinzhi.com/">梁锦志 | 运维与开发笔记</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/">梁锦志 | 运维与开发笔记</a></span> · 
 
     
     

@@ -1,1 +1,15 @@
-{"content":{"posts":{"win-install-wsl":{}}}}
+{
+  "content": {
+    "posts": {
+      "openvpn-frp-guide": {},
+      "win-install-wsl": {}
+    }
+  },
+  "static": {
+    "image-1.png": {
+      "alt": "",
+      "caption": "",
+      "title": ""
+    }
+  }
+}
