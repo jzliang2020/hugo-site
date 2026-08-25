@@ -6,8 +6,44 @@
     <description>Recent content in Posts on 梁锦志 | 运维与开发笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 23 Aug 2026 00:09:08 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 22:03:05 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一次 PHP 后台页面访问慢的排查记录</title>
+      <link>http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/</link>
+      <pubDate>Tue, 25 Aug 2026 22:03:05 +0800</pubDate>
+      <guid>http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/</guid>
+      <description>&lt;p&gt;最近处理了一次 PHP 后台页面访问慢的问题。现象是浏览器打开某个后台列表页明显卡顿，页面主请求耗时十几秒，但直接用普通 &lt;code&gt;curl&lt;/code&gt; 测试接口又很快。这里把排查过程做一个匿名化记录，方便以后遇到类似问题时参考。&lt;/p&gt;
+&lt;h2 id=&#34;问题现象&#34;&gt;问题现象&lt;/h2&gt;
+&lt;p&gt;浏览器 DevTools 的 Network 面板里，主文档请求返回 &lt;code&gt;200&lt;/code&gt;，总耗时约 12 秒，其中几乎全部时间都花在：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Waiting for server response
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也就是 TTFB 很高。资源下载本身只有毫秒级，所以可以先排除 JS、CSS、图片下载慢这类前端静态资源问题。&lt;/p&gt;
+&lt;p&gt;一开始在服务器上直接执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl https://example.com/path/to/page.html
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返回很快，只有几百毫秒。但后来发现这个测试不准确，因为未携带登录态时返回的是 &lt;code&gt;302&lt;/code&gt; 跳转，并没有真正进入后台页面。&lt;/p&gt;
+&lt;h2 id=&#34;真实请求复现&#34;&gt;真实请求复现&lt;/h2&gt;
+&lt;p&gt;为了复现浏览器里的慢请求，需要从 Chrome DevTools 中复制真实请求：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Network -&amp;gt; 选中慢的 document 请求 -&amp;gt; Copy -&amp;gt; Copy as cURL
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;复制出来的请求里要重点保留 Cookie，例如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;curl -L -o /dev/null -s -w &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;code=%{http_code}\nTTFB=%{time_starttransfer}\nTotal=%{time_total}\n&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://example.com/path/to/page.html&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-b &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;PHPSESSID=xxx; other_cookie=xxx&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-H &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user-agent: Mozilla/5.0 ...&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;复测后结果类似：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;code=200
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;TTFB=12.2s
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Total=12.2s
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这说明慢点确实在服务端处理阶段，而不是网络传输阶段。&lt;/p&gt;
+&lt;h2 id=&#34;服务器资源情况&#34;&gt;服务器资源情况&lt;/h2&gt;
+&lt;p&gt;查看服务器资源后，情况大致如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CPU：负载偏高，2 核机器平均负载接近 2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;内存：可用内存还有数 GB，Swap 未使用
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;磁盘：空间正常
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;inode：正常
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;磁盘 IO：iowait 很低，没有明显 IO 阻塞
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;从资源角度看，问题更像是 CPU 或数据库查询压力，而不是内存不足或磁盘打满。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>FRP 内网穿透实现 OpenVPN 异地组网</title>
       <link>http://localhost:1313/posts/openvpn-frp-guide/</link>

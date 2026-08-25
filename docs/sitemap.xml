@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/openvpn-frp-guide/</loc>
-    <lastmod>2026-08-23T00:09:08+08:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-08-23T00:09:08+08:00</lastmod>
+    <lastmod>2026-08-25T22:03:05+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
+    <lastmod>2026-08-25T22:03:05+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/</loc>
+    <lastmod>2026-08-25T22:03:05+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/openvpn-frp-guide/</loc>
     <lastmod>2026-08-23T00:09:08+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/docker/</loc>

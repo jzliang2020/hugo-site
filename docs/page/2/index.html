@@ -109,6 +109,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">调整debian根分区为最大空间
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2&gt;/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l &#43;100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab这样就好了...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 调整debian根分区为最大空间" href="http://localhost:1313/posts/resize-debian-root-partition/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">关于博客本人
     </h2>
   </header>
