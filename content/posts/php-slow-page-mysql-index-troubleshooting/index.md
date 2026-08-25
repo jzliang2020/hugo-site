@@ -90,7 +90,7 @@ LIMIT 15;
 
 ```sql
 SELECT status, COUNT(*) AS count
-FROM demo_table
+FROM goods_table
 WHERE status NOT IN (1,2,9,27)
 GROUP BY status
 ORDER BY count DESC;
@@ -104,7 +104,7 @@ ORDER BY count DESC;
 
 ```sql
 EXPLAIN SELECT *
-FROM demo_table
+FROM goods_table
 WHERE check_status = 0
   AND status = 0
 LIMIT 15;
