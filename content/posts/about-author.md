@@ -1,7 +1,7 @@
 ---
 title: 关于博客本人
 toc: true
-date: 2026-07-04
+date: 2026-01-01
 categories:
   - 关于
 draft: false
