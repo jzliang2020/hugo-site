@@ -53,3 +53,5 @@ publishDir = "docs"
   url = "/posts/about-author/"
   weight = 20
 # force deploy 2026
+
+# trigger workflow rebuild 2026
