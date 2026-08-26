@@ -52,3 +52,4 @@ publishDir = "docs"
   name = "关于作者"
   url = "/posts/about-author/"
   weight = 20
+# force deploy 2026
