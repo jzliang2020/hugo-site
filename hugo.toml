@@ -17,6 +17,11 @@ publishDir = "docs"
 [params]
   mainSections = ["posts"]
   digestInHTML = false
+  showCodeCopyButtons = true       # 开启代码块复制按钮
+
+  # 页脚与版权控制（针对 PaperMod 主题修正）
+  hidePoweredBy = true             # 设为 true 彻底隐藏 "Powered by Hugo & PaperMod"
+  copyright = "© 2026 梁锦志 | 运维与开发笔记"   # 自定义页脚显示的版权信息
 
 [params.sidebar]
   emoji = "👋"
@@ -24,6 +29,16 @@ publishDir = "docs"
   avatar = "/img/avatar.png"
   avatarLink = "/posts/about-author/"
   widgets = ["search", "archives", "categories", "tags", "recent_posts"]
+
+[params.sidebar.search]
+  enable = true
+
+[params.colorScheme]
+  toggle = false
+  default = "light"
+
+[params.comments]
+  enabled = false
 
 [taxonomies]
   category = "categories"
@@ -37,13 +52,3 @@ publishDir = "docs"
   name = "关于作者"
   url = "/posts/about-author/"
   weight = 20
-
-[params.sidebar.search]
-  enable = true
-
-[params.colorScheme]
-  toggle = false
-  default = "light"
-
-[params.comments]
-  enabled = false
