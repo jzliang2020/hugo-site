@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>运维实践 | 梁锦志 | 运维与开发笔记</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/categories/%E8%BF%90%E7%BB%B4%E5%AE%9E%E8%B7%B5/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "93baa30e76934f0c8309cedd81163fc5"}'></script>
+
+
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
+                    <span>关于作者</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    运维实践
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus &#43; Grafana &#43; Node Exporter 监控体系，并接入 Windows 节点的系统指标。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-15 00:00:00 +0000 UTC'>August 15, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）" href="http://localhost:1313/posts/home-prometheus-monitoring/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">windows安装wsl失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>C:\Users\yy&gt;wsl –install -d Ubuntu 安装过程中出现错误。分发名称: ‘Ubuntu’ 错误代码: 0x8000ffff
+C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名	DESKTOP-CH432AQ 处理器	12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM	32.0 GB (31.8 GB 可用) 存储	466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡	NVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID	65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID	00330-80000-00000-AA243 系统类型	64 位操作系统, 基于 x64 的处理器 笔和触控	没有可用于此显示器的笔或触控输入
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-05 22:18:29 +0800 CST'>August 5, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to windows安装wsl失败" href="http://localhost:1313/posts/win-install-wsl/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【K3s 系列 01】从零搭建 K3s
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）pig@vm-debian-13:~$ uname -mx86_64#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）pig@vm-debian-13:~$ lscpu | grep -E &#34;Model name|CPU\(s\):&#34;CPU(s): 2Model name: 13th Gen Intel(R) Core(TM) i5-13400NUMA node0 CPU(s): 0,1#内存大小pig@vm-debian-13:~$ free -mtotal used free shared buff/cache availableMem: 3883 886 1917 0 1334 2997Swap: 0 0 安装脚本官方的脚本太慢，国内用户使用这个脚本进行加速$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -检查k3s服务状态...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 【K3s 系列 01】从零搭建 K3s" href="http://localhost:1313/posts/k3s-01/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">AdguardHome容器化部署
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。## 概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。## PART1 服务端环境准备 Debian,docker,AdguardHome镜像源主机IP:192.168.5.200镜像源可以自行查找编写Docker-compose.ymlservices:adguardhome:image: docker.1ms.run/adguard/adguardhome:v0.107.76container_name: adguardhomerestart: unless-stopped# 宿主机目录挂载，确保升级或重启时数据不丢失volumes:- ./ag_work:/opt/adguardhome/work- ./ag_conf:/opt/adguardhome/confports:- &#34;53:53/tcp&#34;- &#34;53:53/udp&#34;- &#34;8081:8081/tcp&#34;- &#34;443:443/tcp&#34;- &#34;443:443/udp&#34;- &#34;3000:3000/tcp&#34;这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意启用命令sudo docker compose up -d启动后dog@debian:~/adguard$ docker ps |grep adguard98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &#34;/opt/adguardhome/Ad…&#34; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome访问首页，并设置密码...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to AdguardHome容器化部署" href="http://localhost:1313/posts/adguardhome-docker-setup/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">AWS免费服务器申请教程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>PART1 注册账号## 1.准备工作： {.wp-block-heading}说明：邮箱地址：建议准备一个未曾关联过AWS的独立邮箱支付方式：必须是一张支持国际支付的信用（Visa,MasterCard或America Express）手机号码：用于接收验证码## 2.注册AWS账号 {.wp-block-heading}访问亚马逊官网,https://aws.amazon.com/cn/，点击右上角的创建账户（2025年7月15日之后 AWS 改版的新政策只能免费使用6个月了，以前是12个月的）注册过程查收邮箱验证码消息。后续还需要填写联系信息和信用卡信息，同时系统会收一笔小额预授权，后面会退回信用卡账户的。请放心。后面大致有5个步骤完成注册。### 第1步，设置密码： {.wp-block-heading}### 第2步，填写联系人信息 {.wp-block-heading}### 第3步，填写账单信息 {.wp-block-heading}需要注意免费资源使用超标的话会直接从信用卡里面扣费结算。...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to AWS免费服务器申请教程" href="http://localhost:1313/posts/how-to-apply-aws-free-tier/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Certd全自动证书管理系统
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。## 解决方案 {.wp-block-heading}部署Certd平台，实现自动申请证书自动续签统一证书管理## 部署方式 {.wp-block-heading}Docker部署Certd## 实现效果 {.wp-block-heading}证书更新从“人工操作” → “自动续期”避免证书过期导致服务中断降低运维维护成本## 运行截图 {.wp-block-heading}首页证书自动化流水线执行历史记录</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Certd全自动证书管理系统" href="http://localhost:1313/posts/certd-ssl-auto-renewal-system/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Loki日志管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Loki日志管理" href="http://localhost:1313/posts/building-grafana-loki-log-analysis/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Nginx  htpasswd防护
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>今天收到腾讯云的告警信息，原来是昨天部署的grafana被漏洞扫描识别到。## 1.安装必要的工具 {.wp-block-heading}如果系统提示找不到 htpasswd 命令，请执行以下命令安装工具包：sudo apt update &amp;&amp; sudo apt install -y apache2-utils## 2. 生成密码文件 {.wp-block-heading}在终端执行以下命令（将 your_username 替换为你想要设置的登录账号名）：sudo htpasswd -c /etc/nginx/.htpasswd your_username执行后，系统会提示你输入两次密码。注意：在输入密码时，终端不会显示任何字符（包括星号），这是正常的 Linux 安全机制。输完按回车即可。## 3. 验证文件是否生成 {.wp-block-heading}你可以查看一下文件内容，确保它已经生成：cat /etc/nginx/.htpasswd## 4.在 Nginx 中启用 {.wp-block-heading}在nginx 在 location / 段落内添加如下内容添加如下：auth_basic &#34;Restricted Access&#34;;auth_basic_user_file /etc/nginx/.htpasswd;## 5.重启 Nginx 使配置生效 {.wp-block-heading}sudo nginx -t # 检查配置语法是否正确sudo systemctl reload nginx## 6.验证 {.wp-block-heading}### 命令解析： {.wp-block-heading}-I：只获取 HTTP 头信息（快速查看，不下载网页内容）。-L：跟随重定向（如果服务器返回 301/302，它会自动追踪最终到达的页面）。-w：输出更详细的状态码和内容类型。当浏览器收到 401 Unauthorized 和 WWW-Authenticate 头部时，意味着 Nginx 已经成功接管了该服务的入口。任何自动化扫描器或攻击者在访问该域名时，只会收到这个“未授权”的信号，根本无法触发后面的 Grafana 业务逻辑，也无法探测到具体的服务指纹。...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Nginx  htpasswd防护" href="http://localhost:1313/posts/nginx-htpasswd-generator/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">调整debian根分区为最大空间
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。备份/home目录# 1. 临时备份 home 目录的数据到 /tmpsudo cp -a /home/* /tmp/ 2&gt;/dev/null# 2. 卸载 /home 挂载点sudo umount /home切换到其他目录，并停止相关进程，否则不能卸载/home# 杀掉所有占用 /home 的进程sudo fuser -vkm /home调整好后卸载/home# 1. 重新卸载sudo umount /home# 2. 删除 home 逻辑卷sudo lvremove -y /dev/mapper/vm--debian--13--vg-home# 3. 100% 扩容给根分区sudo lvextend -l &#43;100%FREE /dev/mapper/vm--debian--13--vg-root# 4. 刷新文件系统sudo resize2fs /dev/mapper/vm--debian--13--vg-root# 5. 清理 fstab 挂载配置sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab这样就好了...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 调整debian根分区为最大空间" href="http://localhost:1313/posts/resize-debian-root-partition/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">一套键鼠操作多终端
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>有时候只有一套键盘鼠标，但是有两个终端需要操作，频繁操作插拨移动键鼠不是很方便操作。这个时候如果可以通过应用程序解决这个问题，何乐而不为呢？这里就引出了input leapgithub上有介绍：Input Leap 是一款模拟 KVM 切换器功能的软件。传统的 KVM 切换器允许用户使用一套键盘和鼠标，通过旋转 KVM 切换器上的旋钮来控制多台计算机。Input Leap 则通过软件实现这一功能，用户只需将鼠标移动到屏幕边缘，或者按下某个按键即可切换到不同的系统。## 准备环境 {.wp-block-heading}server:win11，inputleap,有鼠标键盘client:debian13 ，,inputleap,无鼠标键盘## 下载链接 {.wp-block-heading}windows-serverdebian-client## 安装配置过程 {.wp-block-heading}### windows安装 {.wp-block-heading}没有什么特别就一路默认安装就好了。安装好，桌面生成快捷方式启动并配置Configure Server…点进去把图标分别进行拖动，确认两个主机之间的位置，最好可以跟实际的屏幕的位置关系一致方便操作，我这里one是windows主机名，debian 是debian的主机名。双击可以修改主机名配置。...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 一套键鼠操作多终端" href="http://localhost:1313/posts/use-one-mouse-keyboard-across-devices/"></a>
+</article>
+    </main>
+    <footer class="footer">
+    <span>© 2026 梁锦志 | 运维与开发笔记</span>
+</footer>
+</body>
+
+</html>

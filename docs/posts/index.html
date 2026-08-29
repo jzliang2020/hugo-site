@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Posts | 梁锦志 | 运维与开发笔记</title>
+<meta name="keywords" content="">
+<meta name="description" content="Posts - 梁锦志 | 运维与开发笔记">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/posts/index.xml" title="rss">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/posts/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "93baa30e76934f0c8309cedd81163fc5"}'></script>
+
+
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
+                    <span>关于作者</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Posts
+  </h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">企业级 Zabbix 混合云监控架构实战：内网主控 &#43; 阿里云 Proxy 被动中继
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在企业实际运维场景中，业务往往分布在本地自建机房（内网）和公有云（如阿里云）之间。为实现集中监控，本文记录一种典型的 Zabbix 混合云监控架构——基于 Zabbix Proxy 被动中继 模式，实现跨网络的安全采集。
+1. 整体架构设计与流程 系统采用 被动模式（Passive Proxy） 架构。阿里云侧的 Proxy 不主动穿透内网，而是由内网的 Zabbix Server 按照调度周期主动向公网 Proxy 发起请求抓取监控数据。
+[Zabbix 混合云监控架构拓扑图] 核心流转逻辑： 云内采集：阿里云 ECS Agent 节点将监控指标提交至同 VPC 内的 Zabbix Proxy（端口 10051）。 跨云传输：内网 Zabbix Server 主动连接阿里云 Proxy 的公网 IP（端口 10051）轮询获取数据。 本地监控：内网 Agent 节点直接由内网 Zabbix Server 抓取，不经过跨云链路。 2. 核心服务脱敏配置 以下为生产环境实际运行配置（关键 IP、域名及凭证均已做脱敏处理）。
+2.1 内网主控端配置（Zabbix Server） 配置文件路径：/etc/zabbix/zabbix_server.conf
+LogFile=/var/log/zabbix/zabbix_server.log LogFileSize=0 PidFile=/run/zabbix/zabbix_server.pid SocketDir=/run/zabbix # 数据库配置 DBName=zabbix DBUser=zabbix DBPassword=&lt;YOUR_DB_PASSWORD&gt; # 监听与轮询配置 ListenPort=10051 ListenIP=0.0.0.0 StartProxyPollers=1 # 启用 Proxy 轮询线程（关键） # 性能与日志 SNMPTrapperFile=/var/log/snmptrap/snmptrap.log Timeout=4 LogSlowQueries=3000 StatsAllowedIP=127.0.0.1 EnableGlobalScripts=0 2.2 阿里云中继端配置（Zabbix Proxy） 配置文件路径：/etc/zabbix/zabbix_proxy.conf
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-29 22:45:00 +0800 CST'>August 29, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 企业级 Zabbix 混合云监控架构实战：内网主控 &#43; 阿里云 Proxy 被动中继" href="http://localhost:1313/posts/zabbix-hybrid-cloud/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">一次 PHP 后台页面访问慢的排查记录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近处理了一次 PHP 后台页面访问慢的问题。现象是浏览器打开某个后台列表页明显卡顿，页面主请求耗时十几秒，但直接用普通 curl 测试接口又很快。这里把排查过程做一个匿名化记录，方便以后遇到类似问题时参考。
+问题现象 浏览器 DevTools 的 Network 面板里，主文档请求返回 200，总耗时约 12 秒，其中几乎全部时间都花在：
+Waiting for server response 也就是 TTFB 很高。资源下载本身只有毫秒级，所以可以先排除 JS、CSS、图片下载慢这类前端静态资源问题。
+一开始在服务器上直接执行：
+curl https://example.com/path/to/page.html 返回很快，只有几百毫秒。但后来发现这个测试不准确，因为未携带登录态时返回的是 302 跳转，并没有真正进入后台页面。
+真实请求复现 为了复现浏览器里的慢请求，需要从 Chrome DevTools 中复制真实请求：
+Network -&gt; 选中慢的 document 请求 -&gt; Copy -&gt; Copy as cURL 复制出来的请求里要重点保留 Cookie，例如：
+curl -L -o /dev/null -s -w \ &#34;code=%{http_code}\nTTFB=%{time_starttransfer}\nTotal=%{time_total}\n&#34; \ &#34;https://example.com/path/to/page.html&#34; \ -b &#34;PHPSESSID=xxx; other_cookie=xxx&#34; \ -H &#34;user-agent: Mozilla/5.0 ...&#34; 复测后结果类似：
+code=200 TTFB=12.2s Total=12.2s 这说明慢点确实在服务端处理阶段，而不是网络传输阶段。
+服务器资源情况 查看服务器资源后，情况大致如下：
+CPU：负载偏高，2 核机器平均负载接近 2 内存：可用内存还有数 GB，Swap 未使用 磁盘：空间正常 inode：正常 磁盘 IO：iowait 很低，没有明显 IO 阻塞 从资源角度看，问题更像是 CPU 或数据库查询压力，而不是内存不足或磁盘打满。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-25 22:03:05 +0800 CST'>August 25, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 一次 PHP 后台页面访问慢的排查记录" href="http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">FRP 内网穿透实现 OpenVPN 异地组网
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>概要 本文整理了通过 FRP 内网穿透实现 OpenVPN 异地组网的全套配置文件。包含服务端（frps）、客户端（frpc）、OpenVPN 服务端（server.conf）及 OpenVPN 客户端（client.ovpn）的配置示例。
+基于 FRP &#43; OpenVPN 实现内网穿透与跨网段访问配置指南 为了将局域网内部的 OpenVPN 服务暴露至公网，可以通过配置 FRP 隧道（TCP 协议）实现流量转发：
+网络架构逻辑与流量走向图
+graph TDsubgraph 公网与穿透层A[私网电脑] --&gt;|1. 发起 VPN 连接| B[阿里云公网服务器&lt;br&gt;203.0.113.x]endsubgraph 内网层 172.16.10.0/24B --&gt;|2. FRP 穿透隧道| Csubgraph 网关服务器 172.16.X.XC[frpc 进程] --&gt;|3. 本地转发端口 1194| D[OpenVPN 服务]endD --&gt;|4. 分配 VPN 网段 IP，访问内网| E[内网其他 Server 节点]subgraph 内网集群E --- E1(数据库服务器 172.16.x.x)E --- E2(应用服务器 172.16.x.x)E --- E3(GitLab / Jenkins / K8s 集群)endend 1. 公网服务端 FRP 配置 (frps.toml)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-23 00:09:08 +0800 CST'>August 23, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to FRP 内网穿透实现 OpenVPN 异地组网" href="http://localhost:1313/posts/openvpn-frp-guide/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus &#43; Grafana &#43; Node Exporter 监控体系，并接入 Windows 节点的系统指标。
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-15 00:00:00 +0000 UTC'>August 15, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）" href="http://localhost:1313/posts/home-prometheus-monitoring/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">windows安装wsl失败
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>C:\Users\yy&gt;wsl –install -d Ubuntu 安装过程中出现错误。分发名称: ‘Ubuntu’ 错误代码: 0x8000ffff
+C:\Users\yy&gt;wsl –update 正在安装: 适用于 Linux 的 Windows 子系统 灾难性故障 设备名	DESKTOP-CH432AQ 处理器	12th Gen Intel(R) Core(TM) i5-12400F 2.50 GHz 机带 RAM	32.0 GB (31.8 GB 可用) 存储	466 GB HDD WDC WD5000AAKX-08ERMA0, 8 GB SSD Msft Virtual Disk, 477 GB SSD BR 512GB 显卡	NVIDIA GeForce RTX 3060 Laptop GPU (12 GB) 设备 ID	65F4DCDC-5059-4AE7-AB42-3D376CCF00CA 产品 ID	00330-80000-00000-AA243 系统类型	64 位操作系统, 基于 x64 的处理器 笔和触控	没有可用于此显示器的笔或触控输入
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-05 22:18:29 +0800 CST'>August 5, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to windows安装wsl失败" href="http://localhost:1313/posts/win-install-wsl/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">【K3s 系列 01】从零搭建 K3s
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一、获取系统基础硬件信息 #基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）pig@vm-debian-13:~$ uname -mx86_64#处理器 （K3s 单节点极其轻量，最低仅需 1核 CPU 和 512MB 内存（推荐 1核1G 以上）。）pig@vm-debian-13:~$ lscpu | grep -E &#34;Model name|CPU\(s\):&#34;CPU(s): 2Model name: 13th Gen Intel(R) Core(TM) i5-13400NUMA node0 CPU(s): 0,1#内存大小pig@vm-debian-13:~$ free -mtotal used free shared buff/cache availableMem: 3883 886 1917 0 1334 2997Swap: 0 0 安装脚本官方的脚本太慢，国内用户使用这个脚本进行加速$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -检查k3s服务状态...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 【K3s 系列 01】从零搭建 K3s" href="http://localhost:1313/posts/k3s-01/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">AdguardHome容器化部署
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。## 概述 ADGUARDHOME是一款网络级广告和跟踪器拦截DNS服务器，作为一款开源的隐私保护工具，它能够在网络层面为所有设备提供广告过滤和隐私保护功能，无需在每个设备上单独安装客户端软件。通过Docker容器化部署ADGUARDHOME，可以实现快速部署、环境隔离和版本管理，适用于家庭网络、小型企业网络等多种场景。## PART1 服务端环境准备 Debian,docker,AdguardHome镜像源主机IP:192.168.5.200镜像源可以自行查找编写Docker-compose.ymlservices:adguardhome:image: docker.1ms.run/adguard/adguardhome:v0.107.76container_name: adguardhomerestart: unless-stopped# 宿主机目录挂载，确保升级或重启时数据不丢失volumes:- ./ag_work:/opt/adguardhome/work- ./ag_conf:/opt/adguardhome/confports:- &#34;53:53/tcp&#34;- &#34;53:53/udp&#34;- &#34;8081:8081/tcp&#34;- &#34;443:443/tcp&#34;- &#34;443:443/udp&#34;- &#34;3000:3000/tcp&#34;这里因为我本地环境80端口已经启用了，所以把adguardHome的默认80端口修改成8081了。请自行注意启用命令sudo docker compose up -d启动后dog@debian:~/adguard$ docker ps |grep adguard98dd7f0db486 docker.1ms.run/adguard/adguardhome:v0.107.76 &#34;/opt/adguardhome/Ad…&#34; 24 hours ago Up 16 hours 0.0.0.0:53-&gt;53/tcp, 0.0.0.0:53-&gt;53/udp, [::]:53-&gt;53/tcp, [::]:53-&gt;53/udp, 80/tcp, 67-68/udp, 0.0.0.0:443-&gt;443/tcp, [::]:443-&gt;443/tcp, 853/udp, 853/tcp, 3000/udp, 5443/tcp, 0.0.0.0:3000-&gt;3000/tcp, [::]:3000-&gt;3000/tcp, 0.0.0.0:8081-&gt;8081/tcp, 0.0.0.0:443-&gt;443/udp, [::]:8081-&gt;8081/tcp, [::]:443-&gt;443/udp, 5443/udp, 6060/tcp adguardhome访问首页，并设置密码...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to AdguardHome容器化部署" href="http://localhost:1313/posts/adguardhome-docker-setup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">AWS免费服务器申请教程
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>PART1 注册账号## 1.准备工作： {.wp-block-heading}说明：邮箱地址：建议准备一个未曾关联过AWS的独立邮箱支付方式：必须是一张支持国际支付的信用（Visa,MasterCard或America Express）手机号码：用于接收验证码## 2.注册AWS账号 {.wp-block-heading}访问亚马逊官网,https://aws.amazon.com/cn/，点击右上角的创建账户（2025年7月15日之后 AWS 改版的新政策只能免费使用6个月了，以前是12个月的）注册过程查收邮箱验证码消息。后续还需要填写联系信息和信用卡信息，同时系统会收一笔小额预授权，后面会退回信用卡账户的。请放心。后面大致有5个步骤完成注册。### 第1步，设置密码： {.wp-block-heading}### 第2步，填写联系人信息 {.wp-block-heading}### 第3步，填写账单信息 {.wp-block-heading}需要注意免费资源使用超标的话会直接从信用卡里面扣费结算。...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to AWS免费服务器申请教程" href="http://localhost:1313/posts/how-to-apply-aws-free-tier/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Certd全自动证书管理系统
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。## 解决方案 {.wp-block-heading}部署Certd平台，实现自动申请证书自动续签统一证书管理## 部署方式 {.wp-block-heading}Docker部署Certd## 实现效果 {.wp-block-heading}证书更新从“人工操作” → “自动续期”避免证书过期导致服务中断降低运维维护成本## 运行截图 {.wp-block-heading}首页证书自动化流水线执行历史记录</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Certd全自动证书管理系统" href="http://localhost:1313/posts/certd-ssl-auto-renewal-system/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Loki日志管理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。为了确保最高的稳定性和极低的资源消耗，遵循 Grafana 官方推荐的单机二进制（Binary）部署指导（比 Docker 性能更好、更直观）。目标：在已有granfana平台的基础 上部署Loki,并监控服务器的相关日志前提：开放Loki端3000，3100端口准备工作：创建统一目录# mkdir -p /opt/loki-stack# cd /opt/loki-stack## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。1.下载官方二进制包与默认配置：# 下载 Loki 主程序wget https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip#或者使用国内GitHub镜像下载Loki主程序 wget https://ghfast.top/https://github.com/grafana/loki/releases/download/v3.0.0/loki-linux-amd64.zip# 解压unzip loki-linux-amd64.zipmv loki-linux-amd64 loki# 下载官方标准配置文件wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml#或者使用ghfast.top代理下载 #wget https://ghfast.top/https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml -O loki-config.yaml2.清空原来的配置文件以添加“自动清理策略”（防止撑爆磁盘）： 打开 loki-config.yaml，在文件末尾添加以下内容：auth_enabled: falseserver:http_listen_port: 3100grpc_listen_port: 9096common:instance_addr: 127.0.0.1path_prefix: /tmp/lokistorage:filesystem:chunks_directory: /tmp/loki/chunksrules_directory: /tmp/loki/rulesreplication_factor: 1ring:kvstore:store: inmemoryschema_config:configs:- from: 2024-01-01store: tsdbobject_store: filesystemschema: v13index:prefix: index_period: 24hlimits_config:retention_period: 168h #地保留7天日志，绝不重复compactor:working_directory: /tmp/loki/retentioncompaction_interval: 10mretention_enabled: truedelete_request_store: filesystem # 解决元数据存放问题3.使用 Systemd 保持后台运行： 创建系统服务文件 vi /etc/systemd/system/loki.service：...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-04 00:00:00 +0000 UTC'>July 4, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Loki日志管理" href="http://localhost:1313/posts/building-grafana-loki-log-analysis/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="http://localhost:1313/posts/page/2/">&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    <footer class="footer">
+    <span>© 2026 梁锦志 | 运维与开发笔记</span>
+</footer>
+</body>
+
+</html>

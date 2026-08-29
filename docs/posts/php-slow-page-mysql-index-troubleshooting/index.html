@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>一次 PHP 后台页面访问慢的排查记录 | 梁锦志 | 运维与开发笔记</title>
+<meta name="keywords" content="">
+<meta name="description" content="最近处理了一次 PHP 后台页面访问慢的问题。现象是浏览器打开某个后台列表页明显卡顿，页面主请求耗时十几秒，但直接用普通 curl 测试接口又很快。这里把排查过程做一个匿名化记录，方便以后遇到类似问题时参考。
+问题现象
+浏览器 DevTools 的 Network 面板里，主文档请求返回 200，总耗时约 12 秒，其中几乎全部时间都花在：
+Waiting for server response
+也就是 TTFB 很高。资源下载本身只有毫秒级，所以可以先排除 JS、CSS、图片下载慢这类前端静态资源问题。
+一开始在服务器上直接执行：
+curl https://example.com/path/to/page.html
+返回很快，只有几百毫秒。但后来发现这个测试不准确，因为未携带登录态时返回的是 302 跳转，并没有真正进入后台页面。
+真实请求复现
+为了复现浏览器里的慢请求，需要从 Chrome DevTools 中复制真实请求：
+Network -&gt; 选中慢的 document 请求 -&gt; Copy -&gt; Copy as cURL
+复制出来的请求里要重点保留 Cookie，例如：
+curl -L -o /dev/null -s -w \
+&#34;code=%{http_code}\nTTFB=%{time_starttransfer}\nTotal=%{time_total}\n&#34; \
+&#34;https://example.com/path/to/page.html&#34; \
+-b &#34;PHPSESSID=xxx; other_cookie=xxx&#34; \
+-H &#34;user-agent: Mozilla/5.0 ...&#34;
+复测后结果类似：
+code=200
+TTFB=12.2s
+Total=12.2s
+这说明慢点确实在服务端处理阶段，而不是网络传输阶段。
+服务器资源情况
+查看服务器资源后，情况大致如下：
+CPU：负载偏高，2 核机器平均负载接近 2
+内存：可用内存还有数 GB，Swap 未使用
+磁盘：空间正常
+inode：正常
+磁盘 IO：iowait 很低，没有明显 IO 阻塞
+从资源角度看，问题更像是 CPU 或数据库查询压力，而不是内存不足或磁盘打满。">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.89ca4972ab5e6aaa05e9a0dae0c4bb64b26585bc79e36f5cf33614eea0283abe.css" integrity="sha256-icpJcqteaqoF6aDa4MS7ZLJlhbx5429c8zYU7qAoOr4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh-cn" href="http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "93baa30e76934f0c8309cedd81163fc5"}'></script>
+
+
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="梁锦志 | 运维与开发笔记 (Alt + H)">梁锦志 | 运维与开发笔记</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/posts/about-author/" title="关于作者">
+                    <span>关于作者</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      一次 PHP 后台页面访问慢的排查记录
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-08-25 22:03:05 +0800 CST'>August 25, 2026</span>
+
+</div>
+  </header> 
+  <div class="post-content md-content"><p>最近处理了一次 PHP 后台页面访问慢的问题。现象是浏览器打开某个后台列表页明显卡顿，页面主请求耗时十几秒，但直接用普通 <code>curl</code> 测试接口又很快。这里把排查过程做一个匿名化记录，方便以后遇到类似问题时参考。</p>
+<h2 id="问题现象">问题现象<a hidden class="anchor" aria-hidden="true" href="#问题现象">#</a></h2>
+<p>浏览器 DevTools 的 Network 面板里，主文档请求返回 <code>200</code>，总耗时约 12 秒，其中几乎全部时间都花在：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Waiting for server response
+</span></span></code></pre></div><p>也就是 TTFB 很高。资源下载本身只有毫秒级，所以可以先排除 JS、CSS、图片下载慢这类前端静态资源问题。</p>
+<p>一开始在服务器上直接执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl https://example.com/path/to/page.html
+</span></span></code></pre></div><p>返回很快，只有几百毫秒。但后来发现这个测试不准确，因为未携带登录态时返回的是 <code>302</code> 跳转，并没有真正进入后台页面。</p>
+<h2 id="真实请求复现">真实请求复现<a hidden class="anchor" aria-hidden="true" href="#真实请求复现">#</a></h2>
+<p>为了复现浏览器里的慢请求，需要从 Chrome DevTools 中复制真实请求：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Network -&gt; 选中慢的 document 请求 -&gt; Copy -&gt; Copy as cURL
+</span></span></code></pre></div><p>复制出来的请求里要重点保留 Cookie，例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -L -o /dev/null -s -w <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;code=%{http_code}\nTTFB=%{time_starttransfer}\nTotal=%{time_total}\n&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;https://example.com/path/to/page.html&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>-b <span style="color:#e6db74">&#34;PHPSESSID=xxx; other_cookie=xxx&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>-H <span style="color:#e6db74">&#34;user-agent: Mozilla/5.0 ...&#34;</span>
+</span></span></code></pre></div><p>复测后结果类似：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>code=200
+</span></span><span style="display:flex;"><span>TTFB=12.2s
+</span></span><span style="display:flex;"><span>Total=12.2s
+</span></span></code></pre></div><p>这说明慢点确实在服务端处理阶段，而不是网络传输阶段。</p>
+<h2 id="服务器资源情况">服务器资源情况<a hidden class="anchor" aria-hidden="true" href="#服务器资源情况">#</a></h2>
+<p>查看服务器资源后，情况大致如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CPU：负载偏高，2 核机器平均负载接近 2
+</span></span><span style="display:flex;"><span>内存：可用内存还有数 GB，Swap 未使用
+</span></span><span style="display:flex;"><span>磁盘：空间正常
+</span></span><span style="display:flex;"><span>inode：正常
+</span></span><span style="display:flex;"><span>磁盘 IO：iowait 很低，没有明显 IO 阻塞
+</span></span></code></pre></div><p>从资源角度看，问题更像是 CPU 或数据库查询压力，而不是内存不足或磁盘打满。</p>
+<p>进程层面可以看到 MySQL 占用较高，因此继续往数据库方向排查。</p>
+<h2 id="慢请求期间抓-sql">慢请求期间抓 SQL<a hidden class="anchor" aria-hidden="true" href="#慢请求期间抓-sql">#</a></h2>
+<p>在执行真实 <code>curl</code> 请求卡住时，同时执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">FULL</span> PROCESSLIST;
+</span></span></code></pre></div><p>观察到后台页面请求期间，数据库正在执行类似 SQL：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> check_status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">15</span>;
+</span></span></code></pre></div><p>以及状态统计 SQL：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> status, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">count</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> status <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">27</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> status
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">count</span> <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><p>一个是列表数据查询，一个是页面顶部状态数量统计。两者都指向同一张商品类大表。</p>
+<h2 id="执行计划确认">执行计划确认<a hidden class="anchor" aria-hidden="true" href="#执行计划确认">#</a></h2>
+<p>继续对这两条 SQL 执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> check_status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">15</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> status, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">count</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> status <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span> (<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">27</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> status
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">count</span> <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><p>结果显示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>type = ALL
+</span></span><span style="display:flex;"><span>key = NULL
+</span></span><span style="display:flex;"><span>rows ≈ 100 万
+</span></span><span style="display:flex;"><span>Extra = Using where
+</span></span></code></pre></div><p>第二条统计 SQL 还出现：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Using temporary; Using filesort
+</span></span></code></pre></div><p>这基本确认了问题：相关查询没有命中索引，正在扫描百万级数据。</p>
+<h2 id="环境索引差异">环境索引差异<a hidden class="anchor" aria-hidden="true" href="#环境索引差异">#</a></h2>
+<p>对比生产环境和测试环境的索引后发现，生产环境存在 <code>status</code> 相关索引，而测试环境缺少 <code>status</code> / <code>check_status</code> 相关索引，只有其他业务字段索引。</p>
+<p>也就是说，测试环境的数据量已经达到百万级，但索引配置没有跟上生产环境，导致后台列表页每次打开都要扫大表。</p>
+<h2 id="初步结论">初步结论<a hidden class="anchor" aria-hidden="true" href="#初步结论">#</a></h2>
+<p>这次问题的核心不是 PHP 进程本身，也不是服务器内存或磁盘问题，而是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>1. 浏览器真实登录请求 TTFB 约 12 秒，慢在服务端响应。
+</span></span><span style="display:flex;"><span>2. 慢请求期间 MySQL 正在执行商品表列表查询和状态统计查询。
+</span></span><span style="display:flex;"><span>3. 商品表约百万级数据，相关 SQL 执行计划为全表扫描。
+</span></span><span style="display:flex;"><span>4. 测试环境索引与生产环境不一致，缺少 status/check_status 相关索引。
+</span></span></code></pre></div><h2 id="处理思路">处理思路<a hidden class="anchor" aria-hidden="true" href="#处理思路">#</a></h2>
+<p>把证据整理给开发或 DBA 确认：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>页面 TTFB 证据
+</span></span><span style="display:flex;"><span>慢请求期间的 processlist
+</span></span><span style="display:flex;"><span>慢 SQL
+</span></span><span style="display:flex;"><span>EXPLAIN 执行计划
+</span></span><span style="display:flex;"><span>生产/测试索引差异
+</span></span><span style="display:flex;"><span>服务器 CPU、内存、磁盘、IO 情况
+</span></span></code></pre></div><p>建议开发或 DBA 评估是否补充类似索引：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ADD</span> <span style="color:#66d9ef">INDEX</span> idx_status_checkstatus (status, check_status);
+</span></span></code></pre></div><p>如果只需要先补齐生产已有索引，则优先补充 <code>status</code> 单列索引。最终方案仍应由开发或 DBA 根据业务查询模式确认。</p>
+<h2 id="修改后验证方式">修改后验证方式<a hidden class="anchor" aria-hidden="true" href="#修改后验证方式">#</a></h2>
+<p>索引调整后，需要做三类验证：</p>
+<p>第一，重新看执行计划：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> goods_table
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> check_status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> status <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">15</span>;
+</span></span></code></pre></div><p>重点观察：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>key 是否使用新索引
+</span></span><span style="display:flex;"><span>type 是否从 ALL 变为 ref/range
+</span></span><span style="display:flex;"><span>rows 是否明显下降
+</span></span></code></pre></div><p>第二，复测真实页面请求：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -L -o /dev/null -s -w <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;code=%{http_code} TTFB=%{time_starttransfer} Total=%{time_total}\n&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;https://example.com/path/to/page.html&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>-b <span style="color:#e6db74">&#34;PHPSESSID=xxx&#34;</span>
+</span></span></code></pre></div><p>对比优化前后 TTFB 是否从十几秒下降。</p>
+<p>第三，观察数据库压力：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SHOW</span> <span style="color:#66d9ef">FULL</span> PROCESSLIST;
+</span></span></code></pre></div><p>同时关注服务器 CPU 和 MySQL 占用是否下降。</p>
+<h2 id="经验总结">经验总结<a hidden class="anchor" aria-hidden="true" href="#经验总结">#</a></h2>
+<p>这次排查里最容易误判的点是普通 <code>curl</code> 很快，但它返回的是 <code>302</code>，并没有进入真实后台页面。排查登录态页面慢时，一定要复制浏览器里的真实请求，尤其要带上 Cookie。</p>
+<p>另一个关键点是不要一上来就猜 PHP 慢、网络慢或者服务器配置低，而是先用 TTFB 判断慢在哪一段，再用 <code>processlist</code> 和 <code>EXPLAIN</code> 把问题收敛到具体 SQL 和索引。</p>
+<p>百万级表本身不算特别大，但在 2 核测试环境里，如果后台页面每次打开都全表扫描，再叠加统计查询，就很容易出现十几秒的响应延迟。索引、缓存和统计逻辑要随着数据量增长一起补上。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>© 2026 梁锦志 | 运维与开发笔记</span>
+</footer>
+</body>
+
+</html>
