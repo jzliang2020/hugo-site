@@ -1,3 +1,28 @@
 ﻿<footer class="footer">
     <span>{{ .Site.Params.copyright | default .Site.Copyright | safeHTML }}</span>
 </footer>
+
+<!-- 引入 medium-zoom CDN JS 库 -->
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script>
+
+<style>
+  /* 确保放大后的图片处于最高层级，且鼠标悬停时提示可点击 */
+  .medium-zoom-overlay, .medium-zoom-image--opened {
+    z-index: 9999;
+  }
+  /* 让鼠标悬停在图片上时显示放大镜图标 */
+  .post-content img, .post-single img, article img {
+    cursor: zoom-in;
+  }
+</style>
+
+<script>
+  // 使用 window.onload 确保图片和 DOM 彻底加载完成后再绑定放大效果
+  window.addEventListener('load', function () {
+    mediumZoom('.post-content img, .post-single img, article img', {
+      margin: 24,          // 放大后图片离屏幕边缘的距离 (px)
+      background: 'rgba(0, 0, 0, 0.8)', // 背景遮罩颜色（半透明黑）
+      scrollOffset: 40    // 页面滚动多少距离后自动关闭放大
+    });
+  });
+</script>

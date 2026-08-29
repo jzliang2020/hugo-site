@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>WSL on 梁锦志 | 运维与开发笔记</title>
-    <link>https://liangjinzhi.com/tags/wsl/</link>
+    <link>http://localhost:1313/tags/wsl/</link>
     <description>Recent content in WSL on 梁锦志 | 运维与开发笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 05 Aug 2026 22:18:29 +0800</lastBuildDate>
-    <atom:link href="https://liangjinzhi.com/tags/wsl/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/wsl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>windows安装wsl失败</title>
-      <link>https://liangjinzhi.com/posts/win-install-wsl/</link>
+      <link>http://localhost:1313/posts/win-install-wsl/</link>
       <pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate>
-      <guid>https://liangjinzhi.com/posts/win-install-wsl/</guid>
+      <guid>http://localhost:1313/posts/win-install-wsl/</guid>
       <description>&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;install -d Ubuntu
 安装过程中出现错误。分发名称: &amp;lsquo;Ubuntu&amp;rsquo; 错误代码: 0x8000ffff&lt;/p&gt;
 &lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;update

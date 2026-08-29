@@ -2,101 +2,101 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on 梁锦志 | 运维与开发笔记</title>
-    <link>https://liangjinzhi.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on 梁锦志 | 运维与开发笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 29 Aug 2026 22:45:00 +0800</lastBuildDate>
-    <atom:link href="https://liangjinzhi.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DevOps</title>
-      <link>https://liangjinzhi.com/tags/devops/</link>
+      <link>http://localhost:1313/tags/devops/</link>
       <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/devops/</guid>
+      <guid>http://localhost:1313/tags/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>Zabbix</title>
-      <link>https://liangjinzhi.com/tags/zabbix/</link>
+      <link>http://localhost:1313/tags/zabbix/</link>
       <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/zabbix/</guid>
+      <guid>http://localhost:1313/tags/zabbix/</guid>
       <description></description>
     </item>
     <item>
       <title>混合云</title>
-      <link>https://liangjinzhi.com/tags/%E6%B7%B7%E5%90%88%E4%BA%91/</link>
+      <link>http://localhost:1313/tags/%E6%B7%B7%E5%90%88%E4%BA%91/</link>
       <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/%E6%B7%B7%E5%90%88%E4%BA%91/</guid>
+      <guid>http://localhost:1313/tags/%E6%B7%B7%E5%90%88%E4%BA%91/</guid>
       <description></description>
     </item>
     <item>
       <title>监控架构</title>
-      <link>https://liangjinzhi.com/tags/%E7%9B%91%E6%8E%A7%E6%9E%B6%E6%9E%84/</link>
+      <link>http://localhost:1313/tags/%E7%9B%91%E6%8E%A7%E6%9E%B6%E6%9E%84/</link>
       <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/%E7%9B%91%E6%8E%A7%E6%9E%B6%E6%9E%84/</guid>
+      <guid>http://localhost:1313/tags/%E7%9B%91%E6%8E%A7%E6%9E%B6%E6%9E%84/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
-      <link>https://liangjinzhi.com/tags/docker/</link>
+      <link>http://localhost:1313/tags/docker/</link>
       <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/docker/</guid>
+      <guid>http://localhost:1313/tags/docker/</guid>
       <description></description>
     </item>
     <item>
       <title>Grafana</title>
-      <link>https://liangjinzhi.com/tags/grafana/</link>
+      <link>http://localhost:1313/tags/grafana/</link>
       <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/grafana/</guid>
+      <guid>http://localhost:1313/tags/grafana/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
-      <link>https://liangjinzhi.com/tags/homelab/</link>
+      <link>http://localhost:1313/tags/homelab/</link>
       <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/homelab/</guid>
+      <guid>http://localhost:1313/tags/homelab/</guid>
       <description></description>
     </item>
     <item>
       <title>Prometheus</title>
-      <link>https://liangjinzhi.com/tags/prometheus/</link>
+      <link>http://localhost:1313/tags/prometheus/</link>
       <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/prometheus/</guid>
+      <guid>http://localhost:1313/tags/prometheus/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows</title>
-      <link>https://liangjinzhi.com/tags/windows/</link>
+      <link>http://localhost:1313/tags/windows/</link>
       <pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/windows/</guid>
+      <guid>http://localhost:1313/tags/windows/</guid>
       <description></description>
     </item>
     <item>
       <title>WSL</title>
-      <link>https://liangjinzhi.com/tags/wsl/</link>
+      <link>http://localhost:1313/tags/wsl/</link>
       <pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate>
-      <guid>https://liangjinzhi.com/tags/wsl/</guid>
+      <guid>http://localhost:1313/tags/wsl/</guid>
       <description></description>
     </item>
     <item>
       <title>Debian</title>
-      <link>https://liangjinzhi.com/tags/debian/</link>
+      <link>http://localhost:1313/tags/debian/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/debian/</guid>
+      <guid>http://localhost:1313/tags/debian/</guid>
       <description></description>
     </item>
     <item>
       <title>Input Leap</title>
-      <link>https://liangjinzhi.com/tags/input-leap/</link>
+      <link>http://localhost:1313/tags/input-leap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/input-leap/</guid>
+      <guid>http://localhost:1313/tags/input-leap/</guid>
       <description></description>
     </item>
     <item>
       <title>KVM</title>
-      <link>https://liangjinzhi.com/tags/kvm/</link>
+      <link>http://localhost:1313/tags/kvm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://liangjinzhi.com/tags/kvm/</guid>
+      <guid>http://localhost:1313/tags/kvm/</guid>
       <description></description>
     </item>
   </channel>
