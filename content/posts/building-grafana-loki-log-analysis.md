@@ -23,7 +23,7 @@ draft: false
 </p>
 <pre class="wp-block-code"><code># mkdir -p /opt/loki-stack
 # cd /opt/loki-stack</code></pre>
-## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}
+## 第一步：服务端机器下载并安装 Loki 
 <p class="wp-block-paragraph">
   Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。
 </p>
@@ -94,7 +94,7 @@ WantedBy=multi-user.target</code></pre>
 systemctl enable loki --now
 # 检查状态，看到 active (running) 即成功
 systemctl status loki</code></pre>
-## 第二步：目标机器下载并配置 Promtail (收集端) {.wp-block-heading}
+## 第二步：目标机器下载并配置 Promtail (收集端) 
 <p class="wp-block-paragraph">
   Promtail 需要在日志收集端部署。
 </p>
@@ -206,7 +206,7 @@ rm -f grafana_10.4.1_amd64.deb</code></pre>
 <p class="wp-block-paragraph">
   访问 granfana http://ip:3000
 </p>
-### 添加 Loki 数据源 {.wp-block-heading}
+### 添加 Loki 数据源 
 <p class="wp-block-paragraph">
   进入主界面后：
 </p>
@@ -221,7 +221,7 @@ rm -f grafana_10.4.1_amd64.deb</code></pre>
     在搜索框中输入 <code>Loki</code>，看到 Loki 图标后点击它进入配置页面。
   </li>
 </ol>
-### 第三步：填写连接地址 {.wp-block-heading}
+### 第三步：填写连接地址 
 <p class="wp-block-paragraph">
   在 Loki 配置表单中，你只需要填写一个地方：
 </p>

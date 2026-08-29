@@ -52,7 +52,7 @@ draft: false
   访问首页，并设置密码
 </p><figure class="wp-block-image size-large">
 <img loading="lazy" decoding="async" width="1024" height="629" src="/wp-content/uploads/2026/05/image-1024x629.png" alt="" class="wp-image-40" srcset="/wp-content/uploads/2026/05/image-1024x629.png 1024w, /wp-content/uploads/2026/05/image-300x184.png 300w, /wp-content/uploads/2026/05/image-768x472.png 768w, /wp-content/uploads/2026/05/image-1536x943.png 1536w, /wp-content/uploads/2026/05/image.png 1601w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
-## 回到首页-设置-DNS设置 {.wp-block-heading}
+## 回到首页-设置-DNS设置 
 <p class="wp-block-paragraph">
   设置上游DNS服务器，直接粘贴
 </p>
@@ -61,13 +61,13 @@ https://doh.pub/dns-query
 https://doh.360.cn/dns-query
 114.114.114.114
 223.5.5.5</code></pre>
-### Bootstrap DNS 服务器 {.wp-block-heading}
+### Bootstrap DNS 服务器 
 <pre class="wp-block-code"><code>223.5.5.5
 119.29.29.29</code></pre>
 <p class="wp-block-paragraph">
   点击保存
 </p>
-### 回到过滤器，自定义过滤规则  {.wp-block-heading}
+### 回到过滤器，自定义过滤规则  
 <p class="wp-block-paragraph">
   通过指定域名进行拦截，demo如下
 </p>
@@ -75,12 +75,12 @@ https://doh.360.cn/dns-query
 应用即可</code></pre>
 <p class="wp-block-paragraph">
 </p>
-## PART2 路由器 {.wp-block-heading}
+## PART2 路由器 
 <p class="wp-block-paragraph">
   以中兴路由器为例，网络-配置DNS服务器为服务器端的IP。（我这里是192.168.5.200）
 </p><figure class="wp-block-image size-large">
 <img loading="lazy" decoding="async" width="1024" height="511" src="/wp-content/uploads/2026/05/image-2-1024x511.png" alt="" class="wp-image-47" srcset="/wp-content/uploads/2026/05/image-2-1024x511.png 1024w, /wp-content/uploads/2026/05/image-2-300x150.png 300w, /wp-content/uploads/2026/05/image-2-768x383.png 768w, /wp-content/uploads/2026/05/image-2-1536x767.png 1536w, /wp-content/uploads/2026/05/image-2.png 1623w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /> </figure> 
-## PART3 终端电脑 {.wp-block-heading}
+## PART3 终端电脑 
 <p class="wp-block-paragraph">
   以win10/win11为例
 </p>
@@ -95,7 +95,7 @@ https://doh.360.cn/dns-query
 <p class="wp-block-paragraph">
   <br />
 </p>
-## 查看效果 {.wp-block-heading}
+## 查看效果 
 <p class="wp-block-paragraph">
   通过电脑任意访问一个网站如<a href="https://news.qq.com/">https://news.qq.com/</a> 回到查询日志-选择已过滤
 </p><figure class="wp-block-image size-large">
@@ -104,7 +104,7 @@ https://doh.360.cn/dns-query
 </p>
 <p class="wp-block-paragraph">
 </p>
-## 参考资料 {.wp-block-heading}
+## 参考资料 
 <p class="wp-block-paragraph">
   <a href="https://github.com/SeanChang/xuanyuan_docker_proxy/blob/main/blog/adguardhome-docker.md#adguardhome-docker-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97">AdguardHome Docker 容器化部署指南</a>
 </p>

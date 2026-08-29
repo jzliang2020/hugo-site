@@ -17,7 +17,7 @@ draft: false
 </p>
 <p class="wp-block-paragraph">
 </p>
-## 准备环境 {.wp-block-heading}
+## 准备环境 
 <p class="wp-block-paragraph">
   server:win11，inputleap,有鼠标键盘
 </p>
@@ -26,15 +26,15 @@ draft: false
 </p>
 <p class="wp-block-paragraph">
 </p>
-## 下载链接 {.wp-block-heading}
+## 下载链接 
 <p class="wp-block-paragraph">
   <a href="https://github.com/input-leap/input-leap/releases/download/v3.0.2/InputLeap_3.0.2_windows_qt6.exe">windows-server</a>
 </p>
 <p class="wp-block-paragraph">
   <a href="https://github.com/input-leap/input-leap/releases/download/v3.0.2/InputLeap_3.0.2_debian12_amd64.deb">debian-client</a>
 </p>
-## 安装配置过程 {.wp-block-heading}
-### windows安装 {.wp-block-heading}
+## 安装配置过程 
+### windows安装 
 <p class="wp-block-paragraph">
   没有什么特别就一路默认安装就好了。
 </p><figure class="wp-block-image size-full">
@@ -56,7 +56,7 @@ draft: false
 </p>
 <p class="wp-block-paragraph">
 </p>
-### debian安装过程 {.wp-block-heading}
+### debian安装过程 
 <pre class="wp-block-code"><code>sudo apt install ./InputLeap_3.0.2_debian12_amd64.deb -y</code></pre>
 <p class="wp-block-paragraph">
   #完成后直接启动
@@ -70,7 +70,7 @@ draft: false
 </p>
 <p class="wp-block-paragraph">
 </p>
-## 排查思路 {.wp-block-heading}
+## 排查思路 
 <p class="wp-block-paragraph">
   通过服务管理器查看日志
 </p><figure class="wp-block-image size-full">

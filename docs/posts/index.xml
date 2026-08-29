@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on 梁锦志 | 运维与开发笔记</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://liangjinzhi.com/posts/</link>
     <description>Recent content in Posts on 梁锦志 | 运维与开发笔记</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 29 Aug 2026 22:45:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://liangjinzhi.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>企业级 Zabbix 混合云监控架构实战：内网主控 &#43; 阿里云 Proxy 被动中继</title>
-      <link>http://localhost:1313/posts/zabbix-hybrid-cloud/</link>
+      <link>https://liangjinzhi.com/posts/zabbix-hybrid-cloud/</link>
       <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/zabbix-hybrid-cloud/</guid>
+      <guid>https://liangjinzhi.com/posts/zabbix-hybrid-cloud/</guid>
       <description>&lt;p&gt;在企业实际运维场景中，业务往往分布在本地自建机房（内网）和公有云（如阿里云）之间。为实现集中监控，本文记录一种典型的 &lt;strong&gt;Zabbix 混合云监控架构&lt;/strong&gt;——基于 &lt;strong&gt;Zabbix Proxy 被动中继&lt;/strong&gt; 模式，实现跨网络的安全采集。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;1-整体架构设计与流程&#34;&gt;1. 整体架构设计与流程&lt;/h2&gt;
 &lt;p&gt;系统采用 &lt;strong&gt;被动模式（Passive Proxy）&lt;/strong&gt; 架构。阿里云侧的 Proxy 不主动穿透内网，而是由内网的 Zabbix Server 按照调度周期主动向公网 Proxy 发起请求抓取监控数据。&lt;/p&gt;
 &lt;p&gt;[Zabbix 混合云监控架构拓扑图]
-&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/zabbix-hybrid-cloud/image.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://liangjinzhi.com/posts/zabbix-hybrid-cloud/image.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;核心流转逻辑&#34;&gt;核心流转逻辑：&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;云内采集&lt;/strong&gt;：阿里云 ECS Agent 节点将监控指标提交至同 VPC 内的 Zabbix Proxy（端口 &lt;code&gt;10051&lt;/code&gt;）。&lt;/li&gt;
@@ -56,9 +56,9 @@
     </item>
     <item>
       <title>一次 PHP 后台页面访问慢的排查记录</title>
-      <link>http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/</link>
+      <link>https://liangjinzhi.com/posts/php-slow-page-mysql-index-troubleshooting/</link>
       <pubDate>Tue, 25 Aug 2026 22:03:05 +0800</pubDate>
-      <guid>http://localhost:1313/posts/php-slow-page-mysql-index-troubleshooting/</guid>
+      <guid>https://liangjinzhi.com/posts/php-slow-page-mysql-index-troubleshooting/</guid>
       <description>&lt;p&gt;最近处理了一次 PHP 后台页面访问慢的问题。现象是浏览器打开某个后台列表页明显卡顿，页面主请求耗时十几秒，但直接用普通 &lt;code&gt;curl&lt;/code&gt; 测试接口又很快。这里把排查过程做一个匿名化记录，方便以后遇到类似问题时参考。&lt;/p&gt;
 &lt;h2 id=&#34;问题现象&#34;&gt;问题现象&lt;/h2&gt;
 &lt;p&gt;浏览器 DevTools 的 Network 面板里，主文档请求返回 &lt;code&gt;200&lt;/code&gt;，总耗时约 12 秒，其中几乎全部时间都花在：&lt;/p&gt;
@@ -92,9 +92,9 @@
     </item>
     <item>
       <title>FRP 内网穿透实现 OpenVPN 异地组网</title>
-      <link>http://localhost:1313/posts/openvpn-frp-guide/</link>
+      <link>https://liangjinzhi.com/posts/openvpn-frp-guide/</link>
       <pubDate>Sun, 23 Aug 2026 00:09:08 +0800</pubDate>
-      <guid>http://localhost:1313/posts/openvpn-frp-guide/</guid>
+      <guid>https://liangjinzhi.com/posts/openvpn-frp-guide/</guid>
       <description>&lt;h3 id=&#34;概要&#34;&gt;概要&lt;/h3&gt;
 &lt;p&gt;本文整理了通过 FRP 内网穿透实现 OpenVPN 异地组网的全套配置文件。包含服务端（frps）、客户端（frpc）、OpenVPN 服务端（server.conf）及 OpenVPN 客户端（client.ovpn）的配置示例。&lt;/p&gt;
 &lt;hr&gt;
@@ -125,16 +125,16 @@
     </item>
     <item>
       <title>内网环境基于 Docker Compose 部署 Prometheus &#43; Grafana 监控系统（含 Windows 节点接入）</title>
-      <link>http://localhost:1313/posts/home-prometheus-monitoring/</link>
+      <link>https://liangjinzhi.com/posts/home-prometheus-monitoring/</link>
       <pubDate>Sat, 15 Aug 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/home-prometheus-monitoring/</guid>
+      <guid>https://liangjinzhi.com/posts/home-prometheus-monitoring/</guid>
       <description>&lt;p&gt;本文介绍如何在内网单机环境下，使用 Docker Compose 快速构建 Prometheus + Grafana + Node Exporter 监控体系，并接入 Windows 节点的系统指标。&lt;/p&gt;</description>
     </item>
     <item>
       <title>windows安装wsl失败</title>
-      <link>http://localhost:1313/posts/win-install-wsl/</link>
+      <link>https://liangjinzhi.com/posts/win-install-wsl/</link>
       <pubDate>Wed, 05 Aug 2026 22:18:29 +0800</pubDate>
-      <guid>http://localhost:1313/posts/win-install-wsl/</guid>
+      <guid>https://liangjinzhi.com/posts/win-install-wsl/</guid>
       <description>&lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;install -d Ubuntu
 安装过程中出现错误。分发名称: &amp;lsquo;Ubuntu&amp;rsquo; 错误代码: 0x8000ffff&lt;/p&gt;
 &lt;p&gt;C:\Users\yy&amp;gt;wsl &amp;ndash;update
@@ -152,10 +152,10 @@
     </item>
     <item>
       <title>【K3s 系列 01】从零搭建 K3s</title>
-      <link>http://localhost:1313/posts/k3s-01/</link>
+      <link>https://liangjinzhi.com/posts/k3s-01/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/k3s-01/</guid>
-      <description>&lt;h2 class=&#34;wp-block-heading&#34; id=&#34;一获取系统基础硬件信息&#34;&gt;一、获取系统基础硬件信息&lt;/h2&gt;
+      <guid>https://liangjinzhi.com/posts/k3s-01/</guid>
+      <description>&lt;h2 id=&#34;一获取系统基础硬件信息&#34;&gt;一、获取系统基础硬件信息&lt;/h2&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;#基础架构 （输出参考：如果是 x86_64 或 aarch64，即可完美支持。）
 pig@vm-debian-13:~$ uname -m
 x86_64
@@ -178,16 +178,16 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
   官方的脚本太慢，国内用户使用这个脚本进行加速
 &lt;/p&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;$ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn sh -&lt;/code&gt;&lt;/pre&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1238&#34; height=&#34;505&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-74.png&#34; alt=&#34;&#34; class=&#34;wp-image-340&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1238&#34; height=&#34;505&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-74.png&#34; alt=&#34;&#34; class=&#34;wp-image-340&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   检查k3s服务状态
 &lt;/p&gt;</description>
     </item>
     <item>
       <title>AdguardHome容器化部署</title>
-      <link>http://localhost:1313/posts/adguardhome-docker-setup/</link>
+      <link>https://liangjinzhi.com/posts/adguardhome-docker-setup/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/adguardhome-docker-setup/</guid>
+      <guid>https://liangjinzhi.com/posts/adguardhome-docker-setup/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   家里有linux主机，于是就想到了现在上网的时候经常有太多的网站会有广告，看看能不能通过自建规则减少广告。听说有AdguardHome可以实现这个功能。那么我们来看看如何部署和使用起来。
 &lt;/p&gt;
@@ -237,13 +237,13 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>AWS免费服务器申请教程</title>
-      <link>http://localhost:1313/posts/how-to-apply-aws-free-tier/</link>
+      <link>https://liangjinzhi.com/posts/how-to-apply-aws-free-tier/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/how-to-apply-aws-free-tier/</guid>
+      <guid>https://liangjinzhi.com/posts/how-to-apply-aws-free-tier/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   PART1 注册账号
 &lt;/p&gt;
-## 1.准备工作： {.wp-block-heading}
+## 1.准备工作： 
 &lt;ul class=&#34;wp-block-list&#34;&gt;
   &lt;li&gt;
     &lt;em&gt;说明：&lt;/em&gt;
@@ -260,41 +260,41 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
 &lt;/ul&gt;
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
 &lt;/p&gt;
-## 2.注册AWS账号  {.wp-block-heading}
+## 2.注册AWS账号  
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   访问亚马逊官网,&lt;a href=&#34;https://aws.amazon.com/cn/?nc2=h_home&#34;&gt;https://aws.amazon.com/cn/&lt;/a&gt;，
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-large&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;501&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-53-1024x501.avif&#34; alt=&#34;&#34; class=&#34;wp-image-251&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-53-1024x501.avif 1024w, http://localhost:1313/wp-content/uploads/2026/06/image-53-300x147.avif 300w, http://localhost:1313/wp-content/uploads/2026/06/image-53-768x375.avif 768w, http://localhost:1313/wp-content/uploads/2026/06/image-53.avif 1475w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;501&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-53-1024x501.avif&#34; alt=&#34;&#34; class=&#34;wp-image-251&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-53-1024x501.avif 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-53-300x147.avif 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-53-768x375.avif 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-53.avif 1475w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   点击右上角的创建账户（2025年7月15日之后 AWS 改版的新政策只能免费使用6个月了，以前是12个月的）
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;794&#34; height=&#34;659&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-54.avif&#34; alt=&#34;&#34; class=&#34;wp-image-252&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-54.avif 794w, http://localhost:1313/wp-content/uploads/2026/06/image-54-300x249.avif 300w, http://localhost:1313/wp-content/uploads/2026/06/image-54-768x637.avif 768w&#34; sizes=&#34;auto, (max-width: 794px) 100vw, 794px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;794&#34; height=&#34;659&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-54.avif&#34; alt=&#34;&#34; class=&#34;wp-image-252&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-54.avif 794w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-54-300x249.avif 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-54-768x637.avif 768w&#34; sizes=&#34;auto, (max-width: 794px) 100vw, 794px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   注册过程查收邮箱验证码消息。后续还需要填写联系信息和信用卡信息，同时系统会收一笔小额预授权，后面会退回信用卡账户的。请放心。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;617&#34; height=&#34;467&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-2.png&#34; alt=&#34;&#34; class=&#34;wp-image-76&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-2.png 617w, http://localhost:1313/wp-content/uploads/2026/06/image-2-300x227.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-2-440x333.png 440w&#34; sizes=&#34;auto, (max-width: 617px) 100vw, 617px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;617&#34; height=&#34;467&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-2.png&#34; alt=&#34;&#34; class=&#34;wp-image-76&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-2.png 617w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-2-300x227.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-2-440x333.png 440w&#34; sizes=&#34;auto, (max-width: 617px) 100vw, 617px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   后面大致有5个步骤完成注册。
 &lt;/p&gt;
-### 第1步，设置密码： {.wp-block-heading}&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;651&#34; height=&#34;506&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-3.png&#34; alt=&#34;&#34; class=&#34;wp-image-77&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-3.png 651w, http://localhost:1313/wp-content/uploads/2026/06/image-3-300x233.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-3-440x342.png 440w&#34; sizes=&#34;auto, (max-width: 651px) 100vw, 651px&#34; /&gt; &lt;/figure&gt; 
-### 第2步，填写联系人信息 {.wp-block-heading}&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;613&#34; height=&#34;581&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-4.png&#34; alt=&#34;&#34; class=&#34;wp-image-78&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-4.png 613w, http://localhost:1313/wp-content/uploads/2026/06/image-4-300x284.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-4-440x417.png 440w&#34; sizes=&#34;auto, (max-width: 613px) 100vw, 613px&#34; /&gt; &lt;/figure&gt; 
-### 第3步，填写账单信息 {.wp-block-heading}
+### 第1步，设置密码： &lt;figure class=&#34;wp-block-image size-full&#34;&gt;
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;651&#34; height=&#34;506&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-3.png&#34; alt=&#34;&#34; class=&#34;wp-image-77&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-3.png 651w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-3-300x233.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-3-440x342.png 440w&#34; sizes=&#34;auto, (max-width: 651px) 100vw, 651px&#34; /&gt; &lt;/figure&gt; 
+### 第2步，填写联系人信息 &lt;figure class=&#34;wp-block-image size-full&#34;&gt;
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;613&#34; height=&#34;581&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-4.png&#34; alt=&#34;&#34; class=&#34;wp-image-78&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-4.png 613w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-4-300x284.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-4-440x417.png 440w&#34; sizes=&#34;auto, (max-width: 613px) 100vw, 613px&#34; /&gt; &lt;/figure&gt; 
+### 第3步，填写账单信息 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   需要注意免费资源使用超标的话会直接从信用卡里面扣费结算。
 &lt;/p&gt;</description>
     </item>
     <item>
       <title>Certd全自动证书管理系统</title>
-      <link>http://localhost:1313/posts/certd-ssl-auto-renewal-system/</link>
+      <link>https://liangjinzhi.com/posts/certd-ssl-auto-renewal-system/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/certd-ssl-auto-renewal-system/</guid>
+      <guid>https://liangjinzhi.com/posts/certd-ssl-auto-renewal-system/</guid>
       <description>&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。
 &lt;/p&gt;
-## 解决方案 {.wp-block-heading}
+## 解决方案 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   部署Certd平台，实现
 &lt;/p&gt;
@@ -313,11 +313,11 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
     统一证书管理
   &lt;/li&gt;
 &lt;/ul&gt;
-## 部署方式 {.wp-block-heading}
+## 部署方式 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   Docker部署Certd
 &lt;/p&gt;
-## 实现效果 {.wp-block-heading}
+## 实现效果 
 &lt;ul class=&#34;wp-block-list&#34;&gt;
   &lt;li&gt;
     证书更新从“人工操作” → “自动续期”
@@ -333,25 +333,25 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
     降低运维维护成本
   &lt;/li&gt;
 &lt;/ul&gt;
-## 运行截图  {.wp-block-heading}
+## 运行截图  
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   首页
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1899&#34; height=&#34;627&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/01-01-2.webp&#34; alt=&#34;&#34; class=&#34;wp-image-318&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1899&#34; height=&#34;627&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/01-01-2.webp&#34; alt=&#34;&#34; class=&#34;wp-image-318&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   证书自动化流水线
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1702&#34; height=&#34;651&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/02.webp&#34; alt=&#34;&#34; class=&#34;wp-image-319&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1702&#34; height=&#34;651&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/02.webp&#34; alt=&#34;&#34; class=&#34;wp-image-319&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   执行历史记录
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1667&#34; height=&#34;638&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/03.webp&#34; alt=&#34;&#34; class=&#34;wp-image-320&#34; /&gt; &lt;/figure&gt;</description>
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1667&#34; height=&#34;638&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/03.webp&#34; alt=&#34;&#34; class=&#34;wp-image-320&#34; /&gt; &lt;/figure&gt;</description>
     </item>
     <item>
       <title>Loki日志管理</title>
-      <link>http://localhost:1313/posts/building-grafana-loki-log-analysis/</link>
+      <link>https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/building-grafana-loki-log-analysis/</guid>
+      <guid>https://liangjinzhi.com/posts/building-grafana-loki-log-analysis/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   5分钟告别传统 SSH 黑框，教你搭建极轻量、纯网页端的自动化日志监控平台。
 &lt;/p&gt;
@@ -369,7 +369,7 @@ Swap:              0           0   &lt;/code&gt;&lt;/pre&gt;
 &lt;/p&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;# mkdir -p /opt/loki-stack
 # cd /opt/loki-stack&lt;/code&gt;&lt;/pre&gt;
-## 第一步：服务端机器下载并安装 Loki {.wp-block-heading}
+## 第一步：服务端机器下载并安装 Loki 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   Loki 官方提供编译好的单文件二进制包，直接下载解压即可运行。
 &lt;/p&gt;
@@ -427,21 +427,21 @@ compactor:
     </item>
     <item>
       <title>Nginx  htpasswd防护</title>
-      <link>http://localhost:1313/posts/nginx-htpasswd-generator/</link>
+      <link>https://liangjinzhi.com/posts/nginx-htpasswd-generator/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/nginx-htpasswd-generator/</guid>
+      <guid>https://liangjinzhi.com/posts/nginx-htpasswd-generator/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   今天收到腾讯云的告警信息，原来是昨天部署的grafana被漏洞扫描识别到。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;355&#34; height=&#34;343&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png&#34; alt=&#34;&#34; class=&#34;wp-image-181&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-41.png 355w, http://localhost:1313/wp-content/uploads/2026/06/image-41-300x290.png 300w&#34; sizes=&#34;auto, (max-width: 355px) 100vw, 355px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;355&#34; height=&#34;343&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-41.png&#34; alt=&#34;&#34; class=&#34;wp-image-181&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-41.png 355w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-41-300x290.png 300w&#34; sizes=&#34;auto, (max-width: 355px) 100vw, 355px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
 &lt;/p&gt;
-## 1.安装必要的工具 {.wp-block-heading}
+## 1.安装必要的工具 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   如果系统提示找不到 &lt;code&gt;htpasswd&lt;/code&gt; 命令，请执行以下命令安装工具包：
 &lt;/p&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;sudo apt update &amp;&amp; sudo apt install -y apache2-utils&lt;/code&gt;&lt;/pre&gt;
-## 2. 生成密码文件 {.wp-block-heading}
+## 2. 生成密码文件 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   在终端执行以下命令（将 &lt;code&gt;your_username&lt;/code&gt; 替换为你想要设置的登录账号名）：
 &lt;/p&gt;
@@ -452,23 +452,23 @@ compactor:
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   &lt;strong&gt;注意&lt;/strong&gt;：在输入密码时，终端不会显示任何字符（包括星号），这是正常的 Linux 安全机制。输完按回车即可。
 &lt;/p&gt;
-## 3. 验证文件是否生成 {.wp-block-heading}
+## 3. 验证文件是否生成 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   你可以查看一下文件内容，确保它已经生成：
 &lt;/p&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;cat /etc/nginx/.htpasswd&lt;/code&gt;&lt;/pre&gt;
-## 4.在 Nginx 中启用 {.wp-block-heading}
+## 4.在 Nginx 中启用 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   在nginx 在 &lt;code&gt;location /&lt;/code&gt; 段落内添加如下内容添加如下：
 &lt;/p&gt;
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;auth_basic &#34;Restricted Access&#34;;
 auth_basic_user_file /etc/nginx/.htpasswd;&lt;/code&gt;&lt;/pre&gt;
-## 5.重启 Nginx 使配置生效 {.wp-block-heading}
+## 5.重启 Nginx 使配置生效 
 &lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;sudo nginx -t      # 检查配置语法是否正确
 sudo systemctl reload nginx&lt;/code&gt;&lt;/pre&gt;
-## 6.验证 {.wp-block-heading}&lt;figure class=&#34;wp-block-image size-large&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;177&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png&#34; alt=&#34;&#34; class=&#34;wp-image-182&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, http://localhost:1313/wp-content/uploads/2026/06/image-42-300x52.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-42-768x133.png 768w, http://localhost:1313/wp-content/uploads/2026/06/image-42.png 1259w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
-### 命令解析： {.wp-block-heading}
+## 6.验证 &lt;figure class=&#34;wp-block-image size-large&#34;&gt;
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;177&#34; src=&#34;http://jinzhiliang.top/wp-content/uploads/2026/06/image-42-1024x177.png&#34; alt=&#34;&#34; class=&#34;wp-image-182&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-1024x177.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-300x52.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42-768x133.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-42.png 1259w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
+### 命令解析： 
 &lt;ul class=&#34;wp-block-list&#34;&gt;
   &lt;li&gt;
     &lt;code&gt;-I&lt;/code&gt;：只获取 HTTP 头信息（快速查看，不下载网页内容）。
@@ -486,13 +486,13 @@ sudo systemctl reload nginx&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>调整debian根分区为最大空间</title>
-      <link>http://localhost:1313/posts/resize-debian-root-partition/</link>
+      <link>https://liangjinzhi.com/posts/resize-debian-root-partition/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/resize-debian-root-partition/</guid>
+      <guid>https://liangjinzhi.com/posts/resize-debian-root-partition/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   安装操作系统的时候配置错了，/home空间分配的空间占了大部分，需要调整为根分区使用最大空间。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-large&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;233&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-28-1024x233.png&#34; alt=&#34;&#34; class=&#34;wp-image-115&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, http://localhost:1313/wp-content/uploads/2026/06/image-28-300x68.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-28-768x175.png 768w, http://localhost:1313/wp-content/uploads/2026/06/image-28.png 1312w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;1024&#34; height=&#34;233&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png&#34; alt=&#34;&#34; class=&#34;wp-image-115&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-1024x233.png 1024w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-300x68.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28-768x175.png 768w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-28.png 1312w&#34; sizes=&#34;auto, (max-width: 1024px) 100vw, 1024px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   备份/home目录
 &lt;/p&gt;
@@ -524,9 +524,9 @@ sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab&lt;/code&gt;&lt;/pre
     </item>
     <item>
       <title>一套键鼠操作多终端</title>
-      <link>http://localhost:1313/posts/use-one-mouse-keyboard-across-devices/</link>
+      <link>https://liangjinzhi.com/posts/use-one-mouse-keyboard-across-devices/</link>
       <pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/use-one-mouse-keyboard-across-devices/</guid>
+      <guid>https://liangjinzhi.com/posts/use-one-mouse-keyboard-across-devices/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   有时候只有一套键盘鼠标，但是有两个终端需要操作，频繁操作插拨移动键鼠不是很方便操作。这个时候如果可以通过应用程序解决这个问题，何乐而不为呢？
 &lt;/p&gt;
@@ -538,7 +538,7 @@ sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab&lt;/code&gt;&lt;/pre
 &lt;/p&gt;
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
 &lt;/p&gt;
-## 准备环境 {.wp-block-heading}
+## 准备环境 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   server:win11，inputleap,有鼠标键盘
 &lt;/p&gt;
@@ -547,40 +547,47 @@ sudo sed -i &#39;/vm--debian--13--vg-home/d&#39; /etc/fstab&lt;/code&gt;&lt;/pre
 &lt;/p&gt;
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
 &lt;/p&gt;
-## 下载链接 {.wp-block-heading}
+## 下载链接 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   &lt;a href=&#34;https://github.com/input-leap/input-leap/releases/download/v3.0.2/InputLeap_3.0.2_windows_qt6.exe&#34;&gt;windows-server&lt;/a&gt;
 &lt;/p&gt;
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   &lt;a href=&#34;https://github.com/input-leap/input-leap/releases/download/v3.0.2/InputLeap_3.0.2_debian12_amd64.deb&#34;&gt;debian-client&lt;/a&gt;
 &lt;/p&gt;
-## 安装配置过程 {.wp-block-heading}
-### windows安装 {.wp-block-heading}
+## 安装配置过程 
+### windows安装 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   没有什么特别就一路默认安装就好了。
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;499&#34; height=&#34;392&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-18.png&#34; alt=&#34;&#34; class=&#34;wp-image-97&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-18.png 499w, http://localhost:1313/wp-content/uploads/2026/06/image-18-300x236.png 300w&#34; sizes=&#34;auto, (max-width: 499px) 100vw, 499px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;499&#34; height=&#34;392&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-18.png&#34; alt=&#34;&#34; class=&#34;wp-image-97&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-18.png 499w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-18-300x236.png 300w&#34; sizes=&#34;auto, (max-width: 499px) 100vw, 499px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   安装好，桌面生成快捷方式
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;75&#34; height=&#34;74&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-19.png&#34; alt=&#34;&#34; class=&#34;wp-image-98&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;75&#34; height=&#34;74&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-19.png&#34; alt=&#34;&#34; class=&#34;wp-image-98&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   启动并配置Configure Server&amp;#8230;
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;512&#34; height=&#34;394&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-20.png&#34; alt=&#34;&#34; class=&#34;wp-image-99&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-20.png 512w, http://localhost:1313/wp-content/uploads/2026/06/image-20-300x231.png 300w&#34; sizes=&#34;auto, (max-width: 512px) 100vw, 512px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;512&#34; height=&#34;394&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-20.png&#34; alt=&#34;&#34; class=&#34;wp-image-99&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-20.png 512w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-20-300x231.png 300w&#34; sizes=&#34;auto, (max-width: 512px) 100vw, 512px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   点进去
 &lt;/p&gt;&lt;figure class=&#34;wp-block-image size-full&#34;&gt;
-&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;819&#34; height=&#34;582&#34; src=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-21.png&#34; alt=&#34;&#34; class=&#34;wp-image-100&#34; srcset=&#34;http://localhost:1313/wp-content/uploads/2026/06/image-21.png 819w, http://localhost:1313/wp-content/uploads/2026/06/image-21-300x213.png 300w, http://localhost:1313/wp-content/uploads/2026/06/image-21-768x546.png 768w&#34; sizes=&#34;auto, (max-width: 819px) 100vw, 819px&#34; /&gt; &lt;/figure&gt; 
+&lt;img loading=&#34;lazy&#34; decoding=&#34;async&#34; width=&#34;819&#34; height=&#34;582&#34; src=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-21.png&#34; alt=&#34;&#34; class=&#34;wp-image-100&#34; srcset=&#34;https://liangjinzhi.com/wp-content/uploads/2026/06/image-21.png 819w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-21-300x213.png 300w, https://liangjinzhi.com/wp-content/uploads/2026/06/image-21-768x546.png 768w&#34; sizes=&#34;auto, (max-width: 819px) 100vw, 819px&#34; /&gt; &lt;/figure&gt; 
 &lt;p class=&#34;wp-block-paragraph&#34;&gt;
   把图标分别进行拖动，确认两个主机之间的位置，最好可以跟实际的屏幕的位置关系一致方便操作，我这里one是windows主机名，debian 是debian的主机名。双击可以修改主机名配置。
+&lt;/p&gt;
+&lt;p class=&#34;wp-block-paragraph&#34;&gt;
+&lt;/p&gt;
+### debian安装过程 
+&lt;pre class=&#34;wp-block-code&#34;&gt;&lt;code&gt;sudo apt install ./InputLeap_3.0.2_debian12_amd64.deb -y&lt;/code&gt;&lt;/pre&gt;
+&lt;p class=&#34;wp-block-paragraph&#34;&gt;
+  #完成后直接启动
 &lt;/p&gt;</description>
     </item>
     <item>
       <title>关于博客本人</title>
-      <link>http://localhost:1313/posts/about-author/</link>
+      <link>https://liangjinzhi.com/posts/about-author/</link>
       <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/about-author/</guid>
+      <guid>https://liangjinzhi.com/posts/about-author/</guid>
       <description>&lt;p class=&#34;wp-block-paragraph&#34;&gt;
   一名90后运维工程师。热爱折腾技术，通过优化脚本从而实现自动化大量减少日常的重复劳动。日常工作中很多工作内容容易高度重复，因此在这里进行总结，希望能对大家有所帮助。
 &lt;/p&gt;

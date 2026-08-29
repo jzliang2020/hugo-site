@@ -10,7 +10,7 @@ draft: false
 <p class="wp-block-paragraph">
   公司网站ssl证书每次需要人工更新ssl证书，网站域名一多就容易出问题，要么操作麻烦，要么就是忘记了。
 </p>
-## 解决方案 {.wp-block-heading}
+## 解决方案 
 <p class="wp-block-paragraph">
   部署Certd平台，实现
 </p>
@@ -29,11 +29,11 @@ draft: false
     统一证书管理
   </li>
 </ul>
-## 部署方式 {.wp-block-heading}
+## 部署方式 
 <p class="wp-block-paragraph">
   Docker部署Certd
 </p>
-## 实现效果 {.wp-block-heading}
+## 实现效果 
 <ul class="wp-block-list">
   <li>
     证书更新从“人工操作” → “自动续期”
@@ -49,7 +49,7 @@ draft: false
     降低运维维护成本
   </li>
 </ul>
-## 运行截图  {.wp-block-heading}
+## 运行截图  
 <p class="wp-block-paragraph">
   首页
 </p><figure class="wp-block-image size-full">

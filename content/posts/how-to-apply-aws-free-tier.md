@@ -9,7 +9,7 @@ draft: false
 <p class="wp-block-paragraph">
   PART1 注册账号
 </p>
-## 1.准备工作： {.wp-block-heading}
+## 1.准备工作： 
 <ul class="wp-block-list">
   <li>
     <em>说明：</em>
@@ -26,7 +26,7 @@ draft: false
 </ul>
 <p class="wp-block-paragraph">
 </p>
-## 2.注册AWS账号  {.wp-block-heading}
+## 2.注册AWS账号  
 <p class="wp-block-paragraph">
   访问亚马逊官网,<a href="https://aws.amazon.com/cn/?nc2=h_home">https://aws.amazon.com/cn/</a>，
 </p><figure class="wp-block-image size-large">
@@ -42,18 +42,18 @@ draft: false
 <p class="wp-block-paragraph">
   后面大致有5个步骤完成注册。
 </p>
-### 第1步，设置密码： {.wp-block-heading}<figure class="wp-block-image size-full">
+### 第1步，设置密码： <figure class="wp-block-image size-full">
 <img loading="lazy" decoding="async" width="651" height="506" src="/wp-content/uploads/2026/06/image-3.png" alt="" class="wp-image-77" srcset="/wp-content/uploads/2026/06/image-3.png 651w, /wp-content/uploads/2026/06/image-3-300x233.png 300w, /wp-content/uploads/2026/06/image-3-440x342.png 440w" sizes="auto, (max-width: 651px) 100vw, 651px" /> </figure> 
-### 第2步，填写联系人信息 {.wp-block-heading}<figure class="wp-block-image size-full">
+### 第2步，填写联系人信息 <figure class="wp-block-image size-full">
 <img loading="lazy" decoding="async" width="613" height="581" src="/wp-content/uploads/2026/06/image-4.png" alt="" class="wp-image-78" srcset="/wp-content/uploads/2026/06/image-4.png 613w, /wp-content/uploads/2026/06/image-4-300x284.png 300w, /wp-content/uploads/2026/06/image-4-440x417.png 440w" sizes="auto, (max-width: 613px) 100vw, 613px" /> </figure> 
-### 第3步，填写账单信息 {.wp-block-heading}
+### 第3步，填写账单信息 
 <p class="wp-block-paragraph">
   需要注意免费资源使用超标的话会直接从信用卡里面扣费结算。
 </p><figure class="wp-block-image size-full">
 <img loading="lazy" decoding="async" width="819" height="749" src="/wp-content/uploads/2026/06/image-5.png" alt="" class="wp-image-79" srcset="/wp-content/uploads/2026/06/image-5.png 819w, /wp-content/uploads/2026/06/image-5-300x274.png 300w, /wp-content/uploads/2026/06/image-5-768x702.png 768w, /wp-content/uploads/2026/06/image-5-440x402.png 440w, /wp-content/uploads/2026/06/image-5-680x622.png 680w" sizes="auto, (max-width: 819px) 100vw, 819px" /> </figure> 
-### 第4步，验证手机号 {.wp-block-heading}<figure class="wp-block-image size-full">
+### 第4步，验证手机号 <figure class="wp-block-image size-full">
 <img loading="lazy" decoding="async" width="784" height="815" src="/wp-content/uploads/2026/06/image-6.png" alt="" class="wp-image-80" srcset="/wp-content/uploads/2026/06/image-6.png 784w, /wp-content/uploads/2026/06/image-6-289x300.png 289w, /wp-content/uploads/2026/06/image-6-768x798.png 768w, /wp-content/uploads/2026/06/image-6-440x457.png 440w, /wp-content/uploads/2026/06/image-6-680x707.png 680w" sizes="auto, (max-width: 784px) 100vw, 784px" /> </figure> 
-### 第5步，选择支持计划 {.wp-block-heading}
+### 第5步，选择支持计划 
 <p class="wp-block-paragraph">
   选择免费的基本支持
 </p><figure class="wp-block-image size-full">
