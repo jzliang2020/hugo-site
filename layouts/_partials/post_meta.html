@@ -1,0 +1,57 @@
+{{- $scratch := newScratch }}
+
+{{- if not .Date.IsZero -}}
+    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) }}
+{{- end }}
+
+{{- if (.Param "ShowWordCount") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") -}}
+    {{- with (partial "author.html" .) }}
+        {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" .)) }}
+    {{- end }}
+{{- end }}
+
+{{/* Combine all meta information into a single string with separators */}}
+{{- with ($scratch.Get "meta") }}
+    {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
+{{- end -}}
+
+<!-- 阅读量显示区域 -->
+<span id="busuanzi_container_page_pv" style="display: none;">
+  &nbsp;·&nbsp;
+  <svg class="view-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 576 512" style="fill: currentColor; opacity: 0.8; margin-right: 2px; display: inline-block; vertical-align: -1px;">
+    <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.3 160.1 16 215 16 256c0 41 32.3 95.9 79.4 139.4C142.5 439.2 207.2 476 288 476s145.5-36.8 192.6-80.6C527.7 351.9 560 297 560 256c0-41-32.3-95.9-79.4-139.4C433.5 72.8 368.8 32 288 32zM288 144c53 0 96 43 96 96s-43 96-96 96-96-43-96-96 43-96 96-96zm0 48c-26.5 0-48 21.5-48 48s21.5 48 48 48 48-21.5 48-48-21.5-48-48-48z"></path>
+  </svg>
+  <span id="busuanzi_value_page_pv">...</span>&nbsp;次阅读
+</span>
+
+<!-- 使用延迟加载逻辑，避免干扰主页面的 JS 事件注册 -->
+<script>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      try {
+        var hostname = window.location.hostname;
+        if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+          (document.head || document.body).appendChild(script);
+        } else {
+          var valEl = document.getElementById('busuanzi_value_page_pv');
+          var boxEl = document.getElementById('busuanzi_container_page_pv');
+          if (valEl) valEl.innerText = "本地调试";
+          if (boxEl) boxEl.style.display = "inline";
+        }
+      } catch (e) {
+        console.warn("Busuanzi safe mode intercept:", e);
+      }
+    }, 0);
+  });
+</script>

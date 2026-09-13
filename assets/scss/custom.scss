@@ -1,0 +1,22 @@
+.article-content {
+    pre.wp-block-code {
+        overflow-x: auto;
+        display: block;
+        background-color: var(--pre-background-color);
+        color: var(--pre-text-color);
+        font-family: var(--code-font-family);
+        line-height: 1.428571429;
+        padding: var(--card-padding);
+        white-space: pre;
+        word-break: normal;
+
+        code {
+            color: inherit;
+            background: none;
+            border: 0;
+            padding: 0;
+            white-space: inherit;
+            word-break: inherit;
+        }
+    }
+}

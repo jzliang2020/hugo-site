@@ -1,0 +1,14 @@
+﻿{
+  "workbench.colorTheme": "Light Modern",
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "security.workspace.trust.untrustedFiles": "open",
+
+  "pasteImage.path": "${currentFileDir}",
+  "pasteImage.basePath": "${currentFileDir}",
+  "pasteImage.prefix": "",
+  "pasteImage.namePrefix": "image-",
+  "pasteImage.defaultName": "YYYYMMDD-HHmmss",
+  "pasteImage.encodePath": "none",
+  "pasteImage.forceUnixStyleSeparator": true,
+  "pasteImage.insertPattern": "![alt text](${imageFileName})"
+}
