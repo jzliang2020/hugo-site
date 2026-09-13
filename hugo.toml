@@ -55,3 +55,6 @@ publishDir = "docs"
 # force deploy 2026
 
 # trigger workflow rebuild 2026
+
+
+ignoreFiles = ["\\.mmdb$"]
