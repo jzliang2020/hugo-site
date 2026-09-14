@@ -18,10 +18,7 @@ publishDir = "docs"
   mainSections = ["posts"]
   digestInHTML = false
   showCodeCopyButtons = true       # 开启代码块复制按钮
-
-  # 页脚与版权控制（针对 PaperMod 主题修正）
-  hidePoweredBy = true             # 设为 true 彻底隐藏 "Powered by Hugo & PaperMod"
-  copyright = "© 2026 梁锦志 | 运维与开发笔记"   # 自定义页脚显示的版权信息
+  hidePoweredBy = true             # 隐藏 "Powered by Hugo & PaperMod"
 
 [params.sidebar]
   emoji = "👋"

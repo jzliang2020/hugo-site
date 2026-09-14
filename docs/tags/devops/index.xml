@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DevOps on 梁锦志 | 运维与开发笔记</title>
+    <link>http://localhost:1313/tags/devops/</link>
+    <description>Recent content in DevOps on 梁锦志 | 运维与开发笔记</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 29 Aug 2026 22:45:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>企业级 Zabbix 混合云监控架构实战：内网主控 &#43; 阿里云 Proxy 被动中继</title>
+      <link>http://localhost:1313/posts/zabbix-hybrid-cloud/</link>
+      <pubDate>Sat, 29 Aug 2026 22:45:00 +0800</pubDate>
+      <guid>http://localhost:1313/posts/zabbix-hybrid-cloud/</guid>
+      <description>&lt;p&gt;在企业实际运维场景中，业务往往分布在本地自建机房（内网）和公有云（如阿里云）之间。为实现集中监控，本文记录一种典型的 &lt;strong&gt;Zabbix 混合云监控架构&lt;/strong&gt;——基于 &lt;strong&gt;Zabbix Proxy 被动中继&lt;/strong&gt; 模式，实现跨网络的安全采集。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-整体架构设计与流程&#34;&gt;1. 整体架构设计与流程&lt;/h2&gt;
+&lt;p&gt;系统采用 &lt;strong&gt;被动模式（Passive Proxy）&lt;/strong&gt; 架构。阿里云侧的 Proxy 不主动穿透内网，而是由内网的 Zabbix Server 按照调度周期主动向公网 Proxy 发起请求抓取监控数据。&lt;/p&gt;
+&lt;p&gt;[Zabbix 混合云监控架构拓扑图]
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/posts/zabbix-hybrid-cloud/image.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;核心流转逻辑&#34;&gt;核心流转逻辑：&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;云内采集&lt;/strong&gt;：阿里云 ECS Agent 节点将监控指标提交至同 VPC 内的 Zabbix Proxy（端口 &lt;code&gt;10051&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨云传输&lt;/strong&gt;：内网 Zabbix Server 主动连接阿里云 Proxy 的公网 IP（端口 &lt;code&gt;10051&lt;/code&gt;）轮询获取数据。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;本地监控&lt;/strong&gt;：内网 Agent 节点直接由内网 Zabbix Server 抓取，不经过跨云链路。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-核心服务脱敏配置&#34;&gt;2. 核心服务脱敏配置&lt;/h2&gt;
+&lt;p&gt;以下为生产环境实际运行配置（关键 IP、域名及凭证均已做脱敏处理）。&lt;/p&gt;
+&lt;h3 id=&#34;21-内网主控端配置zabbix-server&#34;&gt;2.1 内网主控端配置（Zabbix Server）&lt;/h3&gt;
+&lt;p&gt;配置文件路径：&lt;code&gt;/etc/zabbix/zabbix_server.conf&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;LogFile&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/var/log/zabbix/zabbix_server.log&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;LogFileSize&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;PidFile&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/run/zabbix/zabbix_server.pid&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;SocketDir&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/run/zabbix&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 数据库配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DBName&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;zabbix&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DBUser&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;zabbix&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;DBPassword&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;YOUR_DB_PASSWORD&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 监听与轮询配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ListenPort&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;10051&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ListenIP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0.0.0.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;StartProxyPollers&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;1        # 启用 Proxy 轮询线程（关键）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 性能与日志&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;SNMPTrapperFile&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;/var/log/snmptrap/snmptrap.log&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Timeout&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;LogSlowQueries&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;3000&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;StatsAllowedIP&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;127.0.0.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;EnableGlobalScripts&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;22-阿里云中继端配置zabbix-proxy&#34;&gt;2.2 阿里云中继端配置（Zabbix Proxy）&lt;/h3&gt;
+&lt;p&gt;配置文件路径：/etc/zabbix/zabbix_proxy.conf&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
